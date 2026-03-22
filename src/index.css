@@ -225,7 +225,7 @@ button { cursor: pointer; border: none; font-family: inherit; }
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 2100;
   padding: 12px 24px;
   display: flex;
   align-items: center;
@@ -350,7 +350,7 @@ button { cursor: pointer; border: none; font-family: inherit; }
   .section { padding: 48px 0; }
   .container { padding: 0 16px; }
   .btn-primary, .btn-ghost { padding: 12px 24px; font-size: 0.875rem; }
-  .nav-cta button { display: none; }
+  /* Instead of completely hiding all nav-cta buttons, we only hide specific ones via .d-mobile-none */
 }
 
 /* === Hero Section Responsive Tweaks === */
