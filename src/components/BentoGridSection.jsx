@@ -94,8 +94,9 @@ export default function BentoGridSection() {
           <BentoCard col={2} color="var(--aqua)" delay={0}>
             <div style={{ marginBottom: 16 }}>
               <Tag text="Zone 0" color="var(--aqua)" />
-              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: 700, margin: '12px 0 6px' }}>
-                🌊 Environment Manager
+              <h3 style={{ display: 'flex', alignItems: 'center', gap: 10, fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: 700, margin: '12px 0 6px' }}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 14.89V20a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5.11a2 2 0 0 0-1.29-1.88L13 9a2 2 0 0 0-2 0l-5.71 1.88A2 2 0 0 0 4 14.89z"/><path d="M12 2v7"/><path d="M8.5 2.5l3.5 1.5 3.5-1.5"/></svg>
+                Environment Manager
               </h3>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', lineHeight: 1.6 }}>
                 Quản lý vi khí hậu Abu Dhabi. Sensor áp suất & độ mặn cập nhật tức thì.
@@ -117,8 +118,9 @@ export default function BentoGridSection() {
 
           <BentoCard col={2} color="var(--green)" delay={0.05}>
             <Tag text="Zone 1 – Fish" color="var(--green)" />
-            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: 700, margin: '12px 0 6px' }}>
-              🐟 AI Fish Tracking
+            <h3 style={{ display: 'flex', alignItems: 'center', gap: 10, fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: 700, margin: '12px 0 6px' }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              AI Fish Tracking
             </h3>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', lineHeight: 1.6, marginBottom: 14 }}>
               Nhận diện cá bệnh & đếm cá tự động bằng YOLOv11. Phân tích hành vi 30fps.
@@ -132,8 +134,9 @@ export default function BentoGridSection() {
 
           <BentoCard col={2} row={2} color="var(--aqua)" delay={0.1}>
             <Tag text="Zone 2 – Biology" color="var(--aqua)" />
-            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: 700, margin: '12px 0 6px' }}>
-              🌿 Life Support Hub
+            <h3 style={{ display: 'flex', alignItems: 'center', gap: 10, fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: 700, margin: '12px 0 6px' }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              Life Support Hub
             </h3>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', lineHeight: 1.6, marginBottom: 16 }}>
               Hệ thống thần kinh trung ương của trang trại. Cân bằng DO, Nitrate & EC.
@@ -169,8 +172,9 @@ export default function BentoGridSection() {
 
           <BentoCard col={2} color="var(--gold)" delay={0.15}>
             <Tag text="Zone 1 – Plants" color="var(--gold)" />
-            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: 700, margin: '12px 0 6px' }}>
-              🔬 Thermal AI Analysis
+            <h3 style={{ display: 'flex', alignItems: 'center', gap: 10, fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: 700, margin: '12px 0 6px' }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              Thermal AI Analysis
             </h3>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', lineHeight: 1.6, marginBottom: 16 }}>
               Camera nhiệt & đa phổ phân tích NDVI. Phát hiện sớm stress trên lá Salicornia.

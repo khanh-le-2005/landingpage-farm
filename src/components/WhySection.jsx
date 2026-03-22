@@ -2,25 +2,25 @@ import { motion } from 'framer-motion';
 
 const PROBLEMS = [
   {
-    icon: '⏳',
+    icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>,
     problem: 'Cảm biến truyền thống chậm',
     solution: 'Camera AI 30fps phát hiện sự cố trước 30–60 giây',
     color: 'var(--green)',
   },
   {
-    icon: '🧪',
+    icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>,
     problem: 'Lãng phí nước & năng lượng',
     solution: 'TEC Recovery tái sử dụng 65% nước, Solar tự cân bằng',
     color: 'var(--aqua)',
   },
   {
-    icon: '🧬',
+    icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 2v8a2 2 0 0 0 2 2h8"/><path d="M2 10V2a2 2 0 0 1 2-2h8"/><path d="M7 21a5 5 0 0 0 10 0"/><circle cx="12" cy="13" r="3"/></svg>,
     problem: 'Chẩn đoán bệnh thủ công',
     solution: 'AI YOLOv11 + CNN tự động phân loại, cảnh báo tức thì',
     color: 'var(--gold)',
   },
   {
-    icon: '📉',
+    icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>,
     problem: 'Dữ liệu phân tán, khó tổng hợp',
     solution: 'Dashboard tập trung toàn bộ 4 khu vực, cập nhật 3 giây',
     color: 'var(--green)',
@@ -72,7 +72,7 @@ export default function WhySection() {
               transition={{ delay: i * 0.1, duration: 0.5 }}
               style={{ padding: '32px', position: 'relative' }}
             >
-              <div style={{ fontSize: 36, marginBottom: 20 }}>{item.icon}</div>
+              <div style={{ color: item.color, marginBottom: 20 }}>{item.icon}</div>
               
               <div style={{ marginBottom: 24 }}>
                 <div style={{
