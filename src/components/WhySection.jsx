@@ -33,6 +33,8 @@ export default function WhySection() {
       <div className="bg-gradient-radial" style={{ top: '20%', right: '-5%', width: 500, height: 500, background: 'radial-gradient(circle, var(--aqua-glow) 0%, transparent 70%)' }} />
 
       <div className="container">
+        <div className="why-layout">
+          <div className="why-content">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -101,8 +103,63 @@ export default function WhySection() {
               </div>
             </motion.div>
           ))}
+            </div>
+          </div>
+          
+          <div className="why-image-wrapper">
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.7 }}
+              style={{ position: 'relative' }}
+            >
+              <div style={{
+                position: 'absolute', inset: -20, background: 'var(--aqua-glow)',
+                filter: 'blur(40px)', opacity: 0.5, borderRadius: '50%', zIndex: 0
+              }} />
+              <img 
+                src="/anhHD/anh7.jpg" 
+                alt="Smart Farm Technical Overview" 
+                style={{ 
+                  position: 'relative', zIndex: 1,
+                  width: '100%', height: 'auto', 
+                  borderRadius: 24, 
+                  border: '1px solid var(--glass-border)', 
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+                  objectFit: 'cover'
+                }} 
+              />
+            </motion.div>
+          </div>
         </div>
       </div>
+
+      <style>{`
+        .why-layout {
+          display: flex;
+          flex-direction: column;
+          gap: 40px;
+        }
+        .why-image-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        @media (min-width: 1024px) {
+          .why-layout {
+            flex-direction: row;
+            align-items: center;
+            gap: 60px;
+          }
+          .why-content {
+            flex: 1.2;
+          }
+          .why-image-wrapper {
+            flex: 0.8;
+          }
+        }
+      `}</style>
     </section>
   );
 }

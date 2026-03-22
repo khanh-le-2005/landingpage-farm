@@ -1,0 +1,83 @@
+{
+  "nav": {
+    "solution": "Giải pháp",
+    "technology": "Công nghệ",
+    "interface": "Giao diện",
+    "contact": "Liên hệ",
+    "discover": "Khám phá dự án",
+    "demo": "Yêu cầu Demo"
+  },
+  "hero": {
+    "badge": "KEZAD, Abu Dhabi · Smart Farm · 1,500 m²",
+    "title": "Smart Farm Aquaponics",
+    "subtitle": "Hệ thống IoT giám sát thông minh",
+    "description": "Tối ưu năng suất & Kiểm soát tài nguyên <1>24/7</1> bằng <2>AI Deep Learning</2> tại Abu Dhabi.",
+    "cta_discover": "Khám phá dự án",
+    "cta_demo": "Yêu cầu Demo",
+    "stat_area": "Diện Tích",
+    "stat_greenhouse": "Nhà Màng",
+    "stat_camera": "Camera",
+    "stat_score": "AI Score",
+    "stat_monitoring": "Live Monitoring",
+    "img1_label": "Environment Manager",
+    "img1_desc": "Phân tích ma trận dòng chảy & Áp suất dương +15 Pa",
+    "img2_label": "AI Health Score: 92%",
+    "img2_desc": "Tổng hợp sức khỏe: Cá 94% – Rau 90%",
+    "img3_label": "Thermal & Multispectral",
+    "img3_desc": "Bản đồ nhiệt theo dõi độ phủ và vòi tưới nghẹt",
+    "img4_label": "AI Fish Tracking",
+    "img4_desc": "Theo dõi 3 yếu tố: Vận tốc - Quỹ đạo - Mật độ",
+    "img5_label": "One-Tap Decision",
+    "img5_desc": "Áp dụng ngay hoặc Bỏ qua đề xuất AI từ Checklist",
+    "img6_label": "Resource & Efficiency",
+    "img6_desc": "Phân tích năng lượng và hiệu quả toàn khu KEZAD"
+  },
+  "how": {
+    "label": "Hệ thống kỹ thuật",
+    "title1": "Giải mã công nghệ",
+    "title2": "Smart Farm Aquaponics",
+    "desc": "Tầm nhìn của chúng tôi là biến dữ liệu thời gian thực thành hiệu quả nông nghiệp tuyệt đối, duy trì sự sống bền vững trong điều kiện khí hậu khắc nghiệt nhất.",
+    
+    "s0_zone": "Zone 0 – Environment",
+    "s0_title": "Water Flow Matrix & Climate Control",
+    "s0_desc": "Quản lý ma trận dòng chảy và áp suất dương tối ưu cho nhà màng tại Abu Dhabi.",
+    "s0_d0_lbl": "Water Flow Matrix", "s0_d0_txt": "Cấu trúc 3 cột nhiệt độ & 2 cột độ mặn liên kết Well - Pre-process - Buffer Tank.",
+    "s0_d1_lbl": "Climate Stability", "s0_d1_txt": "Duy trì áp suất dương (ΔP)=+15. Cảnh báo Đỏ nếu dưới 7 (Cửa mở hoặc quạt hỏng).",
+    "s0_d2_lbl": "Sensor Precision", "s0_d2_txt": "Tích hợp dự báo thời tiết bên ngoài với dữ liệu cảm biến trực tiếp bên trong.",
+
+    "s1_zone": "Zone 1 – Visual AI",
+    "s1_title": "AI Fish Tracking & Behavioral Analysis",
+    "s1_desc": "Phân tích Real-time 30 frame/giây cho 6 ao cá Chẽm bằng mô hình Deep Learning.",
+    "s1_d0_lbl": "Core Metrics", "s1_d0_txt": "Theo dõi Vận tốc (0.8 m/s), Quỹ đạo & Mật độ (15 con/m³) theo thời gian thực.",
+    "s1_d1_lbl": "Early Warning", "s1_d1_txt": "Phát hiện \"Stress oxy\" hoặc ngộ độc NH₃/NO₂⁻ trước khi sensor DO truyền thống báo đỏ.",
+    "s1_d2_lbl": "Autonomous Feed", "s1_d2_txt": "AI tự động đếm thức ăn thừa (Pellet) và điều chỉnh khí Air-lift Ao 3 +15%.",
+
+    "s2_zone": "Zone 1 – Agriculture",
+    "s2_title": "Thermal & NDVI Multispectral AI",
+    "s2_desc": "Giám sát 800 m² Salicornia bằng camera nhiệt và đa phổ để tối ưu quang hợp.",
+    "s2_d0_lbl": "Thermal Mapping", "s2_d0_txt": "Chỉ ra chính xác vị trí dải + số vòi tưới bị nghẹt qua bản đồ nhiệt lá (28.5°C).",
+    "s2_d1_lbl": "NDVI Score", "s2_d1_txt": "85% mật độ Chlorophyll. Phát hiện sớm các \"điểm chết vi khí hậu\" hoặc thiếu hụt Nitrat.",
+    "s2_d2_lbl": "Auto-Adjustment", "s2_d2_txt": "AI tự động điều chỉnh quạt xả & bổ sung dinh dưỡng tại các dải cây bị stress.",
+
+    "s3_zone": "Zone 2 – Life Support",
+    "s3_title": "RAS Fish Vital & Intelligence Overlay",
+    "s3_desc": "Hệ thống \"Thanh trạng thái sự sống\" tập trung vào các chỉ số cấp thiết của Cá & Rau.",
+    "s3_d0_lbl": "Fish Vital (RAS)", "s3_d0_txt": "Ưu tiên Oxy (6.5-8.0 mg/L) và Amoniac (<0.02 mg/L). Cảnh báo ưu tiên cấp độ 1.",
+    "s3_d1_lbl": "Holographic Overlay", "s3_d1_txt": "Streaming holographic feed 2 kênh (Cá & Rau) với AI Score tổng hợp đạt 92%.",
+    "s3_d2_lbl": "Dual-Column Layout", "s3_d2_txt": "Giao diện Desert High-Contrast giúp vận hành nắm bắt tình trạng rủi ro trong vài giây.",
+
+    "s4_zone": "AI Operations",
+    "s4_title": "Predictive Insights & One-Tap Actions",
+    "s4_desc": "Chuyển đổi dữ liệu thô thành hành động vận hành chính xác bằng trí tuệ nhân tạo.",
+    "s4_d0_lbl": "Predictive Insight", "s4_d0_txt": "Dự báo rủi ro DO giảm trước 15-30 phút để can thiệp kịp thời.",
+    "s4_d1_lbl": "One-Tap Decision", "s4_d1_txt": "Hệ thống nút bấm lớn \"Áp dụng ngay\" tối ưu cho Tablet công nghiệp & găng tay.",
+    "s4_d2_lbl": "Actionable Logic", "s4_d2_txt": "Phân tích Predictive FCR để cảnh báo thức ăn lãng phí hoặc stress sinh khối.",
+
+    "s5_zone": "Zone 3 – Resource Hub",
+    "s5_title": "Energy & Water Governance Efficiency",
+    "s5_desc": "Tối ưu hóa tài nguyên 24/7 để duy trì hệ thống tự chủ tại khu vực KEZAD.",
+    "s5_d0_lbl": "Power Balance", "s5_d0_txt": "Cân bằng sản xuất Solar & tiêu thụ Chiller. Tự động kích hoạt vệ sinh pin mặt trời.",
+    "s5_d1_lbl": "Water Recovery", "s5_d1_txt": "Quản trị nước TEC thu hồi từ không khí. Tự chủ nguồn nước ngọt cho bể MBBR.",
+    "s5_d2_lbl": "Yield & FCR", "s5_d2_txt": "Biến dữ liệu tiêu thụ thành sinh khối cá & rau thực tế với sai số AI cực thấp."
+  }
+}

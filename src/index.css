@@ -34,8 +34,8 @@
   --text-muted:     rgba(255,255,255,0.45);
 
   /* === Typography === */
-  --font-heading: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
-  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-heading: 'Outfit', sans-serif;
+  --font-display: 'Outfit', sans-serif;
   --font-body:    'Inter', sans-serif;
 
   /* === Spacing & Shape === */
@@ -351,4 +351,56 @@ button { cursor: pointer; border: none; font-family: inherit; }
   .container { padding: 0 16px; }
   .btn-primary, .btn-ghost { padding: 12px 24px; font-size: 0.875rem; }
   .nav-cta button { display: none; }
+}
+
+/* === Hero Section Responsive Tweaks === */
+.hero-stats-grid {
+  grid-template-columns: repeat(5, 1fr) !important;
+}
+
+@media (max-width: 900px) {
+  .hero-stats-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 15px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  
+  .status-badge-mobile-adjust {
+    position: relative !important;
+    top: -20px !important;
+    right: auto !important;
+    left: 10px !important;
+    margin-bottom: 20px !important;
+    width: fit-content !important;
+  }
+
+  .monitor-frame {
+    padding: 8px 8px 25px !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .hero-stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  
+  .hero-stats-grid > div:last-child {
+    grid-column: span 2;
+  }
+}
+
+.hide-on-tiny {
+  display: block;
+}
+
+@media (max-width: 380px) {
+  .hide-on-tiny {
+    display: none;
+  }
 }

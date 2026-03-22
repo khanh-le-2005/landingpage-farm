@@ -2,12 +2,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 
 const SLIDES = [
-  { id: 1, src: '/dashboard/db-env.png',     label: 'Environment Manager',    d: 'Phân tích realtime cho 6 ao cá Chẽm' },
-  { id: 2, src: '/dashboard/db-fish.png',    label: 'AI Fish Tracking',      d: 'Theo dõi 3 yếu tố: Vận tốc - Quỹ đạo - Mật độ' },
-  { id: 3, src: '/dashboard/db-factors.png', label: 'Vegetable Heatmap',     d: 'Bản đồ nhiệt theo dõi độ phủ và quang hợp' },
-  { id: 4, src: '/dashboard/db-score.png',   label: 'AI Score: 92%',         d: 'Tổng hợp sức khỏe: Cá 94% – Rau 90%' },
-  { id: 5, src: '/dashboard/db-actions.png', label: 'One-Tap Decision',      d: 'Áp dụng ngay hoặc Bỏ qua đề xuất AI' },
-  { id: 6, src: '/dashboard/db-stats.png',   label: 'Health & Efficiency',   d: 'Phân tích năng lượng và hiệu quả toàn khu' },
+  { id: 1, src: '/anhHD/anh1.jpg',    label: 'Environment Manager',    d: 'Phân tích ma trận dòng chảy & Áp suất dương +15 Pa' },
+  { id: 2, src: '/anhHD/anhai2.png', label: 'AI Health Score: 92%',    d: 'Tổng hợp sức khỏe: Cá 94% – Rau 90%' },
+  { id: 3, src: '/anhHD/anhai3.png',    label: 'Thermal & Multispectral', d: 'Bản đồ nhiệt theo dõi độ phủ và vòi tưới nghẹt' },
+  { id: 4, src: '/anhHD/anh2.jpg',    label: 'AI Fish Tracking',       d: 'Theo dõi 3 yếu tố: Vận tốc - Quỹ đạo - Mật độ' },
+  { id: 5, src: '/anhHD/anhai1.png', label: 'One-Tap Decision',      d: 'Áp dụng ngay hoặc Bỏ qua đề xuất AI từ Checklist' },
+  { id: 6, src: '/anhHD/anh11.jpg',   label: 'Resource & Efficiency',   d: 'Phân tích năng lượng và hiệu quả toàn khu KEZAD' },
 ];
 
 export default function UIShowcaseSection() {
@@ -80,7 +80,7 @@ export default function UIShowcaseSection() {
             transition={{ duration: 0.8 }}
             style={{ position: 'relative' }}
           >
-            <div style={{ position: 'relative', borderRadius: 24, overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.5)', border: '4px solid var(--glass-border-strong)' }}>
+            <div style={{ position: 'relative', borderRadius: 24, overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.5)', border: '4px solid var(--glass-border-strong)', background: '#0a0a0a' }}>
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeSlide}
@@ -88,12 +88,12 @@ export default function UIShowcaseSection() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -50 }}
                   transition={{ duration: 0.4, ease: 'easeInOut' }}
-                  style={{ width: '100%', aspectRatio: '16/10' }}
+                  style={{ width: '100%', aspectRatio: '16/10', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 >
                   <img 
                     src={SLIDES[activeSlide].src} 
                     alt={SLIDES[activeSlide].label} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                    style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
                   />
                   <div style={{
                     position: 'absolute', bottom: 0, left: 0, right: 0,

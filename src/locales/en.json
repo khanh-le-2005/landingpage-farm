@@ -1,0 +1,83 @@
+{
+  "nav": {
+    "solution": "Solutions",
+    "technology": "Technology",
+    "interface": "Interface",
+    "contact": "Contact",
+    "discover": "Explore",
+    "demo": "Request Demo"
+  },
+  "hero": {
+    "badge": "KEZAD, Abu Dhabi · Smart Farm · 1,500 m²",
+    "title": "Smart Farm Aquaponics",
+    "subtitle": "Smart IoT Monitoring System",
+    "description": "Optimize yield & Resource control <1>24/7</1> using <2>AI Deep Learning</2> in Abu Dhabi.",
+    "cta_discover": "Explore Project",
+    "cta_demo": "Request Demo",
+    "stat_area": "Total Area",
+    "stat_greenhouse": "Greenhouse",
+    "stat_camera": "Cameras",
+    "stat_score": "AI Score",
+    "stat_monitoring": "Live Monitoring",
+    "img1_label": "Environment Manager",
+    "img1_desc": "Flow matrix analysis & Positive pressure +15 Pa",
+    "img2_label": "AI Health Score: 92%",
+    "img2_desc": "Health aggregate: Fish 94% – Plants 90%",
+    "img3_label": "Thermal & Multispectral",
+    "img3_desc": "Heatmap tracking cover and blocked nozzles",
+    "img4_label": "AI Fish Tracking",
+    "img4_desc": "Tracking 3 metrics: Velocity - Trajectory - Density",
+    "img5_label": "One-Tap Decision",
+    "img5_desc": "Apply or Reject AI recommendations from Checklist",
+    "img6_label": "Resource & Efficiency",
+    "img6_desc": "Energy & Efficiency analysis for the entire KEZAD zone"
+  },
+  "how": {
+    "label": "Technical System",
+    "title1": "Demystifying Technology",
+    "title2": "Smart Farm Aquaponics",
+    "desc": "Our vision is to turn real-time data into absolute agricultural efficiency, sustaining life in the harshest climate conditions.",
+    
+    "s0_zone": "Zone 0 – Environment",
+    "s0_title": "Water Flow Matrix & Climate Control",
+    "s0_desc": "Optimal flow matrix and positive pressure management for greenhouses in Abu Dhabi.",
+    "s0_d0_lbl": "Water Flow Matrix", "s0_d0_txt": "3-column temperature & 2-column salinity structure linking Well - Pre-process - Buffer Tank.",
+    "s0_d1_lbl": "Climate Stability", "s0_d1_txt": "Maintain positive pressure (ΔP)=+15. Red Alert if below 7 (Door open or fan failed).",
+    "s0_d2_lbl": "Sensor Precision", "s0_d2_txt": "Integrate external weather forecast with real-time internal sensor data.",
+
+    "s1_zone": "Zone 1 – Visual AI",
+    "s1_title": "AI Fish Tracking & Behavioral Analysis",
+    "s1_desc": "Real-time 30 fps analysis for 6 Barramundi tanks using Deep Learning models.",
+    "s1_d0_lbl": "Core Metrics", "s1_d0_txt": "Track Velocity (0.8 m/s), Trajectory & Density (15 fish/m³) in real-time.",
+    "s1_d1_lbl": "Early Warning", "s1_d1_txt": "Detect \"Oxidative stress\" or NH₃/NO₂⁻ poisoning before traditional DO sensors flash red.",
+    "s1_d2_lbl": "Autonomous Feed", "s1_d2_txt": "AI auto-counts leftover pellets and adjusts Air-lift for Tank 3 by +15%.",
+
+    "s2_zone": "Zone 1 – Agriculture",
+    "s2_title": "Thermal & NDVI Multispectral AI",
+    "s2_desc": "Monitor 800 m² of Salicornia using thermal and multispectral cameras to optimize photosynthesis.",
+    "s2_d0_lbl": "Thermal Mapping", "s2_d0_txt": "Pinpoint exact bands and blocked nozzles via clear leaf thermal mapping (28.5°C).",
+    "s2_d1_lbl": "NDVI Score", "s2_d1_txt": "85% Chlorophyll density. Early detection of \"micro-climate dead zones\" or Nitrate deficits.",
+    "s2_d2_lbl": "Auto-Adjustment", "s2_d2_txt": "AI automatically adjusts exhaust fans & nutrient dosage at stressed plant bands.",
+
+    "s3_zone": "Zone 2 – Life Support",
+    "s3_title": "RAS Fish Vital & Intelligence Overlay",
+    "s3_desc": "\"Life Status Bar\" system focusing on the critical metrics of Fish & Plants.",
+    "s3_d0_lbl": "Fish Vital (RAS)", "s3_d0_txt": "Prioritize Oxygen (6.5-8.0 mg/L) and Ammonia (<0.02 mg/L). Level 1 priority alerts.",
+    "s3_d1_lbl": "Holographic Overlay", "s3_d1_txt": "Streaming 2-channel holographic feed (Fish & Plants) with a combined AI Score of 92%.",
+    "s3_d2_lbl": "Dual-Column Layout", "s3_d2_txt": "Desert High-Contrast interface helps operators grasp risk statuses in seconds.",
+
+    "s4_zone": "AI Operations",
+    "s4_title": "Predictive Insights & One-Tap Actions",
+    "s4_desc": "Transform raw data into precise operational actions using artificial intelligence.",
+    "s4_d0_lbl": "Predictive Insight", "s4_d0_txt": "Predict DO drops 15-30 minutes in advance for timely interventions.",
+    "s4_d1_lbl": "One-Tap Decision", "s4_d1_txt": "Large \"Apply Now\" button system optimized for industrial Tablets & gloves.",
+    "s4_d2_lbl": "Actionable Logic", "s4_d2_txt": "Predictive FCR analysis to alert on wasted feed or biomass stress.",
+
+    "s5_zone": "Zone 3 – Resource Hub",
+    "s5_title": "Energy & Water Governance Efficiency",
+    "s5_desc": "Optimize resources 24/7 to maintain system autonomy in the KEZAD area.",
+    "s5_d0_lbl": "Power Balance", "s5_d0_txt": "Balance Solar production & Chiller consumption. Auto-trigger solar panel cleaning.",
+    "s5_d1_lbl": "Water Recovery", "s5_d1_txt": "TEC water recovery governance from humidity. Autonomous freshwater for MBBR tank.",
+    "s5_d2_lbl": "Yield & FCR", "s5_d2_txt": "Turn consumption data into actual fish & plant biomass with ultra-low AI error rates."
+  }
+}

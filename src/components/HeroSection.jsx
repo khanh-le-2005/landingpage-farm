@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 
 const TICKER = [
   'Waves · 99.2% Efficiency',
@@ -11,14 +12,7 @@ const TICKER = [
   'Cpu · 24/7 Autonomous Monitoring',
 ];
 
-const IMAGES = [
-  { id: '1', src: '/dashboard/db-env.png',     label: 'Environment Manager',    color: 'var(--green)', d: 'Phân tích realtime cho 6 ao cá Chẽm' },
-  { id: '2', src: '/dashboard/db-fish.png',    label: 'AI Fish Tracking',      color: 'var(--aqua)',  d: 'Theo dõi 3 yếu tố: Vận tốc - Quỹ đạo - Mật độ' },
-  { id: '3', src: '/dashboard/db-factors.png', label: 'Vegetable Heatmap',     color: 'var(--gold)',  d: 'Bản đồ nhiệt theo dõi độ phủ và quang hợp' },
-  { id: '4', src: '/dashboard/db-score.png',   label: 'AI Score: 92%',         color: 'var(--green)', d: 'Tổng hợp sức khỏe: Cá 94% – Rau 90%' },
-  { id: '5', src: '/dashboard/db-actions.png', label: 'One-Tap Decision',      color: 'var(--aqua)',  d: 'Áp dụng ngay hoặc Bỏ qua đề xuất AI' },
-  { id: '6', src: '/dashboard/db-stats.png',   label: 'Health & Efficiency',   color: 'var(--gold)',  d: 'Phân tích năng lượng và hiệu quả toàn khu' },
-];
+
 
 function StatCard({ value, unit, label, color, delay }) {
   return (
@@ -50,7 +44,17 @@ function StatCard({ value, unit, label, color, delay }) {
 }
 
 export default function HeroSection() {
+  const { t } = useTranslation();
   const [activeImg, setActiveImg] = useState(0); 
+
+  const IMAGES = [
+    { id: '1', src: '/anhHD/anh1.jpg',    label: t('hero.img1_label'), color: 'var(--green)', d: t('hero.img1_desc') },
+    { id: '2', src: '/anhHD/anhai2.png',  label: t('hero.img2_label'), color: 'var(--aqua)',  d: t('hero.img2_desc') },
+    { id: '3', src: '/anhHD/anhai3.png',    label: t('hero.img3_label'), color: 'var(--gold)',  d: t('hero.img3_desc') },
+    { id: '4', src: '/anhHD/anh2.jpg',    label: t('hero.img4_label'), color: 'var(--green)', d: t('hero.img4_desc') },
+    { id: '5', src: '/anhHD/anhai1.png',  label: t('hero.img5_label'), color: 'var(--aqua)',  d: t('hero.img5_desc') },
+    { id: '6', src: '/anhHD/anh11.jpg',   label: t('hero.img6_label'), color: 'var(--gold)',  d: t('hero.img6_desc') },
+  ];
 
   return (
     <section
@@ -93,7 +97,7 @@ export default function HeroSection() {
         >
           <div className="section-label" style={{ fontSize: 'clamp(0.6rem, 2vw, 0.75rem)', padding: '6px 12px' }}>
             <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--green)', animation: 'pulse-glow 2s ease-in-out infinite', display: 'inline-block' }} />
-            KEZAD, Abu Dhabi · Smart Farm · 1,500 m²
+            {t('hero.badge')}
           </div>
         </motion.div>
 
@@ -115,9 +119,8 @@ export default function HeroSection() {
             overflowWrap: 'anywhere',
           }}
         >
-          Hệ Thống IoT Giám Sát{' '}
-          <span className="text-gradient-green">Smart Farm Aquaponics</span>{' '}
-          Thông Minh
+          {t('hero.title')}<br/>
+          <span className="text-gradient-green" style={{ fontSize: '0.6em', display: 'block', marginTop: 8 }}>{t('hero.subtitle')}</span>
         </motion.h1>
 
         {/* Sub-headline */}
@@ -126,16 +129,16 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
           style={{
-            fontSize: 'clamp(0.8rem, 2.5vw, 1.1rem)',
+            fontSize: 'clamp(0.9rem, 2.5vw, 1.25rem)',
             color: 'var(--text-secondary)',
-            lineHeight: 1.6,
-            maxWidth: 700,
-            margin: '0 auto 28px',
+            lineHeight: 1.5,
+            maxWidth: 800,
+            margin: '0 auto 32px',
             padding: '0 20px',
+            fontWeight: 500,
           }}
         >
-          Tối ưu hóa năng suất, kiểm soát tài nguyên <strong style={{ color: 'var(--text-primary)' }}>24/7</strong> với công nghệ&nbsp;
-          <strong style={{ color: 'var(--green)' }}>AI Deep Learning</strong> tại vùng khí hậu Abu Dhabi.
+          <Trans i18nKey="hero.description" components={{ 1: <strong style={{color:'var(--text-primary)'}} />, 2: <strong style={{color:'var(--green)'}} /> }} />
         </motion.p>
 
         {/* CTA Buttons */}
@@ -147,28 +150,31 @@ export default function HeroSection() {
         >
           <button className="btn-primary" style={{ padding: '10px 18px', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: 8 }} onClick={() => document.getElementById('tech')?.scrollIntoView({ behavior: 'smooth' })}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            Khám phá dự án
+            {t('hero.cta_discover')}
           </button>
           <button className="btn-ghost" style={{ padding: '10px 18px', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: 8 }} onClick={() => document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' })}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-            Yêu cầu Demo
+            {t('hero.cta_demo')}
           </button>
         </motion.div>
 
         {/* Stats row */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(5, 1fr)',
-          gap: 8,
+          gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
+          '@media (maxWidth: 480px)': {
+             gridTemplateColumns: 'repeat(2, 1fr)',
+          },
+          gap: 12,
           maxWidth: 900,
-          margin: '0 auto 40px',
-          padding: '0 5px',
-        }}>
-          <StatCard value="1,500" unit="m²"  label="Diện Tích"    color="var(--green)"  delay={0.5} />
-          <StatCard value="1,000" unit="m²"  label="Nhà Màng"           color="var(--aqua)"   delay={0.55} />
-          <StatCard value="30"    unit="fps" label="Camera"         color="var(--gold)"   delay={0.6} />
-          <StatCard value="92"    unit="%"   label="AI Score"          color="var(--green)"  delay={0.65} />
-          <StatCard value="24/7"  unit=""    label="Live"        color="var(--aqua)"  delay={0.7} />
+          margin: '0 auto 48px',
+          padding: '0 20px',
+        }} className="hero-stats-grid">
+          <StatCard value="1,500" unit="m²"  label={t('hero.stat_area')}    color="var(--green)"  delay={0.5} />
+          <StatCard value="1,000" unit="m²"  label={t('hero.stat_greenhouse')} color="var(--aqua)"   delay={0.55} />
+          <StatCard value="30"    unit="fps" label={t('hero.stat_camera')}  color="var(--gold)"   delay={0.6} />
+          <StatCard value="92"    unit="%"   label={t('hero.stat_score')}   color="var(--green)"  delay={0.65} />
+          <StatCard value="24/7"  unit=""    label={t('hero.stat_monitoring')} color="var(--aqua)"  delay={0.7} />
         </div>
 
         {/* Multi-Image Dashboard Mockup */}
@@ -184,12 +190,12 @@ export default function HeroSection() {
           }}
         >
           {/* Floating Status card */}
-          <div className="system-status-badge hide-on-tiny" style={{
+          <div className="status-badge-mobile-adjust" style={{
             position: 'absolute', 
-            top: -65, right: '2%',
+            top: -45, right: '5%',
             background: 'var(--bg-surface)', backdropFilter: 'blur(20px)',
             border: '1px solid var(--glass-border) ', borderRadius: 16,
-            padding: '8px 12px', minWidth: 120,
+            padding: '10px 16px', minWidth: 140,
             zIndex: 10,
             boxShadow: 'var(--shadow-card)',
             textAlign: 'left',

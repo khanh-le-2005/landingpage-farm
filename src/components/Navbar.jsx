@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 export default function Navbar({ theme, toggleTheme }) {
+  const { t, i18n } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const scrollTo = (id) => {
@@ -10,11 +12,16 @@ export default function Navbar({ theme, toggleTheme }) {
   };
 
   const menuItems = [
-    { label: 'Giải pháp', id: 'why' },
-    { label: 'Công nghệ', id: 'tech' },
-    { label: 'Giao diện', id: 'ui' },
-    { label: 'Liên hệ', id: 'footer' },
+    { label: t('nav.solution'), id: 'why' },
+    { label: t('nav.technology'), id: 'tech' },
+    { label: t('nav.interface'), id: 'ui' },
+    { label: t('nav.contact'), id: 'footer' },
   ];
+
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'vi' ? 'en' : 'vi';
+    i18n.changeLanguage(newLang);
+  };
 
   return (
     <>
@@ -40,6 +47,25 @@ export default function Navbar({ theme, toggleTheme }) {
         </ul>
 
         <div className="nav-cta">
+          {/* Language Toggle Button */}
+          <button 
+            className="btn-lang-toggle"
+            onClick={toggleLanguage}
+            style={{
+              background: 'transparent',
+              border: '1px solid var(--glass-border)',
+              borderRadius: '20px',
+              padding: '4px 10px',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: '0.75rem', fontWeight: 700,
+              color: 'var(--text-primary)',
+              transition: 'all 0.3s',
+              cursor: 'pointer'
+            }}
+          >
+            {i18n.language === 'en' ? 'EN' : 'VI'}
+          </button>
+
           {/* Theme Toggle Button */}
           <button 
             className="btn-theme-toggle"
@@ -64,12 +90,12 @@ export default function Navbar({ theme, toggleTheme }) {
 
           <button className="btn-ghost d-mobile-none" style={{ padding: '10px 20px', fontSize: '0.82rem' }}
             onClick={() => scrollTo('footer')}>
-            Liên hệ
+            {t('nav.contact')}
           </button>
           
           <button className="btn-primary d-mobile-none" style={{ padding: '10px 22px', fontSize: '0.82rem' }}
             onClick={() => scrollTo('why')}>
-            Khám phá ↓
+            {t('nav.discover')} ↓
           </button>
 
           {/* Hamburger Menu Icon */}
@@ -112,8 +138,8 @@ export default function Navbar({ theme, toggleTheme }) {
               ))}
             </ul>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: '100%', maxWidth: 280 }}>
-              <button className="btn-primary" onClick={() => scrollTo('why')}>Khám phá ngay</button>
-              <button className="btn-ghost" onClick={() => scrollTo('footer')}>Liên hệ tư vấn</button>
+              <button className="btn-primary" onClick={() => scrollTo('why')}>{t('nav.discover')}</button>
+              <button className="btn-ghost" onClick={() => scrollTo('footer')}>{t('nav.demo')}</button>
             </div>
           </motion.div>
         )}
