@@ -20,25 +20,15 @@ function StatCard({ value, unit, label, color, delay }) {
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="glass-card"
-      style={{
-        textAlign: 'center',
-        padding: '12px 8px',
-        flex: 1,
-        minWidth: '85px',
-      }}
+      className="glass-card text-center px-2 py-3 flex-1 min-w-[85px]"
     >
-      <div style={{
-        fontFamily: 'var(--font-heading)',
-        fontWeight: 800,
-        fontSize: 'clamp(1rem, 3.5vw, 1.8rem)',
-        lineHeight: 1,
-        color,
-        marginBottom: 2,
-      }}>
-        {value}<span style={{ fontSize: '0.7rem', fontWeight: 500, marginLeft: 1, color: 'var(--text-muted)' }}>{unit}</span>
+      <div 
+        className="font-heading font-extrabold text-[clamp(1rem,3.5vw,1.8rem)] leading-none mb-0.5"
+        style={{ color }}
+      >
+        {value}<span className="text-[0.7rem] font-medium ml-0.5 text-[var(--text-muted)]">{unit}</span>
       </div>
-      <div style={{ fontSize: '0.55rem', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.02em' }}>{label}</div>
+      <div className="text-[0.55rem] text-[var(--text-muted)] font-bold uppercase tracking-tight">{label}</div>
     </motion.div>
   );
 }
@@ -48,55 +38,36 @@ export default function HeroSection() {
   const [activeImg, setActiveImg] = useState(0); 
 
   const IMAGES = [
-    { id: '1', src: '/anhHD/anh1.jpg',    label: t('hero.img1_label'), color: 'var(--green)', d: t('hero.img1_desc') },
-    { id: '2', src: '/anhHD/anhai2.png',  label: t('hero.img2_label'), color: 'var(--aqua)',  d: t('hero.img2_desc') },
-    { id: '3', src: '/anhHD/anhai3.png',    label: t('hero.img3_label'), color: 'var(--gold)',  d: t('hero.img3_desc') },
-    { id: '4', src: '/anhHD/anh2.jpg',    label: t('hero.img4_label'), color: 'var(--green)', d: t('hero.img4_desc') },
-    { id: '5', src: '/anhHD/anhai1.png',  label: t('hero.img5_label'), color: 'var(--aqua)',  d: t('hero.img5_desc') },
-    { id: '6', src: '/anhHD/anh11.jpg',   label: t('hero.img6_label'), color: 'var(--gold)',  d: t('hero.img6_desc') },
+    { id: '1', src: '/anhHD/anh1.jpg',    label: t('hero.img1_label'), color: 'var(--color-green)', d: t('hero.img1_desc') },
+    { id: '2', src: '/anhHD/anhai2.png',  label: t('hero.img2_label'), color: 'var(--color-aqua)',  d: t('hero.img2_desc') },
+    { id: '3', src: '/anhHD/anhai3.png',    label: t('hero.img3_label'), color: 'var(--color-gold)',  d: t('hero.img3_desc') },
+    { id: '4', src: '/anhHD/anh2.jpg',    label: t('hero.img4_label'), color: 'var(--color-green)', d: t('hero.img4_desc') },
+    { id: '5', src: '/anhHD/anhai1.png',  label: t('hero.img5_label'), color: 'var(--color-aqua)',  d: t('hero.img5_desc') },
+    { id: '6', src: '/anhHD/anh11.jpg',   label: t('hero.img6_label'), color: 'var(--color-gold)',  d: t('hero.img6_desc') },
   ];
 
   return (
     <section
       id="hero"
-      style={{
-        position: 'relative',
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-        paddingTop: '70px',
-        paddingBottom: '60px',
-      }}
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-[70px] pb-[60px]"
     >
       {/* Background glow effects */}
-      <div className="bg-gradient-radial" style={{ top: '15%', left: '10%', width: 'min(500px, 80vw)', height: 'min(500px, 80vw)', background: 'radial-gradient(circle, var(--green-glow) 0%, transparent 70%)' }} />
-      <div className="bg-gradient-radial" style={{ top: '30%', right: '8%', width: 'min(400px, 70vw)', height: 'min(400px, 70vw)', background: 'radial-gradient(circle, var(--aqua-glow) 0%, transparent 70%)' }} />
+      <div className="absolute top-[15%] left-[10%] w-[min(500px,80vw)] h-[min(500px,80vw)] rounded-full blur-[80px] pointer-events-none -z-10 bg-[radial-gradient(circle,var(--color-green-glow)_0%,transparent_70%)]" />
+      <div className="absolute top-[30%] right-[8%] w-[min(400px,70vw)] h-[min(400px,70vw)] rounded-full blur-[80px] pointer-events-none -z-10 bg-[radial-gradient(circle,var(--color-aqua-glow)_0%,transparent_70%)]" />
 
       {/* Grid pattern overlay */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        backgroundImage: `
-          linear-gradient(var(--glass-border) 1px, transparent 1px),
-          linear-gradient(90deg, var(--glass-border) 1px, transparent 1px)
-        `,
-        backgroundSize: '80px 80px',
-        pointerEvents: 'none',
-        opacity: 0.5,
-      }} />
+      <div className="absolute inset-0 bg-[linear-gradient(var(--glass-border)_1px,transparent_1px),linear-gradient(90deg,var(--glass-border)_1px,transparent_1px)] bg-[length:80px_80px] pointer-events-none opacity-50" />
 
-      <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
+      <div className="container-custom relative z-1 text-center">
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}
+          className="flex justify-center mb-5"
         >
-          <div className="section-label" style={{ fontSize: 'clamp(0.6rem, 2vw, 0.75rem)', padding: '6px 12px' }}>
-            <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--green)', animation: 'pulse-glow 2s ease-in-out infinite', display: 'inline-block' }} />
+          <div className="section-label !text-[clamp(0.6rem,2vw,0.75rem)] !px-3 !py-1.5 flex items-center gap-2">
+            <span className="w-1.75 h-1.75 rounded-full bg-green animate-[pulse-glow_2s_ease-in-out_infinite] inline-block" />
             {t('hero.badge')}
           </div>
         </motion.div>
@@ -106,21 +77,10 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          style={{
-            fontFamily: 'var(--font-heading)',
-            fontWeight: 800,
-            fontSize: 'clamp(1.4rem, 8vw, 3.8rem)',
-            lineHeight: 1.1,
-            letterSpacing: '-0.02em',
-            marginBottom: 16,
-            maxWidth: 900,
-            margin: '0 auto 16px',
-            padding: '0 10px',
-            overflowWrap: 'anywhere',
-          }}
+          className="font-heading font-extrabold text-[clamp(1.4rem,8vw,3.8rem)] leading-[1.1] tracking-[-0.02em] mb-4 max-w-[900px] mx-auto px-2.5 overflow-anywhere"
         >
           {t('hero.title')}<br/>
-          <span className="text-gradient-green" style={{ fontSize: '0.6em', display: 'block', marginTop: 8 }}>{t('hero.subtitle')}</span>
+          <span className="text-gradient-green text-[0.6em] block mt-2">{t('hero.subtitle')}</span>
         </motion.h1>
 
         {/* Sub-headline */}
@@ -128,17 +88,9 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          style={{
-            fontSize: 'clamp(0.9rem, 2.5vw, 1.25rem)',
-            color: 'var(--text-secondary)',
-            lineHeight: 1.5,
-            maxWidth: 800,
-            margin: '0 auto 32px',
-            padding: '0 20px',
-            fontWeight: 500,
-          }}
+          className="text-[clamp(0.9rem,2.5vw,1.25rem)] text-[var(--text-secondary)] leading-normal max-w-[800px] mx-auto mb-8 px-5 font-medium"
         >
-          <Trans i18nKey="hero.description" components={{ 1: <strong style={{color:'var(--text-primary)'}} />, 2: <strong style={{color:'var(--green)'}} /> }} />
+          <Trans i18nKey="hero.description" components={{ 1: <strong className="text-[var(--text-primary)]" />, 2: <strong className="text-green" /> }} />
         </motion.p>
 
         {/* CTA Buttons */}
@@ -146,35 +98,31 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 40 }}
+          className="flex gap-3 justify-center flex-wrap mb-10"
         >
-          <button className="btn-primary" style={{ padding: '10px 18px', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: 8 }} onClick={() => document.getElementById('tech')?.scrollIntoView({ behavior: 'smooth' })}>
+          <button 
+            className="btn-primary !px-4.5 !py-2.5 !text-[0.8rem] flex items-center gap-2" 
+            onClick={() => document.getElementById('tech')?.scrollIntoView({ behavior: 'smooth' })}
+          >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
             {t('hero.cta_discover')}
           </button>
-          <button className="btn-ghost" style={{ padding: '10px 18px', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: 8 }} onClick={() => document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' })}>
+          <button 
+            className="btn-ghost !px-4.5 !py-2.5 !text-[0.8rem] flex items-center gap-2" 
+            onClick={() => document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' })}
+          >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
             {t('hero.cta_demo')}
           </button>
         </motion.div>
 
         {/* Stats row */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
-          '@media (maxWidth: 480px)': {
-             gridTemplateColumns: 'repeat(2, 1fr)',
-          },
-          gap: 12,
-          maxWidth: 900,
-          margin: '0 auto 48px',
-          padding: '0 20px',
-        }} className="hero-stats-grid">
-          <StatCard value="1,500" unit="m²"  label={t('hero.stat_area')}    color="var(--green)"  delay={0.5} />
-          <StatCard value="1,000" unit="m²"  label={t('hero.stat_greenhouse')} color="var(--aqua)"   delay={0.55} />
-          <StatCard value="30"    unit="fps" label={t('hero.stat_camera')}  color="var(--gold)"   delay={0.6} />
-          <StatCard value="92"    unit="%"   label={t('hero.stat_score')}   color="var(--green)"  delay={0.65} />
-          <StatCard value="24/7"  unit=""    label={t('hero.stat_monitoring')} color="var(--aqua)"  delay={0.7} />
+        <div className="hero-stats-grid grid grid-cols-[repeat(auto-fit,minmax(130px,1fr))] max-[480px]:grid-cols-2 gap-3 max-w-[900px] mx-auto mb-12 px-5">
+          <StatCard value="1,500" unit="m²"  label={t('hero.stat_area')}    color="var(--color-green)"  delay={0.5} />
+          <StatCard value="1,000" unit="m²"  label={t('hero.stat_greenhouse')} color="var(--color-aqua)"   delay={0.55} />
+          <StatCard value="30"    unit="fps" label={t('hero.stat_camera')}  color="var(--color-gold)"   delay={0.6} />
+          <StatCard value="92"    unit="%"   label={t('hero.stat_score')}   color="var(--color-green)"  delay={0.65} />
+          <StatCard value="24/7"  unit=""    label={t('hero.stat_monitoring')} color="var(--color-aqua)"  delay={0.7} />
         </div>
 
         {/* Multi-Image Dashboard Mockup */}
@@ -182,70 +130,35 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 40, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ delay: 0.55, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          style={{
-            position: 'relative',
-            maxWidth: 980,
-            margin: '0 auto',
-            width: '100%',
-          }}
+          className="relative max-w-[980px] mx-auto w-full"
         >
           {/* Floating Status card */}
-          <div className="status-badge-mobile-adjust" style={{
-            position: 'absolute', 
-            top: -45, right: '5%',
-            background: 'var(--bg-surface)', backdropFilter: 'blur(20px)',
-            border: '1px solid var(--glass-border) ', borderRadius: 16,
-            padding: '10px 16px', minWidth: 140,
-            zIndex: 10,
-            boxShadow: 'var(--shadow-card)',
-            textAlign: 'left',
-          }}>
-            <div style={{ fontSize: '0.55rem', color: 'var(--text-muted)', marginBottom: 2 }}>System Status</div>
-            <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.2rem', color: 'var(--green)', lineHeight: 1 }}>
+          <div className="status-badge-mobile-adjust absolute -top-[45px] right-[5%] max-sm:relative max-sm:top-[-20px] max-sm:right-auto max-sm:left-[10px] max-sm:mb-5 max-sm:w-fit bg-[var(--bg-surface)] backdrop-blur-[20px] border border-[var(--glass-border)] rounded-2xl px-4 py-2.5 min-w-[140px] z-10 shadow-card text-left">
+            <div className="text-[0.55rem] text-[var(--text-muted)] mb-0.5">System Status</div>
+            <div className="font-heading font-bold text-xl text-green leading-none">
               99.2%
             </div>
-            <div style={{ fontSize: '0.55rem', color: 'var(--green)', display: 'flex', alignItems: 'center', gap: 4, marginTop: 4 }}>
-              <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--green)' }} /> AI Efficiency
+            <div className="text-[0.55rem] text-green flex items-center gap-1 mt-1">
+              <span className="w-1.25 h-1.25 rounded-full bg-green" /> AI Efficiency
             </div>
           </div>
 
           {/* Monitor frame */}
-          <div className="monitor-frame" style={{
-            background: 'var(--bg-surface)',
-            borderRadius: 16,
-            padding: '10px 10px 35px',
-            border: '2px solid var(--glass-border-strong)',
-            boxShadow: '0 40px 100px rgba(0,0,0,0.4)',
-            position: 'relative',
-            zIndex: 2,
-            width: '100%', 
-            boxSizing: 'border-box',
-          }}>
+          <div className="monitor-frame bg-[var(--bg-surface)] rounded-2xl px-2.5 pt-2.5 pb-9 sm:pb-6.5 border-2 border-[var(--glass-border-strong)] shadow-[0_40px_100px_rgba(0,0,0,0.4)] relative z-2 w-full box-border">
             {/* Top bar dots */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10, paddingLeft: 6 }}>
-              <div style={{ display: 'flex', gap: 5, flexShrink: 0, opacity: 0.8 }}>
+            <div className="flex items-center gap-1.5 mb-2.5 pl-1.5">
+              <div className="flex gap-1.25 shrink-0 opacity-80">
                 {['#FF5F57','#FFBD2E','#28CA41'].map((c, i) => (
-                  <div key={i} style={{ width: 9, height: 9, borderRadius: '50%', background: c }} />
+                  <div key={i} className="w-2.25 h-2.25 rounded-full" style={{ background: c }} />
                 ))}
               </div>
-              <div style={{ 
-                marginLeft: 'auto', fontSize: 'clamp(7px, 1.6vw, 10px)', color: 'var(--text-muted)', fontWeight: 700, 
-                paddingRight: 10, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '75%',
-                textTransform: 'uppercase', letterSpacing: '0.04em',
-              }}>
+              <div className="ml-auto text-[clamp(7px,1.6vw,10px)] text-[var(--text-muted)] font-bold pr-2.5 whitespace-nowrap overflow-hidden text-ellipsis max-w-[75%] uppercase tracking-wider">
                 {IMAGES[activeImg].label}
               </div>
             </div>
 
             {/* Image Container with Transition */}
-            <div style={{ 
-              position: 'relative', 
-              borderRadius: 6, 
-              overflow: 'hidden', 
-              background: '#000',
-              aspectRatio: '16/10', // Slightly taller for dashboard details
-              maxHeight: '70vh',
-            }}>
+            <div className="relative rounded-md overflow-hidden bg-black aspect-[16/10] max-h-[70vh]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeImg}
@@ -253,23 +166,15 @@ export default function HeroSection() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.4 }}
-                  style={{ width: '100%', height: '100%' }}
+                  className="w-full h-full"
                 >
                   <img
                     src={IMAGES[activeImg].src}
                     alt={IMAGES[activeImg].label}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'contain', // Changed to contain to see full dashboard
-                    }}
+                    className="w-full h-full object-contain"
                   />
                   {/* Subtle caption overlay for more context */}
-                  <div style={{
-                    position: 'absolute', bottom: 0, left: 0, right: 0,
-                    padding: '12px 15px', background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)',
-                    color: '#fff', fontSize: '0.7rem', textAlign: 'left', fontWeight: 500,
-                  }}>
+                  <div className="absolute bottom-0 left-0 right-0 px-4 py-3 bg-[linear-gradient(to_top,rgba(0,0,0,0.7),transparent)] text-white text-[0.7rem] text-left font-medium">
                     {IMAGES[activeImg].d}
                   </div>
                 </motion.div>
@@ -277,29 +182,13 @@ export default function HeroSection() {
             </div>
 
             {/* Selector Tabs (Integrated in monitor) */}
-            <div style={{
-              position: 'absolute', bottom: 10, left: '50%', transform: 'translateX(-50%)',
-              display: 'flex', gap: 4, padding: '3px', background: 'rgba(0,0,0,0.5)',
-              borderRadius: 30, backdropFilter: 'blur(10px)',
-              zIndex: 10,
-              maxWidth: '94%',
-              overflowX: 'auto',
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-            }}>
+            <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 flex gap-1 p-[3px] bg-black/50 rounded-full backdrop-blur-md z-10 max-w-[94%] overflow-x-auto scrollbar-none">
               {IMAGES.map((img, idx) => (
                 <button
                   key={img.id}
                   onClick={() => setActiveImg(idx)}
-                  style={{
-                    padding: '4px 10px', borderRadius: 20, fontSize: '0.55rem', fontWeight: 800,
-                    background: activeImg === idx ? img.color : 'transparent',
-                    color: activeImg === idx ? '#fff' : 'rgba(255,255,255,0.6)',
-                    transition: 'all 0.3s',
-                    whiteSpace: 'nowrap',
-                    border: 'none',
-                    cursor: 'pointer',
-                  }}
+                  className={`px-2.5 py-1 rounded-full text-[0.55rem] font-extrabold transition-all duration-300 whitespace-nowrap border-none cursor-pointer ${activeImg === idx ? 'text-white' : 'text-white/60'}`}
+                  style={{ background: activeImg === idx ? img.color : 'transparent' }}
                 >
                   {img.id}
                 </button>
@@ -310,24 +199,11 @@ export default function HeroSection() {
       </div>
 
       {/* Ticker strip */}
-      <div style={{
-        position: 'absolute', bottom: 0, left: 0, right: 0,
-        background: 'var(--bg-surface)',
-        borderTop: '1px solid var(--glass-border)',
-        padding: '10px 0',
-        overflow: 'hidden',
-      }}>
-        <div style={{
-          display: 'flex', gap: 60, whiteSpace: 'nowrap',
-          animation: 'ticker-move 40s linear infinite',
-        }}>
+      <div className="absolute bottom-0 left-0 right-0 bg-[var(--bg-surface)] border-t border-[var(--glass-border)] py-2.5 overflow-hidden">
+        <div className="flex gap-15 whitespace-nowrap animate-[ticker-move_40s_linear_infinite]">
           {[...TICKER, ...TICKER].map((t, i) => (
-            <span key={i} style={{ 
-              fontSize: '0.72rem', color: 'var(--text-secondary)', fontWeight: 700, 
-              display: 'flex', alignItems: 'center', gap: 6,
-              textTransform: 'uppercase', letterSpacing: '0.05em'
-            }}>
-              <span style={{ color: 'var(--green)', fontSize: '1.2rem' }}>•</span> {t}
+            <span key={i} className="text-[0.72rem] text-[var(--text-secondary)] font-bold flex items-center gap-1.5 uppercase tracking-wider">
+              <span className="text-green text-xl">•</span> {t}
             </span>
           ))}
         </div>
@@ -337,15 +213,6 @@ export default function HeroSection() {
         @keyframes ticker-move {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
-        }
-        @media (max-width: 640px) {
-          .system-status-badge { 
-             left: 10% !important; 
-             top: -10px !important;
-             scale: 0.85;
-             transform-origin: top left;
-          }
-          .monitor-frame { padding-bottom: 35px !important; }
         }
       `}</style>
     </section>

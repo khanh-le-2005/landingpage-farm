@@ -11,57 +11,40 @@ export default function FooterSection() {
   };
 
   return (
-    <footer id="footer" style={{ position: 'relative', overflow: 'hidden', paddingTop: 120, paddingBottom: 60, background: 'var(--bg-surface)' }}>
+    <footer id="footer" className="relative overflow-hidden pt-30 pb-15 bg-[var(--bg-surface)]">
       {/* Top glow */}
-      <div className="bg-gradient-radial" style={{ top: 0, left: '50%', transform: 'translateX(-50%)', width: 800, height: 300, background: 'radial-gradient(ellipse at 50% 0%, var(--green-glow) 0%, transparent 70%)' }} />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] pointer-events-none -z-10 bg-[radial-gradient(ellipse_at_50%_0%,var(--color-green-glow)_0%,transparent_70%)]" />
 
-      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+      <div className="container-custom relative z-1">
         {/* Final CTA Block */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          style={{
-            textAlign: 'center',
-            maxWidth: 800,
-            margin: '0 auto 80px',
-          }}
+          className="text-center max-w-[800px] mx-auto mb-20"
         >
-          <div className="section-label" style={{ marginBottom: 24 }}>Hành động ngay hôm nay</div>
-          <h2 style={{
-            fontFamily: 'var(--font-heading)', fontWeight: 800,
-            fontSize: 'clamp(2.2rem, 6vw, 3.6rem)', lineHeight: 1,
-            marginBottom: 20,
-          }}>
+          <div className="section-label mb-6 mx-auto">Hành động ngay hôm nay</div>
+          <h2 className="font-heading font-extrabold text-[clamp(2.2rem,6vw,3.6rem)] leading-none mb-5">
             Sẵn sàng đem{' '}
             <span className="text-gradient-green">AI Aquaponics</span>{' '}
             vào dự án của bạn?
           </h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: 1.7, marginBottom: 40, maxWidth: 640, margin: '0 auto 40px' }}>
+          <p className="text-[var(--text-secondary)] text-[1.15rem] leading-relaxed mb-10 max-w-[640px] mx-auto">
             Đội ngũ chuyên gia của chúng tôi luôn sẵn sàng hỗ trợ triển khai giải pháp IoT thông minh cho mọi quy mô dự án.
           </p>
 
           {!sent ? (
-            <form onSubmit={handleSubmit} style={{
-              display: 'flex', gap: 12, maxWidth: 520, margin: '0 auto 32px', flexWrap: 'wrap',
-              justifyContent: 'center',
-            }}>
+            <form onSubmit={handleSubmit} className="flex gap-3 max-w-[520px] mx-auto mb-8 flex-wrap justify-center">
               <input
                 type="email"
                 placeholder="email@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                style={{
-                  flex: 1, minWidth: 260, padding: '16px 24px', borderRadius: 50,
-                  background: 'var(--bg-card)',
-                  border: '1px solid var(--glass-border-strong)',
-                  color: 'var(--text-primary)', fontSize: '1rem',
-                  outline: 'none', transition: 'all 0.3s'
-                }}
+                className="flex-1 min-w-[260px] px-6 py-4 rounded-full bg-[var(--bg-card)] border border-[var(--glass-border-strong)] text-[var(--text-primary)] text-base outline-none focus:border-[var(--color-green)] transition-all"
               />
-              <button type="submit" className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <button type="submit" className="btn-primary flex items-center gap-2">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
                 Yêu cầu Demo
               </button>
@@ -70,20 +53,19 @@ export default function FooterSection() {
             <motion.div 
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="section-label" 
-              style={{ display:'flex', alignItems:'center', gap:8, padding: '16px 32px', color: 'var(--green)', fontSize: '1rem', borderColor: 'var(--green)' }}
+              className="section-label !text-green !border-green flex items-center gap-2 px-8 py-4 mx-auto text-base"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
               Chúng tôi đã nhận được! Sẽ phản hồi trong 24h.
             </motion.div>
           )}
 
-          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button className="btn-ghost" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div className="flex gap-4 justify-center flex-wrap">
+            <button className="btn-ghost flex items-center gap-2">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
               Tài liệu kỹ thuật
             </button>
-            <button className="btn-ghost" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <button className="btn-ghost flex items-center gap-2">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
               Tư vấn giải pháp
             </button>
@@ -91,23 +73,18 @@ export default function FooterSection() {
         </motion.div>
 
         {/* Info grid */}
-        <div style={{
-          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-          gap: 40, padding: '60px 0',
-          borderTop: '1px solid var(--glass-border)',
-          marginBottom: 40,
-        }}>
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-10 py-15 border-t border-[var(--glass-border)] mb-10">
           {/* Brand */}
-          <div style={{ gridColumn: 'span 1' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+          <div className="lg:col-span-1">
+            <div className="flex items-center gap-3 mb-5">
               <div className="nav-logo">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{color:'var(--green)'}}><path d="M12 2v20M2 12h20M7 7l10 10M17 7L7 17"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green"><path d="M12 2v20M2 12h20M7 7l10 10M17 7L7 17"/></svg>
               </div>
-              <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.2rem' }}>
+              <span className="font-heading font-extrabold text-[1.2rem]">
                 Farm Aquaponics
               </span>
             </div>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.8 }}>
+            <p className="text-[var(--text-muted)] text-[0.9rem] leading-relaxed">
               Hệ thống giám sát nông nghiệp thông minh tiên phong tại KEZAD, Abu Dhabi. Tích hợp AI & IoT Deep Learning.
             </p>
           </div>
@@ -127,12 +104,12 @@ export default function FooterSection() {
             }
           ].map((col, idx) => (
             <div key={idx}>
-              <div style={{ fontWeight: 800, fontSize: '0.8rem', marginBottom: 24, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+              <div className="font-extrabold text-[0.8rem] mb-6 text-[var(--text-primary)] uppercase tracking-widest">
                 {col.title}
               </div>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <ul className="flex flex-col gap-3">
                 {col.links.map((link, i) => (
-                  <li key={i} style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{link}</li>
+                  <li key={i} className="text-[var(--text-muted)] text-[0.85rem]">{link}</li>
                 ))}
               </ul>
             </div>
@@ -140,17 +117,13 @@ export default function FooterSection() {
         </div>
 
         {/* Bottom bar */}
-        <div style={{
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          paddingTop: 32, borderTop: '1px solid var(--glass-border)',
-          flexWrap: 'wrap', gap: 20,
-        }}>
-          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+        <div className="flex items-center justify-between pt-8 border-t border-[var(--glass-border)] flex-wrap gap-5">
+          <div className="text-[0.8rem] text-[var(--text-muted)]">
             © 2026 Smart Farm Aquaponics · KEZAD Project
           </div>
-          <div style={{ display: 'flex', gap: 8 }}>
+          <div className="flex gap-2">
             {['English', 'Tiếng Việt', 'Arabic'].map((lang, i) => (
-              <span key={i} style={{ fontSize: '0.75rem', color: i === 1 ? 'var(--green)' : 'var(--text-muted)', fontWeight: i === 1 ? 700 : 400, cursor: 'pointer' }}>{lang}</span>
+              <span key={i} className={`text-[0.75rem] cursor-pointer ${i === 1 ? 'text-green font-bold' : 'text-[var(--text-muted)]'}`}>{lang}</span>
             ))}
           </div>
         </div>

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import './App.css';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import WhySection from './components/WhySection';
@@ -20,13 +19,15 @@ export default function App() {
   };
 
   return (
-    <div className={`app-wrapper ${theme}-theme`}>
+    <div className="min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)]">
       <Navbar theme={theme} toggleTheme={toggleTheme} />
-      <HeroSection />
-      <HowItWorksSection />
-      <WhySection theme={theme} />
-      <BentoGridSection theme={theme} />
-      <UIShowcaseSection theme={theme} />
+      <main>
+        <HeroSection />
+        <HowItWorksSection />
+        <WhySection theme={theme} />
+        <BentoGridSection theme={theme} />
+        <UIShowcaseSection theme={theme} />
+      </main>
       <FooterSection theme={theme} />
     </div>
   );

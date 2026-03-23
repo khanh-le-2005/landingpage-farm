@@ -88,33 +88,25 @@ export default function HowItWorksSection() {
   ];
 
   return (
-    <section id="tech" className="section" style={{ background: 'var(--bg-base)', position: 'relative' }}>
-      <div className="container">
-        <div style={{ textAlign: 'center', maxWidth: 800, margin: '0 auto 80px' }}>
+    <section id="tech" className="section bg-[var(--bg-base)] relative">
+      <div className="container-custom">
+        <div className="text-center max-w-[800px] mx-auto mb-20">
           <div className="section-label">{t('how.label')}</div>
-          <h2 style={{ 
-            fontFamily: 'var(--font-heading)', fontWeight: 800, 
-            fontSize: 'clamp(2rem, 5vw, 3.2rem)', lineHeight: 1.1, margin: '16px 0 24px' 
-          }}>
+          <h2 className="font-heading font-extrabold text-[clamp(2rem,5vw,3.2rem)] leading-[1.1] my-4 sm:my-6">
             {t('how.title1')}{' '}
             <span className="text-gradient-green">{t('how.title2')}</span>
           </h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.8 }}>
+          <p className="text-[var(--text-secondary)] text-[1.1rem] leading-relaxed">
             {t('how.desc')}
           </p>
         </div>
 
-        <div style={{ display: 'grid', gap: 120 }}>
+        <div className="grid gap-20 sm:gap-30">
           {TECHNICAL_SLIDES.map((slide, index) => (
             <div 
               key={slide.id}
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: 60,
-                alignItems: 'center',
-                direction: index % 2 === 0 ? 'ltr' : 'rtl'
-              }}
+              className={`grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-15 items-center ${index % 2 === 0 ? 'direction-ltr' : 'lg:flex-row-reverse flex-col'}`}
+              style={{ direction: index % 2 === 0 ? 'ltr' : 'rtl' }}
             >
               {/* Image Side */}
               <motion.div
@@ -124,27 +116,15 @@ export default function HowItWorksSection() {
                 transition={{ duration: 0.8 }}
                 style={{ direction: 'ltr' }}
               >
-                <div className="monitor-frame" style={{
-                  background: slide.color,
-                  padding: '4px',
-                  borderRadius: 20,
-                  boxShadow: `0 30px 60px ${slide.color}22`,
-                  border: '1px solid var(--glass-border-strong)'
-                }}>
-                  <div style={{
-                    background: '#0a0a0a',
-                    borderRadius: 16,
-                    overflow: 'hidden',
-                    aspectRatio: '16/10',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    border: '1px solid #1a1a1a'
-                  }}>
+                <div 
+                  className="monitor-frame !p-1 rounded-[20px] shadow-[0_30px_60px_rgba(0,0,0,0.2)] border border-[var(--glass-border-strong)]"
+                  style={{ background: slide.color }}
+                >
+                  <div className="bg-[#0a0a0a] rounded-2xl overflow-hidden aspect-[16/10] flex items-center justify-center border border-[#1a1a1a]">
                     <img 
                       src={slide.image} 
                       alt={slide.title}
-                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                      className="w-full h-full object-contain"
                     />
                   </div>
                 </div>
@@ -158,36 +138,31 @@ export default function HowItWorksSection() {
                 transition={{ duration: 0.8 }}
                 style={{ direction: 'ltr' }}
               >
-                <div style={{ 
-                  display: 'inline-block', padding: '6px 12px', borderRadius: 8, 
-                  background: `${slide.color}15`, color: slide.color, 
-                  fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', 
-                  letterSpacing: '0.1em', marginBottom: 16, border: `1px solid ${slide.color}33`
-                }}>
+                <div 
+                  className="inline-block px-3 py-1.5 rounded-lg text-[0.8rem] font-extrabold uppercase tracking-widest mb-4 border"
+                  style={{ background: `${slide.color}26`, color: slide.color, borderColor: `${slide.color}54` }}
+                >
                   {slide.zone}
                 </div>
-                <h3 style={{ 
-                  fontFamily: 'var(--font-heading)', fontWeight: 800, 
-                  fontSize: '1.8rem', marginBottom: 20 , color: 'var(--text-primary)'
-                }}>
+                <h3 className="font-heading font-extrabold text-[1.8rem] mb-5 text-[var(--text-primary)]">
                   {slide.title}
                 </h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.7, marginBottom: 30 }}>
+                <p className="text-[var(--text-secondary)] text-base leading-relaxed mb-7.5">
                   {slide.description}
                 </p>
 
-                <div style={{ display: 'grid', gap: 20 }}>
+                <div className="grid gap-5">
                   {slide.details.map((detail, idx) => (
-                    <div key={idx} style={{ display: 'flex', gap: 16 }}>
-                      <div style={{ 
-                        width: 10, height: 10, borderRadius: '50%', background: slide.color, 
-                        marginTop: 6, flexShrink: 0, boxShadow: `0 0 10px ${slide.color}`
-                      }} />
+                    <div key={idx} className="flex gap-4">
+                      <div 
+                        className="w-2.5 h-2.5 rounded-full mt-1.5 shrink-0" 
+                        style={{ background: slide.color, boxShadow: `0 0 10px ${slide.color}` }}
+                      />
                       <div>
-                        <div style={{ fontWeight: 800, fontSize: '0.9rem', color: 'var(--text-primary)', marginBottom: 4 }}>
+                        <div className="font-extrabold text-[0.9rem] text-[var(--text-primary)] mb-1">
                           {detail.label}
                         </div>
-                        <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', lineHeight: 1.5 }}>
+                        <div className="text-[var(--text-muted)] text-[0.85rem] leading-relaxed">
                           {detail.text}
                         </div>
                       </div>

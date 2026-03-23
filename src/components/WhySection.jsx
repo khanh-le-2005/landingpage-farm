@@ -29,137 +29,90 @@ const PROBLEMS = [
 
 export default function WhySection() {
   return (
-    <section id="why" className="section" style={{ position: 'relative', overflow: 'hidden' }}>
-      <div className="bg-gradient-radial" style={{ top: '20%', right: '-5%', width: 500, height: 500, background: 'radial-gradient(circle, var(--aqua-glow) 0%, transparent 70%)' }} />
+    <section id="why" className="section relative overflow-hidden">
+      <div className="absolute top-[20%] right-[-5%] w-[500px] h-[500px] rounded-full blur-[80px] pointer-events-none -z-10 bg-[radial-gradient(circle,var(--color-aqua-glow)_0%,transparent_70%)]" />
 
-      <div className="container">
-        <div className="why-layout">
-          <div className="why-content">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <div className="section-label">Tại sao chọn chúng tôi</div>
-        </motion.div>
-
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1, duration: 0.6 }}
-          style={{
-            fontFamily: 'var(--font-heading)', fontWeight: 800,
-            fontSize: 'clamp(2rem, 5vw, 3.2rem)',
-            lineHeight: 1.1, marginBottom: 20,
-            maxWidth: 700,
-          }}
-        >
-          Vấn đề{' '}
-          <span className="text-gradient-green">chúng tôi đã giải quyết</span>
-        </motion.h2>
-
-        <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: 1.7, maxWidth: 600, marginBottom: 60 }}>
-          Nông nghiệp truyền thống tại vùng sa mạc gặp rất nhiều thách thức. Hệ thống của chúng tôi giải quyết từng vấn đề bằng AI và IoT.
-        </p>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
-          {PROBLEMS.map((item, i) => (
+      <div className="container-custom">
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-15">
+          <div className="flex-[1.2]">
             <motion.div
-              key={i}
-              className="glass-card"
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              style={{ padding: '32px', position: 'relative' }}
             >
-              <div style={{ color: item.color, marginBottom: 20 }}>{item.icon}</div>
-              
-              <div style={{ marginBottom: 24 }}>
-                <div style={{
-                  display: 'inline-block', padding: '4px 12px', borderRadius: 50,
-                  background: 'rgba(255,71,87,0.1)', border: '1px solid rgba(255,71,87,0.2)',
-                  fontSize: '0.7rem', fontWeight: 800, color: '#FF4757', marginBottom: 12, textTransform: 'uppercase'
-                }}>
-                  Vấn đề hiện tại
-                </div>
-                <div style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
-                  {item.problem}
-                </div>
-              </div>
-
-              <div>
-                <div style={{
-                  display: 'inline-block', padding: '4px 12px', borderRadius: 50,
-                  background: 'rgba(0,230,118,0.1)', border: '1px solid rgba(0,230,118,0.2)',
-                  fontSize: '0.7rem', fontWeight: 800, color: item.color, marginBottom: 12, textTransform: 'uppercase'
-                }}>
-                  Giải pháp Smart Farm
-                </div>
-                <div style={{ fontSize: '1rem', color: 'var(--text-primary)', fontWeight: 700, lineHeight: 1.5 }}>
-                  {item.solution}
-                </div>
-              </div>
+              <div className="section-label">Tại sao chọn chúng tôi</div>
             </motion.div>
-          ))}
+
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1, duration: 0.6 }}
+              className="font-heading font-extrabold text-[clamp(2rem,5vw,3.2rem)] leading-[1.1] mb-5 max-w-[700px]"
+            >
+              Vấn đề{' '}
+              <span className="text-gradient-green">chúng tôi đã giải quyết</span>
+            </motion.h2>
+
+            <p className="text-[var(--text-secondary)] text-[1.1rem] leading-[1.7] max-w-[600px] mb-15">
+              Nông nghiệp truyền thống tại vùng sa mạc gặp rất nhiều thách thức. Hệ thống của chúng tôi giải quyết từng vấn đề bằng AI và IoT.
+            </p>
+
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-5">
+              {PROBLEMS.map((item, i) => (
+                <motion.div
+                  key={i}
+                  className="glass-card !p-8 relative"
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                >
+                  <div className="mb-5" style={{ color: item.color }}>{item.icon}</div>
+                  
+                  <div className="mb-6">
+                    <div className="inline-block px-3 py-1 rounded-full bg-[#FF4757]/10 border border-[#FF4757]/20 text-[0.7rem] font-extrabold text-[#FF4757] mb-3 uppercase tracking-wider">
+                      Vấn đề hiện tại
+                    </div>
+                    <div className="text-[0.95rem] text-[var(--text-secondary)] font-medium">
+                      {item.problem}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div 
+                      className="inline-block px-3 py-1 rounded-full text-[0.7rem] font-extrabold mb-3 uppercase tracking-wider"
+                      style={{ background: `${item.color}15`, border: `1px solid ${item.color}33`, color: item.color }}
+                    >
+                      Giải pháp Smart Farm
+                    </div>
+                    <div className="text-[1rem] text-[var(--text-primary)] font-bold leading-normal">
+                      {item.solution}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
           
-          <div className="why-image-wrapper">
+          <div className="flex-[0.8] flex items-center justify-center">
             <motion.div
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, duration: 0.7 }}
-              style={{ position: 'relative' }}
+              className="relative"
             >
-              <div style={{
-                position: 'absolute', inset: -20, background: 'var(--aqua-glow)',
-                filter: 'blur(40px)', opacity: 0.5, borderRadius: '50%', zIndex: 0
-              }} />
+              <div className="absolute inset-[-20px] bg-[var(--color-aqua-glow)] blur-[40px] opacity-50 rounded-full -z-10" />
               <img 
                 src="/anhHD/anh7.jpg" 
                 alt="Smart Farm Technical Overview" 
-                style={{ 
-                  position: 'relative', zIndex: 1,
-                  width: '100%', height: 'auto', 
-                  borderRadius: 24, 
-                  border: '1px solid var(--glass-border)', 
-                  boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
-                  objectFit: 'cover'
-                }} 
+                className="relative z-1 w-full h-auto rounded-3xl border border-[var(--glass-border)] shadow-[0_20px_40px_rgba(0,0,0,0.4)] object-cover"
               />
             </motion.div>
           </div>
         </div>
       </div>
-
-      <style>{`
-        .why-layout {
-          display: flex;
-          flex-direction: column;
-          gap: 40px;
-        }
-        .why-image-wrapper {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        @media (min-width: 1024px) {
-          .why-layout {
-            flex-direction: row;
-            align-items: center;
-            gap: 60px;
-          }
-          .why-content {
-            flex: 1.2;
-          }
-          .why-image-wrapper {
-            flex: 0.8;
-          }
-        }
-      `}</style>
     </section>
   );
 }
