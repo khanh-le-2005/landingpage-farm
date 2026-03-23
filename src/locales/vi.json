@@ -79,5 +79,46 @@
     "s5_d0_lbl": "Power Balance", "s5_d0_txt": "Cân bằng sản xuất Solar & tiêu thụ Chiller. Tự động kích hoạt vệ sinh pin mặt trời.",
     "s5_d1_lbl": "Water Recovery", "s5_d1_txt": "Quản trị nước TEC thu hồi từ không khí. Tự chủ nguồn nước ngọt cho bể MBBR.",
     "s5_d2_lbl": "Yield & FCR", "s5_d2_txt": "Biến dữ liệu tiêu thụ thành sinh khối cá & rau thực tế với sai số AI cực thấp."
+  },
+  "admin": {
+    "sidebar": {
+      "overview": "Tổng quan",
+      "assets": "Dự án",
+      "sensors": "Cảm biến",
+      "ai_analysis": "Phân tích AI",
+      "reports": "Báo cáo",
+      "settings": "Cài đặt",
+      "support": "Hỗ trợ",
+      "theme": "Giao diện",
+      "language": "Ngôn ngữ"
+    },
+    "header": {
+      "title": "Bảng điều khiển Admin",
+      "user_role": "Quản trị viên"
+    },
+    "assets": {
+      "title": "Quản lý dự án",
+      "total": "Tất cả",
+      "crops": "Cây trồng",
+      "aquatic": "Thủy hải sản",
+      "infra": "Công trình",
+      "search_placeholder": "Tìm kiếm dự án...",
+      "add_new": "Thêm mới"
+    }
+  },
+  "dashboard": {
+    "zones": {
+      "ras_ai": "Phân tích AI Cá RAS",
+      "bio_sync": "Hệ thống Sinh học",
+      "resource_sync": "Quản trị Nguồn lực"
+    },
+    "aq_system": "Hệ thống Thủy sinh",
+    "ter_system": "Hệ thống Đất nền",
+    "power_balance": "Cân bằng Năng lượng",
+    "water_gov": "Quản trị Nước",
+    "yield_fcr": "Dự báo Sản lượng & FCR",
+    "alerts": "Cảnh báo tức thời",
+    "medical": "Chỉ số Y tế AI",
+    "recommendations": "Đề xuất hệ thống"
   }
 }

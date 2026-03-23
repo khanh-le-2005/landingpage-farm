@@ -63,8 +63,8 @@ const DashboardOverview = ({ filteredAssets }) => {
         <div className="lg:col-span-2 space-y-8">
           <div className="bg-(--bg-card) border border-(--glass-border) p-8 rounded-3xl">
             <h3 className="font-bold text-lg mb-8">System Metrics Analytics</h3>
-            <div className="h-[350px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
+            <div className="h-[350px] w-full min-w-0">
+              <ResponsiveContainer width="100%" height="100%" minHeight={320} minWidth={0}>
                 <AreaChart data={chartData}>
                   <defs>
                     <linearGradient id="colorTemp" x1="0" y1="0" x2="0" y2="1">

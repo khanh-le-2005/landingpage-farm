@@ -12,44 +12,46 @@ import HowItWorksSection from './components/HowItWorksSection';
 import LoginPage from './pages/LoginPage';
 import AdminPage from './pages/AdminPage';
 
-export default function App() {
-  const [theme, setTheme] = useState('light');
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 
-  useEffect(() => {
-    document.body.setAttribute('data-theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-  };
+function AppContent() {
+  const { theme, toggleTheme } = useTheme();
 
   return (
+    <div className="min-h-screen bg-(--bg-base) text-(--text-primary) transition-colors duration-300">
+      <Routes>
+        <Route path="/" element={
+          <>
+            <Navbar theme={theme} toggleTheme={toggleTheme} />
+            <main>
+              <HeroSection />
+              <HowItWorksSection />
+              <WhySection theme={theme} />
+              <BentoGridSection theme={theme} />
+              <UIShowcaseSection theme={theme} />
+            </main>
+            <FooterSection theme={theme} />
+          </>
+        } />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/admin" element={
+          <ProtectedRoute>
+            <AdminPage />
+          </ProtectedRoute>
+        } />
+      </Routes>
+    </div>
+  );
+}
+
+export default function App() {
+  return (
     <AuthProvider>
-      <Router>
-        <div className="min-h-screen bg-(--bg-base) text-(--text-primary)">
-          <Routes>
-            <Route path="/" element={
-              <>
-                <Navbar theme={theme} toggleTheme={toggleTheme} />
-                <main>
-                  <HeroSection />
-                  <HowItWorksSection />
-                  <WhySection theme={theme} />
-                  <BentoGridSection theme={theme} />
-                  <UIShowcaseSection theme={theme} />
-                </main>
-                <FooterSection theme={theme} />
-              </>
-            } />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/admin" element={
-              <ProtectedRoute>
-                <AdminPage />
-              </ProtectedRoute>
-            } />
-          </Routes>
-        </div>
-      </Router>
+      <ThemeProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </ThemeProvider>
     </AuthProvider>
   );
 }

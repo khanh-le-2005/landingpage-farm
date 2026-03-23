@@ -1,21 +1,29 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const AssetManagement = ({ filteredAssets, searchTerm, setSearchTerm, selectedCategory, setSelectedCategory, categories }) => {
+  const { t } = useTranslation();
   const [selectedAsset, setSelectedAsset] = useState(null);
+
+  const categoryLabels = {
+    'All': t('admin.assets.total'),
+    'Environment': t('admin.assets.infra'),
+    'Analytics': t('admin.assets.aquatic')
+  };
 
   return (
     <div className="min-h-full">
       <div className="flex items-end justify-between mb-8">
         <div>
-          <h2 className="text-3xl font-bold text-white uppercase tracking-tighter">HD Asset Library</h2>
+          <h2 className="text-3xl font-bold text-(--text-primary) uppercase tracking-tighter">{t('admin.assets.title')}</h2>
           <p className="text-(--text-secondary) mt-1 font-medium italic opacity-70">Project technical inventory & system telemetry.</p>
         </div>
         <div className="flex gap-4">
           <button className="bg-(--bg-card) border border-(--glass-border) px-6 py-3 rounded-2xl text-xs font-black hover:bg-white/5 transition-all text-white/60 tracking-widest cursor-pointer">EXPORT DATA</button>
           <button className="btn-primary flex items-center gap-2 px-8 py-3 bg-green text-white rounded-2xl font-black shadow-lg shadow-green/20 hover:scale-105 transition-all tracking-widest cursor-pointer">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M12 5v14M5 12h14" /></svg>
-            NEW SYSTEM
+            {t('admin.assets.add_new')}
           </button>
         </div>
       </div>
@@ -28,14 +36,14 @@ const AssetManagement = ({ filteredAssets, searchTerm, setSearchTerm, selectedCa
               onClick={() => setSelectedCategory(cat)}
               className={`px-5 py-2.5 rounded-xl text-[10px] font-black tracking-widest transition-all cursor-pointer uppercase ${selectedCategory === cat ? 'bg-green text-white shadow-xl shadow-green/20' : 'bg-(--bg-card) text-(--text-muted) border border-(--glass-border) hover:text-white'}`}
             >
-              {cat}
+              {categoryLabels[cat] || cat}
             </button>
           ))}
         </div>
         <div className="relative w-full md:w-96 group">
           <input
             type="text"
-            placeholder="FILTER SYSTEMS..."
+            placeholder={t('admin.assets.search_placeholder')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full bg-(--bg-card) border border-(--glass-border) rounded-2xl py-4 pl-14 pr-6 text-xs font-bold text-white focus:outline-none focus:border-green/50 transition-all shadow-inner uppercase tracking-widest placeholder:text-white/20"
@@ -97,6 +105,7 @@ const AssetManagement = ({ filteredAssets, searchTerm, setSearchTerm, selectedCa
 
 // --- CORE MODAL DISPATCHER ---
 const DashboardModal = ({ asset, onClose }) => {
+  const { t } = useTranslation();
   return (
     <div className="fixed inset-0 z-200 flex items-center justify-center bg-black/98 backdrop-blur-3xl p-4 overflow-hidden">
       <motion.div
@@ -108,11 +117,11 @@ const DashboardModal = ({ asset, onClose }) => {
         {/* --- COMMON TOP BAR --- */}
         <div className="px-10 py-6 flex items-center justify-between shrink-0 relative bg-black/20">
           <div className="flex items-center gap-12">
-            <span className="text-2xl font-black italic text-white uppercase tracking-tighter">
+            <span className="text-2xl font-black italic text-(--text-primary) uppercase tracking-tighter">
               {asset.id === 1 ? 'BIOLOGICAL' : asset.id === 2 ? 'AI VISION' : 'RESOURCES'} <span className="text-yellow-400">SYNC</span>
             </span>
-            <h1 className="text-xl font-black uppercase tracking-[0.3em] text-white/90 hidden md:block">
-              {asset.id === 1 ? 'Biological System Grouping' : asset.id === 2 ? 'RAS AI Fish Tracking' : 'Power & Efficiency Monitor'}
+            <h1 className="text-xl font-black uppercase tracking-[0.3em] text-(--text-primary)/90 hidden md:block">
+              {asset.id === 1 ? t('dashboard.zones.bio_sync') : asset.id === 2 ? t('dashboard.zones.ras_ai') : t('dashboard.zones.resource_sync')}
             </h1>
           </div>
           <div className="flex items-center gap-8">
@@ -138,8 +147,10 @@ const DashboardModal = ({ asset, onClose }) => {
 };
 
 // --- ZONE 1: AI FISH & THERMAL (dashboard-zone1.png) ---
-const Zone1Dashboard = () => (
-  <div className="p-8 grid grid-cols-12 gap-8 h-full">
+const Zone1Dashboard = () => {
+  const { t } = useTranslation();
+  return (
+    <div className="p-8 grid grid-cols-12 gap-8 h-full">
     {/* Left: AI CAMERA GRID */}
     <div className="col-span-12 xl:col-span-7 flex flex-col gap-6">
       <div className="flex items-center justify-between px-2">
@@ -153,11 +164,13 @@ const Zone1Dashboard = () => (
       <div className="grid grid-cols-3 gap-2">
         {[...Array(6)].map((_, i) => (
           <div key={i} className={`aspect-4/3 bg-black/40 rounded-xl overflow-hidden relative border ${i === 1 || i === 4 ? 'border-red-500/50 shadow-[0_0_15px_rgba(239,68,68,0.2)]' : 'border-white/5'}`}>
+            <img 
+              src={`/img/fish_cam_${i % 2 === 0 ? '1' : '2'}.png`} 
+              alt="Fish Camera" 
+              className="w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity duration-700"
+            />
             <div className="absolute top-2 left-3 text-[9px] font-bold text-white/40 uppercase tracking-widest">Live Camera</div>
             <div className="absolute top-6 left-3 text-[10px] font-black text-white/90">YOLOV11</div>
-            <div className="w-full h-full flex items-center justify-center">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1" strokeOpacity="0.1"><path d="M12 2v20m-10-10h20" /></svg>
-            </div>
             {i === 4 && <div className="absolute inset-0 bg-red-500/10 flex items-center justify-center text-[10px] font-black uppercase tracking-[0.4em] text-red-500">Clicked Diagnosis</div>}
           </div>
         ))}
@@ -244,15 +257,18 @@ const Zone1Dashboard = () => (
       </div>
     </div>
   </div>
-);
+  );
+};
 
 // --- ZONE 2: BIOLOGICAL SYSTEM (dashboard-zone2.png) ---
-const Zone2Dashboard = () => (
-  <div className="p-8 grid grid-cols-12 gap-8 h-full">
+const Zone2Dashboard = () => {
+  const { t } = useTranslation();
+  return (
+    <div className="p-8 grid grid-cols-12 gap-8 h-full">
     {/* AQUATIC SYSTEM (Column spans 6/12) */}
     <div className="col-span-12 xl:col-span-6 flex flex-col gap-6">
       <div className="flex items-center justify-between px-2">
-        <h2 className="text-2xl font-black uppercase tracking-[0.2em]">AQUATIC SYSTEM</h2>
+        <h2 className="text-2xl font-black uppercase tracking-[0.2em]">{t('dashboard.aq_system')}</h2>
         <div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-xl border border-white/10 cursor-pointer">
           <span className="text-sm font-bold">50/50</span>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="m6 9 6 6 6-6" /></svg>
@@ -273,7 +289,7 @@ const Zone2Dashboard = () => (
     {/* TERRESTRIAL SYSTEM */}
     <div className="col-span-12 xl:col-span-6 flex flex-col gap-6">
       <div className="flex items-center justify-between px-2">
-        <h2 className="text-2xl font-black uppercase tracking-[0.2em]">TERRESTRIAL SYSTEM</h2>
+        <h2 className="text-2xl font-black uppercase tracking-[0.2em]">{t('dashboard.ter_system')}</h2>
         <div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-xl border border-white/10 cursor-pointer">
           <span className="text-sm font-bold">50/50</span>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="m6 9 6 6 6-6" /></svg>
@@ -305,17 +321,20 @@ const Zone2Dashboard = () => (
         </div>
       </div>
     </div>
-  </div>
-);
+    </div>
+  );
+};
 
-// --- ZONE 3: ENERGY & WATER (dashboard-zone3.png) ---
-const Zone3Dashboard = () => (
-  <div className="p-8 grid grid-cols-3 gap-8 h-full">
+
+const Zone3Dashboard = () => {
+  const { t } = useTranslation();
+  return (
+    <div className="p-8 grid grid-cols-3 gap-8 h-full">
     {/* Column 1: NĂNG LƯỢNG */}
     <div className="col-span-1 flex flex-col gap-6">
       <Card className="flex-1 flex flex-col">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-black uppercase tracking-[0.2em]">NĂNG LƯỢNG</h2>
+          <h2 className="text-2xl font-black uppercase tracking-[0.2em]">{t('dashboard.power_balance')}</h2>
           <span className="text-xs font-bold text-white/30 uppercase tracking-widest">(Power Balance)</span>
         </div>
         <div className="flex-1 flex flex-col gap-10">
@@ -359,7 +378,7 @@ const Zone3Dashboard = () => (
     <div className="col-span-1 flex flex-col gap-6">
       <Card className="flex-1 flex flex-col">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-black uppercase tracking-[0.2em]">QUẢN TRỊ NƯỚC</h2>
+          <h2 className="text-2xl font-black uppercase tracking-[0.2em]">{t('dashboard.water_gov')}</h2>
           <span className="text-xs font-bold text-white/30 uppercase tracking-widest">(Water Governance)</span>
         </div>
         <div className="flex-1 flex flex-col items-center justify-center pt-10">
@@ -406,7 +425,7 @@ const Zone3Dashboard = () => (
     <div className="col-span-1 flex flex-col gap-6">
       <Card className="flex-1 flex flex-col">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-black uppercase tracking-[0.2em]">DỰ BÁO SẢN LƯỢNG</h2>
+          <h2 className="text-2xl font-black uppercase tracking-[0.2em]">{t('dashboard.yield_fcr')}</h2>
           <span className="text-xs font-bold text-white/30 uppercase tracking-widest">(Yield & FCR)</span>
         </div>
         <div className="flex-1 flex flex-col gap-4 px-6">
@@ -428,13 +447,13 @@ const Zone3Dashboard = () => (
           </div>
           <div className="flex items-center gap-3 px-6 py-4 bg-green/10 border border-green/30 rounded-2xl">
             <div className="w-2 h-2 rounded-full bg-green animate-pulse" />
-            <span className="text-[12px] font-black text-green uppercase italic tracking-widest">Trạng thái ổn định</span>
+            <span className="text-[12px] font-black text-green uppercase italic tracking-widest">{t('dashboard.zones.ras_ai')} - OK</span>
           </div>
         </div>
       </Card>
       <div className="bg-red-500/10 border border-red-500/30 rounded-[2.5rem] p-8 flex flex-col gap-4">
         <h4 className="text-[12px] font-black uppercase tracking-widest flex items-center gap-3">
-          <span className="text-red-500 text-xl font-black">!</span> FCR Alerts
+          <span className="text-red-500 text-xl font-black">!</span> {t('dashboard.alerts')}
         </h4>
         <p className="text-[10px] font-bold leading-relaxed opacity-80 uppercase">Cảnh báo [I]: Tam giác vàng xuất hiện khi FCR vọt lên (Cá ăn nhiều nhưng không tăng trọng cùng hoặc thức ăn bị lãng phí).</p>
         <div className="mt-2 text-[9px] font-black text-red-400 uppercase leading-relaxed italic">
@@ -442,15 +461,16 @@ const Zone3Dashboard = () => (
         </div>
       </div>
     </div>
-  </div>
-);
+    </div>
+  );
+};
 
-// --- SHARED UI COMPONENTS (ZONE-SPECIFIC HELPERS) ---
+
 const Card = ({ children, className = "" }) => (
-  <div className={`bg-white/3 border border-white/10 rounded-[2.5rem] p-6 flex flex-col relative overflow-hidden transition-all duration-500 hover:bg-white/6 hover:border-white/20 ${className}`}>
+  <div className={`bg-(--bg-card) border border-(--glass-border) rounded-[2.5rem] p-6 flex flex-col relative overflow-hidden transition-all duration-500 hover:bg-(--bg-card-hover) hover:border-(--glass-border-strong) ${className}`}>
     <div className="absolute top-0 right-0 p-3 opacity-[0.2]">
-      <div className="w-1.5 h-1.5 rounded-full bg-white mb-2" />
-      <div className="w-1.5 h-1.5 rounded-full bg-white opacity-40 ml-3" />
+      <div className="w-1.5 h-1.5 rounded-full bg-(--text-primary) mb-2" />
+      <div className="w-1.5 h-1.5 rounded-full bg-(--text-primary) opacity-40 ml-3" />
     </div>
     {children}
   </div>

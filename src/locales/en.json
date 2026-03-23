@@ -79,5 +79,46 @@
     "s5_d0_lbl": "Power Balance", "s5_d0_txt": "Balance Solar production & Chiller consumption. Auto-trigger solar panel cleaning.",
     "s5_d1_lbl": "Water Recovery", "s5_d1_txt": "TEC water recovery governance from humidity. Autonomous freshwater for MBBR tank.",
     "s5_d2_lbl": "Yield & FCR", "s5_d2_txt": "Turn consumption data into actual fish & plant biomass with ultra-low AI error rates."
+  },
+  "admin": {
+    "sidebar": {
+      "overview": "Overview",
+      "assets": "Assets",
+      "sensors": "Sensors",
+      "ai_analysis": "AI Analysis",
+      "reports": "Reports",
+      "settings": "Settings",
+      "support": "Support",
+      "theme": "Appearance",
+      "language": "Language"
+    },
+    "header": {
+      "title": "Admin Dashboard",
+      "user_role": "Administrator"
+    },
+    "assets": {
+      "title": "Project Management",
+      "total": "All Assets",
+      "crops": "Crops",
+      "aquatic": "Aquaculture",
+      "infra": "Infrastructure",
+      "search_placeholder": "Search projects...",
+      "add_new": "Add New"
+    }
+  },
+  "dashboard": {
+    "zones": {
+      "ras_ai": "RAS Fish AI Analysis",
+      "bio_sync": "Biological System",
+      "resource_sync": "Resource Governance"
+    },
+    "aq_system": "Aquatic System",
+    "ter_system": "Terrestrial System",
+    "power_balance": "Power Balance",
+    "water_gov": "Water Governance",
+    "yield_fcr": "Yield & FCR Forecasting",
+    "alerts": "Instant Alerts",
+    "medical": "AI Medical Indicators",
+    "recommendations": "System Recommendations"
   }
 }
