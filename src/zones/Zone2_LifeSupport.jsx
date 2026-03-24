@@ -14,9 +14,9 @@ function ParameterBar({ label, value, max, unit, color = '#10B981', warning, cri
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-        <span className="metric-label">{label}</span>
+        <span className="metric-label text-(--text-muted)">{label}</span>
         <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 15, color: barColor }}>
-          {value} <span style={{ fontSize: '0.7rem', fontWeight: 400, color: '#64748B' }}>{unit}</span>
+          {value} <span style={{ fontSize: '0.7rem', fontWeight: 400, color: 'var(--text-muted)' }}>{unit}</span>
         </span>
       </div>
       <div className="progress-bar-wrap">
@@ -31,8 +31,8 @@ function ParameterBar({ label, value, max, unit, color = '#10B981', warning, cri
 
 function SimpleMetricCard({ icon, label, value, unit, color, sub }) {
   return (
-    <div className="card card-sm" style={{ padding: '12px 16px' }}>
-      <div className="metric-label" style={{ marginBottom: 4 }}>{label}</div>
+    <div className="glass-card card-sm" style={{ padding: '12px 16px' }}>
+      <div className="metric-label text-(--text-muted)" style={{ marginBottom: 4 }}>{label}</div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
         <span style={{ fontSize: 22 }}>{icon}</span>
         <div className="metric-value" style={{ fontSize: 22, color: color || 'var(--color-primary)' }}>
@@ -40,7 +40,7 @@ function SimpleMetricCard({ icon, label, value, unit, color, sub }) {
           <span className="metric-unit">{unit}</span>
         </div>
       </div>
-      {sub && <div style={{ fontSize: '0.68rem', color: '#94A3B8', marginTop: 2 }}>{sub}</div>}
+      {sub && <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: 2 }}>{sub}</div>}
     </div>
   );
 }
@@ -82,11 +82,11 @@ export default function Zone2_LifeSupport({ data }) {
           style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: 14 }}
         >
           <div className="flex-between">
-            <span className="section-title">🐟 Aquatic System (RAS)</span>
+            <span className="section-title text-(--text-primary)">🐟 Aquatic System (RAS)</span>
             <select style={{
-              border: '1px solid var(--border-light)', borderRadius: 8,
+              border: '1px solid var(--dashboard-stroke)', borderRadius: 8,
               padding: '4px 10px', fontSize: '0.78rem', cursor: 'pointer',
-              background: '#fff', color: '#64748B',
+              background: 'var(--dashboard-bg-card)', color: 'var(--text-secondary)',
             }}>
               <option>50/50</option><option>70/30</option>
             </select>
@@ -128,13 +128,13 @@ export default function Zone2_LifeSupport({ data }) {
 
           {/* Positive Pressure + Delta T */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-            <div className="card card-sm" style={{ padding: '12px 14px' }}>
-              <div className="metric-label" style={{ marginBottom: 6 }}>Positive Pressure</div>
+            <div className="glass-card card-sm" style={{ padding: '12px 14px' }}>
+              <div className="metric-label text-(--text-muted)" style={{ marginBottom: 6 }}>Positive Pressure</div>
               <GaugeChart value={data.positivePressure} min={0} max={30} unit="Dbar"
                 color="#0EA5E9" size={90} fontSize={16} />
             </div>
-            <div className="card card-sm" style={{ padding: '12px 14px' }}>
-              <div className="metric-label" style={{ marginBottom: 4 }}>Delta T</div>
+            <div className="glass-card card-sm" style={{ padding: '12px 14px' }}>
+              <div className="metric-label text-(--text-muted)" style={{ marginBottom: 4 }}>Delta T</div>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 28, color: '#10B981' }}>
                 Δ {data.deltaT.toFixed(1)}
               </div>
@@ -157,9 +157,9 @@ export default function Zone2_LifeSupport({ data }) {
           <div className="flex-between">
             <span className="section-title">🌱 Terrestrial System</span>
             <select style={{
-              border: '1px solid var(--border-light)', borderRadius: 8,
+              border: '1px solid var(--dashboard-stroke)', borderRadius: 8,
               padding: '4px 10px', fontSize: '0.78rem', cursor: 'pointer',
-              background: '#fff', color: '#64748B',
+              background: 'var(--dashboard-bg-card)', color: 'var(--text-secondary)',
             }}>
               <option>50/50</option><option>30/70</option>
             </select>

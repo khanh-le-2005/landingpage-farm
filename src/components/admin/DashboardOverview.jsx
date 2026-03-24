@@ -24,7 +24,7 @@ const DashboardOverview = ({ filteredAssets }) => {
       {/* Welcome */}
       <div className="flex items-end justify-between">
         <div>
-          <h2 className="text-3xl font-bold">Welcome back, Administrator</h2>
+          <h2 className="text-3xl font-bold text-(--text-primary)">Welcome back, Administrator</h2>
           <p className="text-(--text-secondary) mt-1">Here's what's happening with your aquaponics system today.</p>
         </div>
         <button className="btn-primary flex items-center gap-2 px-6 py-3 bg-green text-white rounded-2xl font-bold shadow-lg shadow-green/20 hover:scale-105 transition-all">
@@ -62,7 +62,7 @@ const DashboardOverview = ({ filteredAssets }) => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
           <div className="bg-(--bg-card) border border-(--glass-border) p-8 rounded-3xl">
-            <h3 className="font-bold text-lg mb-8">System Metrics Analytics</h3>
+            <h3 className="font-bold text-lg mb-8 text-(--text-primary)">System Metrics Analytics</h3>
             <div className="h-[350px] w-full min-w-0">
               <ResponsiveContainer width="100%" height="100%" minHeight={320} minWidth={0}>
                 <AreaChart data={chartData}>
@@ -103,7 +103,7 @@ const DashboardOverview = ({ filteredAssets }) => {
                     <tr key={i} className="hover:bg-(--bg-card-hover) transition-colors group">
                       <td className="px-8 py-4 flex items-center gap-4">
                         <img src={item.src} className="w-10 h-10 rounded-lg object-cover" alt="" />
-                        <span className="font-medium text-sm">{item.title}</span>
+                        <span className="font-medium text-sm text-(--text-primary)">{item.title}</span>
                       </td>
                       <td className="px-8 py-4">
                         <span className="px-2 py-1 rounded-md text-[10px] bg-green/10 text-green font-bold uppercase">{item.category}</span>
@@ -135,7 +135,7 @@ const DashboardOverview = ({ filteredAssets }) => {
                 <div key={i} className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className={`w-2.5 h-2.5 rounded-full ${device.color}`}></div>
-                    <span className="text-sm font-medium">{device.name}</span>
+                    <span className="text-sm font-medium text-(--text-primary)">{device.name}</span>
                   </div>
                   <span className="text-[10px] font-bold text-(--text-muted)">{device.status}</span>
                 </div>
@@ -143,9 +143,9 @@ const DashboardOverview = ({ filteredAssets }) => {
             </div>
           </div>
           <div className="bg-linear-to-br from-green to-green-soft p-8 rounded-3xl text-white shadow-xl shadow-green/20">
-            <h3 className="font-bold text-lg mb-4">AI Optimization</h3>
+            <h3 className="font-bold text-lg mb-4 text-white">AI Optimization</h3>
             <p className="text-white/80 text-sm leading-relaxed mb-6">Efficiency increased by 15% due to automatic pH adjustments.</p>
-            <button className="bg-white text-green font-bold text-xs px-4 py-2 rounded-lg">Apply Auto-Correct</button>
+            <button className="bg-white text-green font-bold text-xs px-4 py-2 rounded-lg cursor-pointer hover:scale-105 transition-transform">Apply Auto-Correct</button>
           </div>
         </div>
       </div>

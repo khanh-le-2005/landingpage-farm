@@ -34,14 +34,14 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, han
         </div>
         <AnimatePresence>
           {isSidebarOpen && (
-            <motion.span 
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -10 }}
-              className="font-bold text-lg whitespace-nowrap"
-            >
-              Farm Admin
-            </motion.span>
+              <motion.span 
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                className="font-bold text-lg whitespace-nowrap text-(--text-primary)"
+              >
+                Farm Admin
+              </motion.span>
           )}
         </AnimatePresence>
       </div>

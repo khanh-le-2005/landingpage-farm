@@ -11,7 +11,7 @@ function BatterySoC({ value }) {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-        <span className="metric-label">🔋 Battery SoC</span>
+        <span className="metric-label text-(--text-muted)">🔋 Battery SoC</span>
         <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 16, color }}>{value}%</span>
       </div>
       <div className="progress-bar-wrap" style={{ height: 16 }}>
@@ -39,17 +39,17 @@ function TaskRow({ task, index }) {
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '8px 12px',
         borderRadius: 10,
-        background: task.completed ? 'linear-gradient(90deg, #D1FAE5, #ECFDF5)' : 'var(--bg-panel)',
-        border: `1px solid ${task.completed ? '#A7F3D0' : 'var(--border-light)'}`,
+        background: task.completed ? 'var(--color-green-glow)' : 'var(--dashboard-bg-item)',
+        border: `1px solid ${task.completed ? 'var(--color-green)' : 'var(--dashboard-stroke)'}`,
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
         <span style={{ fontSize: 16 }}>{task.completed ? '✅' : '⏳'}</span>
-        <span style={{ fontSize: '0.82rem', fontWeight: 500, color: '#1E293B' }}>{task.name}</span>
+        <span style={{ fontSize: '0.82rem', fontWeight: 500, color: 'var(--text-primary)' }}>{task.name}</span>
       </div>
       <span style={{
         fontSize: '0.75rem', fontWeight: 600,
-        color: task.completed ? '#10B981' : '#94A3B8',
+        color: task.completed ? 'var(--color-green)' : 'var(--text-muted)',
       }}>
         {task.completed ? `✓ ${task.amount}` : `Pending`}
       </span>
@@ -76,9 +76,9 @@ export default function Zone3_Resources({ data }) {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 20 }}>
 
         {/* ===== COL 1: ENERGY ===== */}
-        <motion.div className="card" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+        <motion.div className="glass-card" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
           style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <div className="section-title">☀️ Power Balance (Năng Lượng)</div>
+          <div className="section-title text-(--text-primary)">☀️ Power Balance (Năng Lượng)</div>
 
           {/* Energy bar chart */}
           <div>
@@ -122,14 +122,14 @@ export default function Zone3_Resources({ data }) {
         </motion.div>
 
         {/* ===== COL 2: WATER ===== */}
-        <motion.div className="card" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+        <motion.div className="glass-card" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.08 }}
           style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: 14 }}>
-          <div className="section-title" style={{ textAlign: 'center' }}>💧 Quản Trị Nước</div>
+          <div className="section-title text-(--text-primary)" style={{ textAlign: 'center' }}>💧 Quản Trị Nước</div>
 
           {/* Buffer Tank Gauge */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-            <div style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 600 }}>Buffer Tank — 3,000L</div>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600 }}>Buffer Tank — 3,000L</div>
             <GaugeChart
               value={data.bufferTankPct} min={0} max={100}
               unit="%" label="" color={tankColor}
@@ -195,13 +195,13 @@ export default function Zone3_Resources({ data }) {
               { label: 'Total Feed', value: `${data.totalFeed} kg`, icon: '🌾' },
               { label: 'Fish Weight', value: `${data.fishWeight} kg`, icon: '🐟' },
               { label: 'Plant Density', value: `${data.plantDensity} kg/m²`, icon: '🌱' },
-              { label: 'Status', value: '▼ Ổn định', icon: '✅', color: '#10B981' },
+              { label: 'Status', value: '▼ Ổn định', icon: '✅', color: 'var(--color-green)' },
             ].map((s, i) => (
-              <div key={i} className="card card-sm"
-                style={{ padding: '10px 12px', background: 'var(--bg-panel)' }}>
+              <div key={i} className="glass-card card-sm"
+                style={{ padding: '10px 12px', background: 'var(--dashboard-bg-item)' }}>
                 <div style={{ fontSize: 18, marginBottom: 2 }}>{s.icon}</div>
-                <div style={{ fontSize: '0.68rem', color: '#64748B' }}>{s.label}</div>
-                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 14, color: s.color || '#1E293B' }}>{s.value}</div>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>{s.label}</div>
+                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 14, color: s.color || 'var(--text-primary)' }}>{s.value}</div>
               </div>
             ))}
           </div>

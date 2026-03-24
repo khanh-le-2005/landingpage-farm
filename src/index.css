@@ -55,6 +55,13 @@
   --text-primary: rgba(255, 255, 255, 0.95);
   --text-secondary: rgba(255, 255, 255, 0.80);
   --text-muted: rgba(255, 255, 255, 0.45);
+
+  /* === Dashboard Specific === */
+  --dashboard-bg-deep: #050505;
+  --dashboard-bg-card: #0d0d0d;
+  --dashboard-bg-item: #151515;
+  --dashboard-stroke: rgba(255, 255, 255, 0.08);
+  --dashboard-stroke-strong: rgba(255, 255, 255, 0.15);
 }
 
 [data-theme="light"] {
@@ -68,12 +75,19 @@
   /* Adjust accents for light mode visibility */
   --color-green: #059669;
   --color-aqua: #0284C7;
-  --color-gold: #D97706;
+  --color-gold: #B45309;
 
   /* === Text === */
   --text-primary: #0F172A;
-  --text-secondary: #475569;
-  --text-muted: #94A3B8;
+  --text-secondary: #334155;
+  --text-muted: #64748B;
+
+  /* === Dashboard Specific (High Contrast) === */
+  --dashboard-bg-deep: #F1F5F9;
+  --dashboard-bg-card: #FFFFFF;
+  --dashboard-bg-item: #FBFCFE;
+  --dashboard-stroke: rgba(15, 23, 42, 0.12);
+  --dashboard-stroke-strong: rgba(15, 23, 42, 0.25);
 
   --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
 }

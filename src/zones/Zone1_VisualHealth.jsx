@@ -25,10 +25,10 @@ function CameraCell({ cam, index }) {
       boxShadow: cam.status === 'alert' ? '0 0 0 3px #FEE2E2' : undefined,
     }}>
       {/* Simulated fish silhouettes */}
-      <svg viewBox="0 0 100 75" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.4 }}>
-        <ellipse cx={30} cy={35} rx={14} ry={7} fill="#fff" transform="rotate(-15 30 35)" />
-        <ellipse cx={60} cy={25} rx={10} ry={5} fill="#fff" transform="rotate(10 60 25)" />
-        <ellipse cx={75} cy={55} rx={12} ry={6} fill="#fff" transform="rotate(-30 75 55)" />
+      <svg viewBox="0 0 100 75" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.3 }}>
+        <ellipse cx={30} cy={35} rx={14} ry={7} fill="currentColor" className="text-white/40" transform="rotate(-15 30 35)" />
+        <ellipse cx={60} cy={25} rx={10} ry={5} fill="currentColor" className="text-white/40" transform="rotate(10 60 25)" />
+        <ellipse cx={75} cy={55} rx={12} ry={6} fill="currentColor" className="text-white/40" transform="rotate(-30 75 55)" />
       </svg>
 
       {/* YOLO bounding box overlay */}
@@ -50,11 +50,11 @@ function CameraCell({ cam, index }) {
       {/* Label */}
       <div style={{
         position: 'absolute', bottom: 0, left: 0, right: 0,
-        background: 'linear-gradient(transparent, rgba(0,0,0,0.7))',
+        background: 'linear-gradient(transparent, rgba(0,0,0,0.8))',
         padding: '6px 8px 5px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       }}>
-        <span style={{ fontSize: '0.66rem', color: '#fff', fontWeight: 600 }}>📹 {cam.label}</span>
+        <span style={{ fontSize: '0.66rem', color: 'white', fontWeight: 600 }}>📹 {cam.label}</span>
         <span style={{
           width: 7, height: 7, borderRadius: '50%',
           background: cam.status === 'alert' ? '#EF4444' : '#22FF88',
@@ -68,9 +68,9 @@ function CameraCell({ cam, index }) {
 
 function PlantMetricRow({ metric, index, onAction }) {
   const bgMap = {
-    success: 'linear-gradient(90deg, #D1FAE5, #ECFDF5)',
-    warning: 'linear-gradient(90deg, #FEF3C7, #FFFBEB)',
-    danger:  'linear-gradient(90deg, #FEE2E2, #FFF1F1)',
+    success: 'rgba(16, 185, 129, 0.1)',
+    warning: 'rgba(245, 158, 11, 0.1)',
+    danger:  'rgba(239, 68, 68, 0.1)',
   };
   const borderMap = { success: '#10B981', warning: '#F59E0B', danger: '#EF4444' };
 
@@ -86,18 +86,19 @@ function PlantMetricRow({ metric, index, onAction }) {
         borderRadius: '0 10px 10px 0',
         padding: '10px 14px',
         gap: 10,
+        boxShadow: 'var(--shadow-card)',
       }}
     >
       <div style={{ minWidth: 80 }}>
-        <div style={{ fontSize: '0.72rem', fontWeight: 600, color: '#475569' }}>{metric.label}</div>
+        <div style={{ fontSize: '0.72rem', fontWeight: 600, color: 'var(--text-secondary)' }}>{metric.label}</div>
         <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 22, color: borderMap[metric.status] }}>
           {metric.value}%
         </div>
       </div>
       {metric.pctRight != null && (
         <div style={{ flex: 1, textAlign: 'center' }}>
-          <div style={{ fontSize: '0.65rem', color: '#64748B', marginBottom: 2 }}>Patch Yf</div>
-          <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 18, color: '#1E293B' }}>
+          <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', marginBottom: 2 }}>Patch Yf</div>
+          <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 18, color: 'var(--text-primary)' }}>
             {metric.pctRight}%
           </div>
         </div>
@@ -132,15 +133,15 @@ export default function Zone1_VisualHealth({ data }) {
       {/* LEFT PANEL */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         {/* Camera grid */}
-        <motion.div className="card" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+        <motion.div className="glass-card" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
           style={{ padding: 16 }}>
           <div className="flex-between" style={{ marginBottom: 12 }}>
-            <span className="section-title">🐟 RAS AI Fish Tracking</span>
+            <span className="section-title text-(--text-primary)">🐟 RAS AI Fish Tracking</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontSize: '0.72rem', color: '#64748B' }}>
+              <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
                 <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#10B981', display: 'inline-block', marginRight: 4 }} />Normal
               </span>
-              <span style={{ fontSize: '0.72rem', color: '#64748B' }}>
+              <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
                 <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#EF4444', display: 'inline-block', marginRight: 4 }} />Lethargy
               </span>
             </div>
@@ -153,7 +154,7 @@ export default function Zone1_VisualHealth({ data }) {
         </motion.div>
 
         {/* Fish Gauges */}
-        <motion.div className="card" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+        <motion.div className="glass-card" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
           style={{ padding: '16px 20px' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8, justifyItems: 'center' }}>
@@ -164,10 +165,10 @@ export default function Zone1_VisualHealth({ data }) {
         </motion.div>
 
         {/* Predictive Insights */}
-        <motion.div className="card" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+        <motion.div className="glass-card" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
           style={{ padding: '14px 18px' }}>
-          <div className="section-title" style={{ marginBottom: 10 }}>📈 Predictive Insights</div>
+          <div className="section-title text-(--text-primary)" style={{ marginBottom: 10 }}>📈 Predictive Insights</div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <div>
               <div className="metric-label" style={{ marginBottom: 4 }}>Velocity Trend</div>
@@ -187,10 +188,10 @@ export default function Zone1_VisualHealth({ data }) {
       {/* RIGHT PANEL – Thermal / Multispectral AI */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         {/* AI Score */}
-        <motion.div className="card" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
+        <motion.div className="glass-card" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
           style={{ padding: '16px 20px' }}>
           <div className="flex-between" style={{ marginBottom: 12 }}>
-            <span className="section-title">🌡️ Thermal & Multispectral AI</span>
+            <span className="section-title text-(--text-primary)">🌡️ Thermal & Multispectral AI</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <span className="metric-label">AI Score</span>
               <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 28, color: '#10B981' }}>

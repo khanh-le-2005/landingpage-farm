@@ -41,16 +41,16 @@ function WaterPipeline({ data }) {
         {nodes.map((n) => (
           <g key={n.id}>
             {/* Circle */}
-            <circle cx={n.x} cy={n.y} r={44} fill="#FFFFFF" stroke={n.color} strokeWidth={2.5}
+            <circle cx={n.x} cy={n.y} r={44} fill="var(--dashboard-bg-card)" stroke={n.color} strokeWidth={2.5}
               style={{ filter: `drop-shadow(0 4px 8px ${n.color}30)` }} />
             {/* Icon */}
             <text x={n.x} y={n.y - 6} textAnchor="middle" fontSize={22}>{n.icon}</text>
             {/* Label */}
             <text x={n.x} y={n.y + 12} textAnchor="middle" fontSize={9} fontWeight="600"
-              fill="#1E293B" fontFamily="Inter, sans-serif">{n.label}</text>
+              fill="var(--text-primary)" fontFamily="Inter, sans-serif">{n.label}</text>
             {/* Flow */}
             <text x={n.x} y={n.y + 24} textAnchor="middle" fontSize={8}
-              fill="#64748B" fontFamily="Inter, sans-serif">{n.flow}</text>
+              fill="var(--text-muted)" fontFamily="Inter, sans-serif">{n.flow}</text>
           </g>
         ))}
       </svg>
@@ -103,13 +103,13 @@ export default function Zone0_Environment({ data }) {
 
       {/* Water Flow Pipeline */}
       <motion.div
-        className="card"
+        className="glass-card"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         style={{ padding: '20px 24px' }}
       >
-        <div className="section-title" style={{ marginBottom: 8 }}>💧 Water Flow Matrix</div>
+        <div className="section-title text-(--text-primary)" style={{ marginBottom: 8 }}>💧 Water Flow Matrix</div>
         <WaterPipeline data={data} />
       </motion.div>
 
@@ -160,13 +160,13 @@ export default function Zone0_Environment({ data }) {
 
       {/* Main flow rate summary */}
       <motion.div
-        className="card"
+        className="glass-card"
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.35 }}
         style={{ padding: '18px 24px' }}
       >
-        <div className="section-title" style={{ marginBottom: 12 }}>📊 Flow Rate Summary</div>
+        <div className="section-title text-(--text-primary)" style={{ marginBottom: 12 }}>📊 Flow Rate Summary</div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
           {[
             { label: 'Main Intake', value: data.flowRateMain, color: '#10B981' },
