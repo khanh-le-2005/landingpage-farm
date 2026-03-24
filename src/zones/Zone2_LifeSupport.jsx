@@ -214,18 +214,29 @@ export default function Zone2_LifeSupport({ data }) {
               </div>
             </div>
 
-            {/* Leaf Temperature */}
-            <div className="bg-[#1a1a1e] border border-white/5 rounded-2xl p-5 flex flex-col">
-              <span className="text-[10px] font-black text-gray-400 uppercase mb-4 tracking-widest">Leaf Temperature</span>
-              <div className="flex items-center gap-4">
-                 <div className="text-3xl">🌡️</div>
-                 <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-black italic tracking-tighter">{data.leafTemp}</span>
-                    <span className="text-xl font-bold opacity-20">°C</span>
+            {/* Leaf Temperature - Thermal Grid Overlay */}
+            <div className="bg-[#1a1a1e] border border-white/5 rounded-2xl p-6 relative col-span-2">
+              <h3 className="text-sm font-black text-white uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+                🌡️ THERMAL GRID OVERLAY
+              </h3>
+              
+              <div className="aspect-2/1 bg-linear-to-br from-[#1a0f0a] via-[#1a1505] to-[#0a1a0a] rounded-xl relative overflow-hidden border border-white/5 shadow-inner flex items-center justify-center">
+                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,100,0,0.15),transparent)]" />
+                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(0,255,100,0.05),transparent)]" />
+                 
+                 <div className="relative z-10 text-center">
+                     <span className="text-5xl font-black italic text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">{data.leafTemp}°C</span>
+                     <p className="text-[9px] font-black text-white/50 uppercase tracking-[0.4em] mt-3">LEAF CANOPY TEMP</p>
                  </div>
+                 
+                 {/* Hotspot tracking */}
+                 <motion.div 
+                   animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.8, 0.3] }} 
+                   transition={{ duration: 1.5, repeat: Infinity }} 
+                   className="absolute top-[35%] left-[25%] w-3 h-3 rounded-full border border-red-500 shadow-[0_0_10px_red]" 
+                 />
               </div>
             </div>
-
             {/* Salinity */}
             <div className="bg-[#1a1a1e] border border-white/5 rounded-2xl p-5 flex flex-col">
                <span className="text-[10px] font-black text-gray-400 mb-4 uppercase tracking-widest">Salinity</span>
