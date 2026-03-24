@@ -62,167 +62,158 @@ export default function Zone3_Resources({ data }) {
                   : data.bufferTankPct > 30 ? '#F59E0B' : '#EF4444';
 
   return (
-    <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: 20 }}>
-      {/* Header */}
+    <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {/* Header - Shrunk */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-        style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <div className="live-dot" />
-        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-          ⚡ Resource & Efficiency
+        <h2 className="text-lg font-black text-(--text-primary) uppercase tracking-tighter">
+          ⚡ Khu vực III: Resources & Efficiency
         </h2>
       </motion.div>
 
-      {/* 3-Column Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 20 }}>
+      {/* 3-Column Grid - reduced gap */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16 }}>
 
-        {/* ===== COL 1: ENERGY ===== */}
-        <motion.div className="glass-card" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-          style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <div className="section-title text-(--text-primary)">☀️ Power Balance (Năng Lượng)</div>
-
-          {/* Energy bar chart */}
-          <div>
-            <div style={{ fontSize: '0.75rem', color: '#64748B', marginBottom: 8 }}>
-              Energy Per Hour (5 gần nhất)
+        {/* ===== COL 1: ENERGY (Năng Lượng) ===== */}
+        <motion.div className="glass-card bg-(--dashboard-bg-card)" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+          style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div className="flex-between">
+            <div className="flex flex-col">
+              <span className="text-lg font-black text-(--text-primary) uppercase tracking-tighter">Power Balance</span>
+              <span className="text-[9px] font-bold text-amber-500 uppercase mt-0.5">Solar vs Load</span>
             </div>
-            <ResponsiveContainer width="100%" height={160}>
-              <BarChart data={data.energyData} margin={{ top: 0, right: 0, bottom: 0, left: -20 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" />
-                <XAxis dataKey="label" tick={{ fontSize: 10, fill: '#94A3B8' }} />
-                <YAxis tick={{ fontSize: 10, fill: '#94A3B8' }} />
-                <Tooltip
-                  contentStyle={{ borderRadius: 10, fontSize: '0.75rem', border: '1px solid #E2E8F0' }}
-                  formatter={(v, n) => [`${v} kWh`, n === 'gen' ? 'Thu (Generated)' : 'Chi (Consumed)']}
-                />
-                <Legend iconSize={10} wrapperStyle={{ fontSize: '0.75rem' }}
-                  formatter={(v) => v === 'gen' ? 'Thu được' : 'Tiêu thụ'} />
-                <Bar dataKey="gen" fill="#10B981" radius={[4,4,0,0]} name="gen" isAnimationActive={false} />
-                <Bar dataKey="use" fill="#F59E0B" radius={[4,4,0,0]} name="use" isAnimationActive={false} />
+          </div>
+
+          {/* Energy Bar Chart (Cột kép) - Shrunk */}
+          <div className="bg-black/5 p-3 rounded-2xl border border-(--dashboard-stroke)">
+            <div className="flex justify-between items-center mb-3">
+              <span className="text-[9px] font-black text-(--text-muted) uppercase">Production vs Consumption</span>
+              <div className="flex items-center gap-1.5">
+                <span className="text-xs font-black text-green">Δ +{data.energyDelta}</span>
+                <span className="text-[8px] animate-bounce">↗</span>
+              </div>
+            </div>
+            <ResponsiveContainer width="100%" height={120}>
+              <BarChart data={data.energyData} margin={{ top: 0, right: 0, bottom: 0, left: -25 }}>
+                <XAxis dataKey="label" tick={{ fontSize: 8, fill: 'var(--text-muted)' }} axisLine={false} tickLine={false} />
+                <Tooltip contentStyle={{ borderRadius: 12, fontSize: '9px', fontWeight: 'bold' }} />
+                <Bar dataKey="gen" fill="#10B981" radius={[4,4,0,0]} name="Thu (Solar)" />
+                <Bar dataKey="use" fill="#F59E0B" radius={[4,4,0,0]} name="Tiêu thụ" />
               </BarChart>
             </ResponsiveContainer>
-            <div style={{ textAlign: 'right', fontSize: '0.78rem', color: '#10B981', fontWeight: 600 }}>
-              Δ +{data.energyDelta} kWh surplus
-            </div>
           </div>
 
           <BatterySoC value={data.batterySoC} />
 
-          {/* Alert */}
-          <div style={{
-            background: '#FEF3C7', borderRadius: 10, padding: '10px 14px',
-            border: '1px solid #FDE68A',
-          }}>
-            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#92400E', marginBottom: 4 }}>
-              ⚠️ Hệ cảnh báo thông minh
-            </div>
-            <div style={{ fontSize: '0.70rem', color: '#78350F', lineHeight: 1.5 }}>
-              Tam giác vàng: Hiệu suất Solar giảm &gt;15% — Tự kích hoạt Robot vệ sinh Dry-Cleaning.
-            </div>
+          {/* Smart Alert Solar */}
+          <div className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl flex gap-3">
+             <div className="text-2xl">⚠️</div>
+             <div className="flex flex-col">
+                <span className="text-[10px] font-black text-amber-600 uppercase">Hiệu suất Solar giảm &gt;15%</span>
+                <span className="text-[10px] font-bold text-(--text-primary) mt-1 leading-relaxed">
+                  Tự động kích hoạt Robot vệ sinh Dry-Cleaning do bụi cát.
+                </span>
+             </div>
           </div>
         </motion.div>
 
-        {/* ===== COL 2: WATER ===== */}
-        <motion.div className="glass-card" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+        {/* ===== COL 2: WATER (Quản Trị Nước) ===== */}
+        <motion.div className="glass-card bg-(--dashboard-bg-card)" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.08 }}
-          style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: 14 }}>
-          <div className="section-title text-(--text-primary)" style={{ textAlign: 'center' }}>💧 Quản Trị Nước</div>
-
-          {/* Buffer Tank Gauge */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600 }}>Buffer Tank — 3,000L</div>
-            <GaugeChart
-              value={data.bufferTankPct} min={0} max={100}
-              unit="%" label="" color={tankColor}
-              size={140} fontSize={30}
-            />
-            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 22, color: tankColor }}>
-              {Math.round(data.bufferTankPct * 30)}L / 3,000L
+          style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div className="flex-between">
+            <div className="flex flex-col">
+              <span className="text-xl font-black text-(--text-primary) uppercase">Water Governance</span>
+              <span className="text-[10px] font-bold text-blue-500 uppercase mt-1">Quản trị tài nguyên</span>
             </div>
           </div>
 
-          {/* TEC Recovery */}
-          <div style={{ background: '#F0FDF4', borderRadius: 10, padding: '12px 14px', border: '1px solid #A7F3D0' }}>
-            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#166534', marginBottom: 6 }}>
-              ♻️ TEC Recovery (Thu hồi)
+          {/* 3D Buffer Tank representation */}
+          <div className="h-44 bg-black/5 rounded-3xl border border-(--dashboard-stroke) relative overflow-hidden flex flex-col items-center justify-center">
+            <div className="absolute inset-0 bg-linear-to-b from-transparent to-blue-500/10" />
+            <div className="relative z-10 flex flex-col items-center">
+              <div className="w-20 h-32 border-2 border-white/20 rounded-xl relative overflow-hidden bg-black/20">
+                 <motion.div 
+                   className="absolute bottom-0 left-0 right-0 bg-blue-500/80"
+                   initial={{ height: '0%' }}
+                   animate={{ height: `${data.bufferTankPct}%` }}
+                   transition={{ duration: 2, ease: "easeOut" }}
+                 >
+                   <div className="absolute top-0 left-0 right-0 h-1 bg-white/30 animate-pulse" />
+                 </motion.div>
+              </div>
+              <span className="text-2xl font-black mt-3 italic">{typeof data.bufferTankPct === 'number' ? data.bufferTankPct.toFixed(1) : data.bufferTankPct}%</span>
+              <span className="text-[9px] font-bold opacity-30 uppercase">Buffer Tank — 3,000L</span>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', color: '#1E293B' }}>
-              <span>Hôm nay (L/h)</span>
-              <span style={{ fontWeight: 700, color: '#10B981' }}>+5% vs hôm qua</span>
-            </div>
-            <div style={{ fontSize: '0.72rem', color: '#64748B', marginTop: 4 }}>
-              Thu hồi {data.tecRecovery}% / Tiêu thụ 100% / RO 35%
-            </div>
+          </div>
+
+          {/* Water Sourcing Ratio */}
+          <div className="p-4 bg-blue-500/5 border border-blue-500/10 rounded-2xl">
+             <div className="flex justify-between items-center mb-3">
+                <span className="text-[10px] font-black text-blue-600 uppercase">Water Sourcing Ratio</span>
+                <span className="text-[10px] font-black text-green uppercase">TEC +5%</span>
+             </div>
+             <div className="flex h-2 rounded-full overflow-hidden bg-black/10">
+                <div className="h-full bg-blue-500" style={{ width: '65%' }} title="Tự chủ (TEC)" />
+                <div className="h-full bg-amber-500" style={{ width: '35%' }} title="Phụ thuộc (RO)" />
+             </div>
+             <div className="flex justify-between mt-2 text-[8px] font-black uppercase text-(--text-muted)">
+                <span>Tự chủ (TEC): 65%</span>
+                <span>Phụ thuộc (RO): 35%</span>
+             </div>
           </div>
 
           {/* TEC Task Manager */}
-          <div>
-            <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#1E293B', marginBottom: 8 }}>
-              📋 TEC Task Manager
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {data.tecTasks.map((t, i) => <TaskRow key={i} task={t} index={i} />)}
-            </div>
+          <div className="space-y-2">
+            <span className="text-[10px] font-black uppercase text-(--text-muted) pl-2">📋 TEC Task Manager</span>
+            {data.tecTasks.map((t, i) => <TaskRow key={i} task={t} index={i} />)}
           </div>
         </motion.div>
 
-        {/* ===== COL 3: YIELD ===== */}
-        <motion.div className="card" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+        {/* ===== COL 3: YIELD & FCR (Sản Lượng) ===== */}
+        <motion.div className="glass-card bg-(--dashboard-bg-card)" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.16 }}
-          style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: 14 }}>
-          <div className="section-title">📊 Dự Báo Sản Lượng (Yield & FCR)</div>
-
-          {/* Biomass chart */}
-          <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-              <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>Biomass Monitor</span>
-              <span style={{ fontSize: '0.72rem', color: '#64748B' }}>Plant Density (m)</span>
+          style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div className="flex-between">
+            <div className="flex flex-col">
+              <span className="text-xl font-black text-(--text-primary) uppercase">Yield & FCR</span>
+              <span className="text-[10px] font-bold text-green uppercase mt-1">Dự báo sản lượng</span>
             </div>
-            <ResponsiveContainer width="100%" height={110}>
-              <LineChart data={data.biomassData} margin={{ top: 4, right: 4, bottom: 0, left: -24 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" />
-                <XAxis dataKey="day" tick={{ fontSize: 9, fill: '#94A3B8' }} />
-                <YAxis tick={{ fontSize: 9, fill: '#94A3B8' }} />
-                <Tooltip contentStyle={{ fontSize: '0.72rem', borderRadius: 8 }} />
-                <Line type="monotone" dataKey="density" stroke="#0EA5E9" strokeWidth={2}
-                  dot={false} isAnimationActive={false} />
-              </LineChart>
+          </div>
+
+          <div className="bg-black/5 p-4 rounded-2xl border border-(--dashboard-stroke)">
+            <span className="text-[10px] font-black text-(--text-muted) uppercase mb-3 block">Biomass Monitor</span>
+            <ResponsiveContainer width="100%" height={100}>
+               <LineChart data={data.biomassData}>
+                 <Line type="monotone" dataKey="density" stroke="#10B981" strokeWidth={3} dot={false} />
+                 <Tooltip contentStyle={{ borderRadius: 12, fontSize: '10px' }} />
+               </LineChart>
             </ResponsiveContainer>
           </div>
 
-          {/* Stats */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-            {[
-              { label: 'Total Feed', value: `${data.totalFeed} kg`, icon: '🌾' },
-              { label: 'Fish Weight', value: `${data.fishWeight} kg`, icon: '🐟' },
-              { label: 'Plant Density', value: `${data.plantDensity} kg/m²`, icon: '🌱' },
-              { label: 'Status', value: '▼ Ổn định', icon: '✅', color: 'var(--color-green)' },
-            ].map((s, i) => (
-              <div key={i} className="glass-card card-sm"
-                style={{ padding: '10px 12px', background: 'var(--dashboard-bg-item)' }}>
-                <div style={{ fontSize: 18, marginBottom: 2 }}>{s.icon}</div>
-                <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>{s.label}</div>
-                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 14, color: s.color || 'var(--text-primary)' }}>{s.value}</div>
-              </div>
-            ))}
+          <div className="grid grid-cols-2 gap-4">
+             <div className="p-3 bg-black/5 rounded-2xl border border-(--dashboard-stroke)">
+                <span className="text-[9px] font-black text-(--text-muted) uppercase">Total Feed</span>
+                <div className="text-xl font-black italic mt-1">{data.totalFeed}<span className="text-[9px] font-bold opacity-30 ml-1">kg</span></div>
+             </div>
+             <div className="p-3 bg-black/5 rounded-2xl border border-(--dashboard-stroke)">
+                <span className="text-[9px] font-black text-(--text-muted) uppercase">Estimated Weight</span>
+                <div className="text-xl font-black italic mt-1 text-green">{data.fishWeight}<span className="text-[9px] font-bold opacity-30 ml-1">kg</span></div>
+             </div>
           </div>
 
-          {/* FCR Alert */}
-          <div style={{
-            background: '#FFFBEB', borderRadius: 10, padding: '12px 14px',
-            border: '1px solid #FDE68A',
-          }}>
-            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#92400E', marginBottom: 6 }}>
-              ⚠️ FCR Alerts
-            </div>
-            <div style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
-              <span style={{ fontSize: 18, flexShrink: 0 }}>🔺</span>
-              <div style={{ fontSize: '0.70rem', color: '#78350F', lineHeight: 1.5 }}>
-                Tam giác vàng khi FCR vọt lên — Cá ăn nhiều nhưng không tăng trọng lượng. Kiểm tra sức khỏe cá ao số 3.
-              </div>
-            </div>
-            <div style={{ marginTop: 8, padding: '8px 10px', background: '#FEF9C3', borderRadius: 8, fontSize: '0.7rem', color: '#713F12' }}>
-              🤖 Phân tích AI: {data.fcrAlert}
-            </div>
+          <div className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl">
+             <div className="flex items-center gap-2 mb-2">
+                <span className="text-lg">⚠️</span>
+                <span className="text-[10px] font-black text-amber-600 uppercase tracking-widest">FCR Alerts (Bất thường)</span>
+             </div>
+             <p className="text-[10px] font-bold text-(--text-primary) leading-relaxed">
+               "Cảnh báo: FCR bất thường tại ao số 3 - Kiểm tra sức khỏe cá hoặc máy cho ăn."
+             </p>
+             <div className="mt-4 p-3 bg-white/20 rounded-xl text-[9px] font-black uppercase text-amber-700 italic">
+               🤖 AI analysis: {data.fcrAlert || "Cá ăn nhiều nhưng không tăng trọng tương ứng."}
+             </div>
           </div>
         </motion.div>
       </div>

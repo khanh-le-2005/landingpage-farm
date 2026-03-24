@@ -6,34 +6,27 @@ function WaterPipeline({ data }) {
   const flowColor = '#0EA5E9';
   const pipeColor = '#E2E8F0';
   const nodes = [
-    { id: 'fish', label: 'Fish Tanks', x: 60,  y: 80,  icon: '🐟', flow: `${data.flowRateMain} L/h`, color: '#10B981' },
-    { id: 'bio',  label: 'Biofilter',  x: 220, y: 80,  icon: '🔬', flow: `${data.flowRateBio} L/h`,  color: '#0EA5E9' },
-    { id: 'grow', label: 'Grow Beds',  x: 380, y: 80,  icon: '🌱', flow: `${data.flowRateGrow} L/h`, color: '#8B5CF6' },
-    { id: 'sump', label: 'Sump Tank',  x: 540, y: 80,  icon: '💧', flow: '→ Recirculate',           color: '#F59E0B' },
+    { id: 'well',   label: 'Nguồn (Well)',     x: 80,  y: 80,  icon: '🚰', flow: `T: ${data.tempWell}°C`, sub: `S: ${data.salinityWell}ppt`, color: '#0EA5E9' },
+    { id: 'hdpe',   label: 'Xử lý (HDPE)',     x: 320, y: 80,  icon: '🛡️', flow: `T: ${data.tempHDPE}°C`, sub: 'Pre-process', color: '#10B981' },
+    { id: 'buffer', label: 'Đích (Buffer)',    x: 560, y: 80,  icon: '⛱',  flow: `T: ${data.tempTarget}°C`, sub: `S: ${data.salinityTarget}ppt`, color: '#8B5CF6' },
   ];
 
   return (
     <div style={{ padding: '20px 0 10px' }}>
       <svg viewBox="0 0 640 160" style={{ width: '100%', height: 'auto', overflow: 'visible' }}>
         {/* Pipes */}
-        {[130, 290, 450].map((x, i) => (
+        {[180, 420].map((x, i) => (
           <g key={i}>
-            <line x1={x} y1={80} x2={x + 80} y2={80} stroke={pipeColor} strokeWidth={8} strokeLinecap="round" />
-            {/* Animated flow */}
+            <line x1={x} y1={80} x2={x + 60} y2={80} stroke={pipeColor} strokeWidth={8} strokeLinecap="round" />
             <line
-              x1={x} y1={80} x2={x + 80} y2={80}
+              x1={x} y1={80} x2={x + 60} y2={80}
               stroke={flowColor}
               strokeWidth={4}
               strokeLinecap="round"
               strokeDasharray="12 20"
               style={{ animation: 'flow-water 1.2s linear infinite' }}
             />
-            {/* Arrow */}
-            <polygon
-              points={`${x+82},74 ${x+94},80 ${x+82},86`}
-              fill={flowColor}
-              opacity={0.7}
-            />
+            <polygon points={`${x+62},74 ${x+74},80 ${x+62},86`} fill={flowColor} opacity={0.7} />
           </g>
         ))}
 
@@ -50,7 +43,9 @@ function WaterPipeline({ data }) {
               fill="var(--text-primary)" fontFamily="Inter, sans-serif">{n.label}</text>
             {/* Flow */}
             <text x={n.x} y={n.y + 24} textAnchor="middle" fontSize={8}
-              fill="var(--text-muted)" fontFamily="Inter, sans-serif">{n.flow}</text>
+              fill="var(--text-primary)" fontWeight="700" fontFamily="Inter, sans-serif">{n.flow}</text>
+            <text x={n.x} y={n.y + 34} textAnchor="middle" fontSize={7}
+              fill="var(--text-muted)" fontFamily="Inter, sans-serif">{n.sub}</text>
           </g>
         ))}
       </svg>
@@ -93,12 +88,18 @@ export default function Zone0_Environment({ data }) {
   return (
     <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: 20 }}>
       {/* Header */}
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <div className="live-dot" />
-        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-          🌿 Environment Manager
-        </h2>
-        <span className="badge badge-success">LIVE</span>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div className="live-dot" />
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+            🌿 Environment Manager
+          </h2>
+          <span className="badge badge-success">LIVE</span>
+        </div>
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: 10 }}>
+          <span className="text-[10px] font-black uppercase text-(--text-muted) tracking-widest bg-(--dashboard-bg-item) px-3 py-1 rounded-lg border border-(--dashboard-stroke)">KEZAD, Abu Dhabi</span>
+          <span className="text-[10px] font-black uppercase text-(--text-muted) tracking-widest bg-(--dashboard-bg-item) px-3 py-1 rounded-lg border border-(--dashboard-stroke)">Total: 1,500 m²</span>
+        </div>
       </motion.div>
 
       {/* Water Flow Pipeline */}
@@ -113,46 +114,45 @@ export default function Zone0_Environment({ data }) {
         <WaterPipeline data={data} />
       </motion.div>
 
-      {/* Climate cards + Delta Pressure */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14 }}>
-        <ClimateCard icon="🌡️" label="Water Temp"       value={data.waterTemp}          unit="°C"   color="var(--color-primary)"   delay={0.1} />
-        <ClimateCard icon="🧂" label="Salinity"          value={data.salinity}           unit=" ppt" color="var(--color-secondary)"  delay={0.15} />
-        <ClimateCard icon="💦" label="Greenhouse Humidity" value={data.humidity}         unit="%"    color="#8B5CF6"                 delay={0.2} />
-        <ClimateCard icon="🌤️" label="Air Temp"          value={data.airTempGreenhouse} unit="°C"   color="#F59E0B"                 delay={0.25} />
+      {/* Cụm áp suất và khí hậu (Climate and Pressure) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Cột 1: Môi trường BÊN TRONG */}
+        <div className="flex flex-col gap-4">
+          <div className="text-[10px] font-black uppercase text-green pl-2 tracking-widest">● Internal Environment</div>
+          <ClimateCard icon="🌡️" label="Internal Temp" value={data.airTempGreenhouse} unit="°C" color="#10B981" delay={0.1} />
+          <ClimateCard icon="💦" label="Internal Humidity" value={data.humidity} unit="%" color="#0EA5E9" delay={0.15} />
+        </div>
 
-        {/* Delta Pressure — alerts if < 7 */}
+        {/* Cột 2: Môi trường BÊN NGOÀI */}
+        <div className="flex flex-col gap-4">
+          <div className="text-[10px] font-black uppercase text-amber-500 pl-2 tracking-widest">● External Forecast</div>
+          <ClimateCard icon="☀️" label="External Temp" value={data.outerTemp || 42.5} unit="°C" color="#F59E0B" delay={0.2} />
+          <ClimateCard icon="💨" label="External Humidity" value={data.outerHumidity || 15} unit="%" color="#64748B" delay={0.25} />
+        </div>
+
+        {/* Cột 3: Delta Pressure */}
         <motion.div
           className={`card${isAlertDP ? ' critical-alert' : ''}`}
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
-          style={{ padding: '16px 20px' }}
+          style={{ padding: '20px' }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-            <span className="metric-label">ΔP Pressure</span>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+            <span className="text-[10px] font-black uppercase tracking-widest text-(--text-muted)">ΔP Positive Pressure</span>
             {isAlertDP
-              ? <span className="badge badge-danger" style={{ animation: 'pulse-dot 0.8s ease-in-out infinite' }}>⚠ ALERT</span>
+              ? <span className="badge badge-danger">⚠ ALERT</span>
               : <span className="badge badge-success">NORMAL</span>
             }
           </div>
-          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}>
-            <GaugeChart
-              value={deltaP} min={0} max={15}
-              unit="bar" size={100}
-              color={isAlertDP ? '#EF4444' : '#10B981'}
-            />
-            <div style={{ flex: 1 }}>
-              <div className="metric-value" style={{ fontSize: 28, color: isAlertDP ? '#EF4444' : '#10B981' }}>
-                {deltaP.toFixed(1)}<span className="metric-unit">bar</span>
+          <div className="flex flex-col items-center justify-center py-4">
+            <GaugeChart value={deltaP} min={0} max={25} unit="bar" size={140} color={isAlertDP ? '#EF4444' : '#10B981'} />
+            <div className="text-center mt-4">
+              <div className="text-4xl font-black italic text-(--text-primary)">
+                {deltaP > 0 ? '+' : ''}{deltaP.toFixed(1)} <span className="text-xl font-bold opacity-30">Pa</span>
               </div>
-              <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', marginTop: 4 }}>
-                Threshold: &gt;7 bar
-              </div>
-              {isAlertDP && (
-                <div style={{ fontSize: '0.73rem', color: '#EF4444', fontWeight: 600, marginTop: 4 }}>
-                  ● Positive pressure low!
-                </div>
-              )}
+              <p className="text-[9px] font-bold text-(--text-muted) uppercase mt-2 tracking-widest">Target: +15 Pa | Warning: &lt;7 Pa</p>
+              {isAlertDP && <p className="text-[10px] font-black text-red-500 uppercase mt-4 animate-pulse">Cửa đang mở hoặc quạt hỏng!</p>}
             </div>
           </div>
         </motion.div>
