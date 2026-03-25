@@ -20,7 +20,7 @@ function StatCard({ value, unit, label, color, delay }) {
       transition={{ delay, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="glass-card text-center px-2 py-3 flex-1 min-w-[85px]"
     >
-      <div 
+      <div
         className="font-heading font-extrabold text-[clamp(1rem,3.5vw,1.8rem)] leading-none mb-0.5"
         style={{ color }}
       >
@@ -37,12 +37,12 @@ export default function HeroSection() {
   const [isPaused, setIsPaused] = useState(false); // Trạng thái dừng khi hover
 
   const IMAGES = [
-    { id: '1', src: '/anhHD/anh1.jpg',    label: t('hero.img1_label'), color: 'var(--color-green)', d: t('hero.img1_desc') },
-    { id: '2', src: '/anhHD/anhai2.png',  label: t('hero.img2_label'), color: 'var(--color-aqua)',  d: t('hero.img2_desc') },
-    { id: '3', src: '/anhHD/anhai3.png',    label: t('hero.img3_label'), color: 'var(--color-gold)',  d: t('hero.img3_desc') },
-    { id: '4', src: '/anhHD/anh9.jpg',    label: t('hero.img4_label'), color: 'var(--color-green)', d: t('hero.img4_desc') },
-    { id: '5', src: '/anhHD/anhai1.png',  label: t('hero.img5_label'), color: 'var(--color-aqua)',  d: t('hero.img5_desc') },
-    { id: '6', src: '/anhHD/anh11.jpg',   label: t('hero.img6_label'), color: 'var(--color-gold)',  d: t('hero.img6_desc') },
+    { id: '1', src: '/anhHD/anh1.jpg', label: t('hero.img1_label'), color: 'var(--color-green)', d: t('hero.img1_desc') },
+    { id: '2', src: '/anhHD/anhai2.png', label: t('hero.img2_label'), color: 'var(--color-aqua)', d: t('hero.img2_desc') },
+    { id: '3', src: '/anhHD/anhai3.png', label: t('hero.img3_label'), color: 'var(--color-gold)', d: t('hero.img3_desc') },
+    { id: '4', src: '/anhHD/anh9.jpg', label: t('hero.img4_label'), color: 'var(--color-green)', d: t('hero.img4_desc') },
+    { id: '5', src: '/anhHD/anhai1.png', label: t('hero.img5_label'), color: 'var(--color-aqua)', d: t('hero.img5_desc') },
+    { id: '6', src: '/anhHD/anh11.jpg', label: t('hero.img6_label'), color: 'var(--color-gold)', d: t('hero.img6_desc') },
   ];
 
   // Logic Auto-play
@@ -91,7 +91,7 @@ export default function HeroSection() {
           transition={{ delay: 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="font-heading font-extrabold text-[clamp(1.4rem,8vw,3.8rem)] leading-[1.1] tracking-[-0.02em] mb-4 max-w-[900px] mx-auto px-2.5"
         >
-          {t('hero.title')}<br/>
+          {t('hero.title')}<br />
           <span className="text-gradient-green text-[0.6em] block mt-2">{t('hero.subtitle')}</span>
         </motion.h1>
 
@@ -128,90 +128,90 @@ export default function HeroSection() {
           <StatCard value="92" unit="%" label={t('hero.stat_score')} color="var(--color-green)" delay={0.65} />
           <StatCard value="24/7" unit="" label={t('hero.stat_monitoring')} color="var(--color-aqua)" delay={0.7} />
         </div>
+      </div>
 
-        {/* --- MONITOR MOCKUP (CHIẾM ~80% WIDTH) --- */}
-        <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ delay: 0.55, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="relative w-[80vw] mx-auto h-fit" // Chiếm 80% màn hình, chiều cao vừa đủ
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-          {/* Floating Status card */}
-          <div className="absolute -top-[30px] right-[8%] bg-[var(--bg-surface)] backdrop-blur-xl border border-[var(--glass-border)] rounded-2xl px-5 py-3 z-10 shadow-2xl text-left hidden sm:block">
-            <div className="text-[0.6rem] text-[var(--text-muted)] uppercase font-black mb-1">System Load</div>
-            <div className="font-heading font-black text-2xl text-green leading-none">99.2%</div>
-            <div className="text-[0.6rem] text-green flex items-center gap-1.5 mt-1.5">
-              <span className="w-2 h-2 rounded-full bg-green animate-pulse" /> AI Processing
-            </div>
+      {/* --- MONITOR MOCKUP (CHIẾM ~80% WIDTH) --- */}
+      <motion.div
+        initial={{ opacity: 0, y: 40, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ delay: 0.55, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        className="relative w-[80vw] mx-auto h-fit" // Chiếm 80% màn hình, chiều cao vừa đủ
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        {/* Floating Status card */}
+        <div className="absolute -top-[30px] right-[8%] bg-[var(--bg-surface)] backdrop-blur-xl border border-[var(--glass-border)] rounded-2xl px-5 py-3 z-10 shadow-2xl text-left hidden sm:block">
+          <div className="text-[0.6rem] text-[var(--text-muted)] uppercase font-black mb-1">System Load</div>
+          <div className="font-heading font-black text-2xl text-green leading-none">99.2%</div>
+          <div className="text-[0.6rem] text-green flex items-center gap-1.5 mt-1.5">
+            <span className="w-2 h-2 rounded-full bg-green animate-pulse" /> AI Processing
           </div>
+        </div>
 
-          {/* Monitor frame */}
-          <div className="monitor-frame bg-[#0a0a0a] rounded-[2rem] p-2 sm:p-3 border-[3px] border-[var(--glass-border-strong)] shadow-[0_50px_100px_rgba(0,0,0,0.6)] relative z-2 overflow-hidden">
-            {/* Top bar */}
-            <div className="flex items-center justify-between px-4 py-2 opacity-50">
-              <div className="flex gap-1.5">
-                {['#FF5F57','#FFBD2E','#28CA41'].map((c, i) => (
-                  <div key={i} className="w-2.5 h-2.5 rounded-full" style={{ background: c }} />
-                ))}
-              </div>
-              <div className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40">
-                {IMAGES[activeImg].label}
-              </div>
-              <div className="w-10" />
-            </div>
-
-            {/* Screen Content */}
-            <div className="relative rounded-xl overflow-hidden bg-black h-fit">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeImg}
-                  initial={{ opacity: 0, filter: 'blur(10px)' }}
-                  animate={{ opacity: 1, filter: 'blur(0px)' }}
-                  exit={{ opacity: 0, filter: 'blur(10px)' }}
-                  transition={{ duration: 0.6 }}
-                  className="w-full h-auto flex"
-                >
-                  <img
-                    src={IMAGES[activeImg].src}
-                    alt={IMAGES[activeImg].label}
-                    className="w-full h-auto object-cover max-h-[75vh]" // Lấp đầy bề ngang, chiều cao tự động theo tỉ lệ ảnh
-                  />
-                  {/* Image info overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 to-transparent text-left">
-                    <motion.div initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 }}>
-                      <p className="text-white text-sm font-bold tracking-wide italic">{IMAGES[activeImg].d}</p>
-                    </motion.div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            {/* Selector Dots (Hòa quyện vào khung) */}
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-              {IMAGES.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setActiveImg(idx)}
-                  className={`h-1.5 transition-all duration-500 rounded-full border-none cursor-pointer ${activeImg === idx ? 'bg-green w-8' : 'bg-white/20 w-3 hover:bg-white/40'}`}
-                />
+        {/* Monitor frame */}
+        <div className="monitor-frame bg-[#0a0a0a] rounded-[2rem] p-2 sm:p-3 border-[3px] border-[var(--glass-border-strong)] shadow-[0_50px_100px_rgba(0,0,0,0.6)] relative z-2 overflow-hidden">
+          {/* Top bar */}
+          <div className="flex items-center justify-between px-4 py-2 opacity-50">
+            <div className="flex gap-1.5">
+              {['#FF5F57', '#FFBD2E', '#28CA41'].map((c, i) => (
+                <div key={i} className="w-2.5 h-2.5 rounded-full" style={{ background: c }} />
               ))}
             </div>
-            
-            {/* Auto-play Progress Bar */}
-            <div className="absolute bottom-0 left-0 h-1 bg-white/5 w-full">
-              <motion.div 
-                key={activeImg}
-                initial={{ width: 0 }}
-                animate={{ width: isPaused ? 'inherit' : '100%' }}
-                transition={{ duration: 3, ease: "linear" }}
-                className="h-full bg-green/50"
-              />
+            <div className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40">
+              {IMAGES[activeImg].label}
             </div>
+            <div className="w-10" />
           </div>
-        </motion.div>
-      </div>
+
+          {/* Screen Content */}
+          <div className="relative rounded-xl overflow-hidden bg-black h-fit">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeImg}
+                initial={{ opacity: 0, filter: 'blur(10px)' }}
+                animate={{ opacity: 1, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, filter: 'blur(10px)' }}
+                transition={{ duration: 0.6 }}
+                className="w-full h-auto flex"
+              >
+                <img
+                  src={IMAGES[activeImg].src}
+                  alt={IMAGES[activeImg].label}
+                  className="w-full h-auto object-cover max-h-[75vh]" // Lấp đầy bề ngang, chiều cao tự động theo tỉ lệ ảnh
+                />
+                {/* Image info overlay */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 to-transparent text-left">
+                  <motion.div initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 }}>
+                    <p className="text-white text-sm font-bold tracking-wide italic">{IMAGES[activeImg].d}</p>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Selector Dots (Hòa quyện vào khung) */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+            {IMAGES.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveImg(idx)}
+                className={`h-1.5 transition-all duration-500 rounded-full border-none cursor-pointer ${activeImg === idx ? 'bg-green w-8' : 'bg-white/20 w-3 hover:bg-white/40'}`}
+              />
+            ))}
+          </div>
+
+          {/* Auto-play Progress Bar */}
+          <div className="absolute bottom-0 left-0 h-1 bg-white/5 w-full">
+            <motion.div
+              key={activeImg}
+              initial={{ width: 0 }}
+              animate={{ width: isPaused ? 'inherit' : '100%' }}
+              transition={{ duration: 3, ease: "linear" }}
+              className="h-full bg-green/50"
+            />
+          </div>
+        </div>
+      </motion.div>
 
       {/* Ticker strip */}
       <div className="absolute bottom-0 left-0 right-0 bg-black/40 backdrop-blur-md border-t border-white/5 py-3 overflow-hidden">
