@@ -1,151 +1,169 @@
 import { motion } from 'framer-motion';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { useState, useEffect } from 'react';
 
-const DashboardOverview = ({ filteredAssets }) => {
-  const stats = [
-    { label: 'Total HD Assets', value: '7', trend: 'Synced with PDF', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-500"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg> },
-    { label: 'System Health', value: '98%', trend: 'Optimal', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-500"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> },
-    { label: 'Active Sensors', value: '142', trend: 'Online', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-orange-500"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> },
-    { label: 'AI Score', value: '92%', trend: 'High Performance', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-500"><circle cx="12" cy="12" r="10"/><path d="M12 16h.01M12 8h.01M12 12h.01"/></svg> },
-  ];
-
-  const chartData = [
-    { name: 'Mon', temp: 24, humidity: 65 },
-    { name: 'Tue', temp: 26, humidity: 62 },
-    { name: 'Wed', temp: 25, humidity: 68 },
-    { name: 'Thu', temp: 27, humidity: 60 },
-    { name: 'Fri', temp: 28, humidity: 58 },
-    { name: 'Sat', temp: 26, humidity: 64 },
-    { name: 'Sun', temp: 25, humidity: 66 },
-  ];
+// Custom SVG Gauge for Pressure Difference
+const GaugeChart = ({ value }) => {
+  const radius = 65; // Balanced size
+  const strokeWidth = 20;
+  const circumference = Math.PI * radius;
+  // Map 0-15 to angle 0-180
+  const angle = (value / 15) * 180;
+  const rot = -180 + angle; // -180 is left, 0 is right
 
   return (
-    <div className="space-y-8">
-      {/* Welcome */}
-      <div className="flex items-end justify-between">
-        <div>
-          <h2 className="text-3xl font-bold text-(--text-primary)">Welcome back, Administrator</h2>
-          <p className="text-(--text-secondary) mt-1">Here's what's happening with your aquaponics system today.</p>
-        </div>
-        <button className="btn-primary flex items-center gap-2 px-6 py-3 bg-green text-white rounded-2xl font-bold shadow-lg shadow-green/20 hover:scale-105 transition-all">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 5v14M5 12h14"/></svg>
-          System Report
-        </button>
+    <div className="relative flex flex-col items-center justify-end w-44 h-28 overflow-visible mb-2">
+      <svg className="absolute top-0 w-44 h-44 pointer-events-none" viewBox="0 0 200 200">
+        {/* Rainbow Arc (Green -> Yellow -> Orange -> Red) */}
+        {/* Red (Right) */}
+        <circle cx="100" cy="100" r={radius} fill="none" stroke="#ef4444" strokeWidth={strokeWidth} strokeDasharray={`${circumference / 4} ${circumference}`} strokeDashoffset={-circumference * 0.75} transform="rotate(180 100 100)" />
+        {/* Orange */}
+        <circle cx="100" cy="100" r={radius} fill="none" stroke="#f97316" strokeWidth={strokeWidth} strokeDasharray={`${circumference / 4} ${circumference}`} strokeDashoffset={-circumference * 0.5} transform="rotate(180 100 100)" />
+        {/* Yellow */}
+        <circle cx="100" cy="100" r={radius} fill="none" stroke="#eab308" strokeWidth={strokeWidth} strokeDasharray={`${circumference / 4} ${circumference}`} strokeDashoffset={-circumference * 0.25} transform="rotate(180 100 100)" />
+        {/* Green (Left) */}
+        <circle cx="100" cy="100" r={radius} fill="none" stroke="#22c55e" strokeWidth={strokeWidth} strokeDasharray={`${circumference / 4} ${circumference}`} strokeDashoffset={0} transform="rotate(180 100 100)" />
+
+        {/* Needle */}
+        <g transform={`rotate(${rot} 100 100)`}>
+          <polygon points="99,100 101,100 100,30" fill="#facc15" />
+          <circle cx="100" cy="100" r={7} fill="#facc15" />
+          <circle cx="100" cy="100" r={3} fill="#a16207" />
+        </g>
+      </svg>
+      <div className="relative font-bold text-3xl text-white outline-none z-10 translate-y-[-32px]">{value}</div>
+    </div>
+  );
+};
+
+const DashboardOverview = ({ filteredAssets }) => {
+  const [pressureDelta, setPressureDelta] = useState(6.5);
+  const isPressureAlert = pressureDelta < 7;
+
+  return (
+    <div className="space-y-4 max-w-5xl mx-auto bg-[#13161f] p-6 rounded-[2.5rem] mt-2 shadow-2xl border border-white/5">
+      {/* 1. Header */}
+      <div className="text-center pt-2 pb-2">
+        <h2 className="text-xl font-bold text-white uppercase tracking-wide leading-tight">
+          HỆ THỐNG GIẢM SỐT NHÀ MÀNG & DƯỠNG CHẠY TRÀM<br />
+          <span className="text-sm font-medium tracking-[0.2em] opacity-80">X - THỜI GIAN THỰC</span> 
+          <span className="ml-4 font-normal text-white/40 text-xs">02108:</span> 
+          <span className="bg-[#4ade80] text-[#0f172a] px-2 py-0.5 rounded text-[10px] font-black ml-1.5 shadow-lg shadow-green/20">ONLINE</span>
+        </h2>
       </div>
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((stat, i) => (
-          <motion.div 
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
-            className="p-6 bg-(--bg-card) border border-(--glass-border) rounded-3xl shadow-sm hover:shadow-xl hover:shadow-green/5 transition-all group"
-          >
-            <div className="flex items-start justify-between">
-              <div className="bg-(--bg-base) p-3 rounded-2xl border border-(--glass-border) group-hover:bg-green/5 group-hover:border-green/20 transition-colors">
-                {stat.icon}
-              </div>
-              <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-green/10 text-green">
-                {stat.trend}
-              </span>
-            </div>
-            <div className="mt-4">
-              <p className="text-sm text-(--text-muted) font-medium">{stat.label}</p>
-              <p className="text-2xl font-bold mt-1">{stat.value}</p>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-8">
-          <div className="bg-(--bg-card) border border-(--glass-border) p-8 rounded-3xl">
-            <h3 className="font-bold text-lg mb-8 text-(--text-primary)">System Metrics Analytics</h3>
-            <div className="h-[350px] w-full min-w-0">
-              <ResponsiveContainer width="100%" height="100%" minHeight={320} minWidth={0}>
-                <AreaChart data={chartData}>
-                  <defs>
-                    <linearGradient id="colorTemp" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#00e676" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="#00e676" stopOpacity={0}/>
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.05)"/>
-                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fontSize: 12, fill: 'var(--text-muted)'}} />
-                  <YAxis axisLine={false} tickLine={false} tick={{fontSize: 12, fill: 'var(--text-muted)'}} />
-                  <Tooltip 
-                    contentStyle={{ backgroundColor: 'var(--bg-card)', borderRadius: '16px', border: '1px solid var(--glass-border)', boxShadow: '0 10px 25px rgba(0,0,0,0.1)' }}
-                  />
-                  <Area type="monotone" dataKey="temp" stroke="#00e676" fillOpacity={1} fill="url(#colorTemp)" strokeWidth={3} />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
+      {/* 2. CỤM WATER FLOW MATRIX (Vertical Stack as in image) */}
+      <div className="flex gap-4">
+        {/* WELL */}
+        <div className="flex-1 bg-[#1e2330] rounded-2xl border border-white/5 p-6 flex flex-col items-center text-center relative overflow-hidden group">
+          <h3 className="text-xs font-black text-white/50 mb-6 tracking-[0.2em] uppercase">WELL</h3>
+          <div className="h-20 flex items-center mb-6">
+             <svg width="60" height="60" viewBox="0 0 24 24" fill="#60a5fa" stroke="#3b82f6" strokeWidth="0.5" className="group-hover:scale-110 transition-transform duration-500"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
           </div>
-
-          <div className="bg-(--bg-card) border border-(--glass-border) rounded-3xl overflow-hidden">
-            <div className="p-8 pb-4">
-              <h3 className="font-bold text-lg">Recent HD Asset Activity</h3>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-(--bg-base)/50 text-left border-y border-(--glass-border)">
-                    <th className="px-8 py-4 text-xs font-bold text-(--text-muted) uppercase">Asset</th>
-                    <th className="px-8 py-4 text-xs font-bold text-(--text-muted) uppercase">Type</th>
-                    <th className="px-8 py-4 text-xs font-bold text-(--text-muted) uppercase">Date</th>
-                    <th className="px-8 py-4 text-xs font-bold text-(--text-muted) uppercase text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-(--glass-border)">
-                  {filteredAssets.slice(0, 5).map((item, i) => (
-                    <tr key={i} className="hover:bg-(--bg-card-hover) transition-colors group">
-                      <td className="px-8 py-4 flex items-center gap-4">
-                        <img src={item.src} className="w-10 h-10 rounded-lg object-cover" alt="" />
-                        <span className="font-medium text-sm text-(--text-primary)">{item.title}</span>
-                      </td>
-                      <td className="px-8 py-4">
-                        <span className="px-2 py-1 rounded-md text-[10px] bg-green/10 text-green font-bold uppercase">{item.category}</span>
-                      </td>
-                      <td className="px-8 py-4 text-sm text-(--text-muted)">{item.date}</td>
-                      <td className="px-8 py-4 text-right">
-                        <button className="text-(--text-muted) hover:text-green">
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+          <div className="text-4xl text-white font-black tracking-tight mb-2">25.5°C</div>
+          <div className="flex items-center gap-2 opacity-30 mb-4">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            <div className="text-[10px] tracking-[4px]">--------</div>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.5"><path d="M12 2l3 9h9l-7 5 3 9-8-7-8 7 3-9-7-5h9z"/></svg>
+          </div>
+          <div className="text-3xl text-white font-black tracking-tight">30.2 ppt</div>
+          
+          <div className="absolute top-1/4 -right-2 z-10 text-white/20">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M5 12h14l-4-4 1.4-1.4L18.8 12l-6.4 6.4L11 17l4-4H5v-2z"/></svg>
           </div>
         </div>
 
-        <div className="space-y-8">
-          <div className="bg-(--bg-card) border border-(--glass-border) p-8 rounded-3xl">
-            <h3 className="font-bold text-lg mb-6">Device Status</h3>
-            <div className="space-y-6">
-              {[
-                { name: 'Water Pump A', status: 'Active', color: 'bg-green' },
-                { name: 'Sensor Array B', status: 'Warning', color: 'bg-orange-500' },
-                { name: 'Oxygen Vent', status: 'Active', color: 'bg-green' },
-                { name: 'Feeding System', status: 'Inactive', color: 'bg-red-500' },
-              ].map((device, i) => (
-                <div key={i} className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className={`w-2.5 h-2.5 rounded-full ${device.color}`}></div>
-                    <span className="text-sm font-medium text-(--text-primary)">{device.name}</span>
-                  </div>
-                  <span className="text-[10px] font-bold text-(--text-muted)">{device.status}</span>
-                </div>
-              ))}
+        {/* PRE-PROCESS */}
+        <div className="flex-1 bg-[#1e2330] rounded-2xl border border-white/5 p-6 flex flex-col items-center text-center relative overflow-hidden group">
+          <h3 className="text-xs font-black text-white/50 mb-3 tracking-[0.2em] uppercase">PRE-PROCESS</h3>
+          <p className="text-[10px] font-black text-white/20 mb-4 tracking-[0.3em] leading-none">HDPE</p>
+          <div className="h-16 flex items-center mb-6 opacity-40 grayscale group-hover:grayscale-0 transition-all duration-700">
+            <svg width="80" height="30" viewBox="0 0 100 40" fill="#94a3b8"><path d="M0,20 Q50,0 100,20 V30 Q50,10 0,30 Z" /></svg>
+          </div>
+          <div className="text-4xl text-white font-black tracking-tight mb-2">27.0°C</div>
+          <div className="flex items-center gap-2 opacity-30 mb-4 text-white">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <div className="text-[10px] tracking-[4px]">--------</div>
+            <div className="text-xl leading-none font-bold">∞</div>
+          </div>
+          <div className="text-base text-white/30 font-black leading-tight uppercase">No measurement</div>
+          
+          <div className="absolute top-1/4 -right-2 z-10 text-white/20">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M5 12h14l-4-4 1.4-1.4L18.8 12l-6.4 6.4L11 17l4-4H5v-2z"/></svg>
+          </div>
+        </div>
+
+        {/* BUFFER TANK */}
+        <div className="flex-1 bg-[#1e2330] rounded-2xl border border-white/5 p-6 flex flex-col items-center text-center relative overflow-hidden group">
+          <h3 className="text-xs font-black text-white/50 mb-6 tracking-[0.2em] uppercase">BUFFER TANK</h3>
+          <div className="h-20 flex items-center mb-6">
+            <svg width="60" height="60" viewBox="0 0 100 100" className="group-hover:scale-110 transition-transform duration-500">
+              <path d="M20,20 h60 v60 Q50,90 20,80 Z" fill="#3b82f6" opacity="0.8" />
+              <rect x="25" y="15" width="50" height="6" fill="#60a5fa" rx="2" />
+            </svg>
+          </div>
+          <div className="text-4xl text-white font-black tracking-tight mb-2">26.8°C</div>
+          <div className="flex items-center gap-2 opacity-30 mb-4">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            <div className="text-[10px] tracking-[4px]">--------</div>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.5"><path d="M12 2l3 9h9l-7 5 3 9-8-7-8 7 3-9-7-5h9z"/></svg>
+          </div>
+          <div className="text-3xl text-white font-black tracking-tight">30.1 ppt</div>
+        </div>
+      </div>
+
+      {/* 3. CLIMATE & PRESSURE HUB (Wide Card) */}
+      <div className="bg-[#1e2330] rounded-3xl border border-white/5 p-8 relative overflow-hidden group">
+        <div className="flex justify-between items-start w-full">
+          {/* INSIDE GREENHOUSE */}
+          <div className="flex-1 text-left space-y-6">
+            <h3 className="text-xs font-black text-white uppercase tracking-[0.2em] opacity-80 mb-2 font-mono">INSIDE GREENHOUSE</h3>
+            <div>
+              <p className="text-[10px] font-black text-white/30 uppercase mb-1 tracking-widest">TEMPERATURE</p>
+              <p className="text-4xl font-black text-white leading-tight">25.5°C</p>
+            </div>
+            <div>
+              <p className="text-[10px] font-black text-white/30 uppercase mb-1 tracking-widest">HUMIDITY</p>
+              <p className="text-4xl font-black text-white leading-tight">60%</p>
+            </div>
+             <div>
+              <p className="text-[10px] font-black text-white/30 uppercase mb-1 tracking-widest">PRESSURE</p>
+              <p className="text-4xl font-black text-white leading-tight">7.5 Pa <span className="text-xs font-black text-[#22c55e] ml-2">7a</span></p>
             </div>
           </div>
-          <div className="bg-linear-to-br from-green to-green-soft p-8 rounded-3xl text-white shadow-xl shadow-green/20">
-            <h3 className="font-bold text-lg mb-4 text-white">AI Optimization</h3>
-            <p className="text-white/80 text-sm leading-relaxed mb-6">Efficiency increased by 15% due to automatic pH adjustments.</p>
-            <button className="bg-white text-green font-bold text-xs px-4 py-2 rounded-lg cursor-pointer hover:scale-105 transition-transform">Apply Auto-Correct</button>
+
+          {/* PRESSURE DIFFERENCE (Center Hub) */}
+          <div className="flex-1 flex flex-col items-center justify-start h-full pt-4">
+             <h3 className="text-[11px] font-black text-white uppercase tracking-[0.2em] opacity-80 mb-6 whitespace-nowrap">PRESSURE DIFFERENCE</h3>
+             <GaugeChart value={pressureDelta} />
+             
+             <div className="flex items-center justify-between w-full px-8 pb-4">
+                <span className="text-3xl font-black text-[#22c55e]">7a</span>
+                <span className="text-3xl font-black text-white/60">Pa</span>
+             </div>
+
+             {/* Red Siren Overlay Style */}
+             <div className="flex flex-col items-center mt-2 group-hover:scale-110 transition-transform duration-500">
+               <div className="w-10 h-14 bg-red-600 rounded-t-2xl shadow-[0_0_80px_rgba(220,38,38,1)] border border-red-500/50 animate-pulse" />
+               <div className="w-12 h-2 bg-gray-800 rounded mx-auto -mt-1 shadow-inner" />
+             </div>
+          </div>
+
+          {/* OUTSIDE GREENHOUSE */}
+          <div className="flex-1 text-right space-y-6">
+            <h3 className="text-xs font-black text-white uppercase tracking-[0.2em] opacity-80 mb-2 font-mono">OUTSIDE GREENHOUSE</h3>
+            <div>
+              <p className="text-[10px] font-black text-white/30 uppercase mb-1 tracking-widest">TEMPERATURE</p>
+              <p className="text-4xl font-black text-white leading-tight">28.0°C</p>
+            </div>
+            <div>
+              <p className="text-[10px] font-black text-white/30 uppercase mb-1 tracking-widest">HUMIDITY</p>
+              <p className="text-4xl font-black text-white/80 leading-tight">65%</p>
+            </div>
+             <div>
+              <p className="text-[10px] font-black text-white/30 uppercase mb-1 tracking-widest">PRESSURE</p>
+              <p className="text-4xl font-black text-white/60 leading-tight">7.0 Pa</p>
+            </div>
           </div>
         </div>
       </div>

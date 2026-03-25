@@ -22,7 +22,7 @@ const AdminPage = () => {
     { id: 3, src: '/img/Screenshot 2026-03-22 130613.png', title: 'Growth Hub (AI Analytics)', category: 'Analytics', date: '2024-03-20', size: '2.5 MB', type: 'ai', desc: 'Hệ thống quản lý tăng trưởng tích hợp AI: Giám sát mật độ, vận tốc bơi và sức khỏe sinh học toàn diện.' },
   ];
 
-  const categories = ['All', 'Environment', 'Analytics'];
+  const categories = ['All'];
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
 
