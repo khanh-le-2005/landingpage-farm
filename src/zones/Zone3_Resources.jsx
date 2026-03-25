@@ -86,7 +86,7 @@ export default function Zone3_Resources({ data }) {
           </div>
 
           {/* Energy Bar Chart (Cột kép) - Shrunk */}
-          <div className="bg-black/5 p-3 rounded-2xl border border-(--dashboard-stroke)">
+          <div className="bg-[var(--glass-border-strong)] p-3 rounded-2xl border border-(--dashboard-stroke)">
             <div className="flex justify-between items-center mb-3">
               <span className="text-[9px] font-black text-(--text-muted) uppercase">Production vs Consumption</span>
               <div className="flex items-center gap-1.5">
@@ -130,7 +130,7 @@ export default function Zone3_Resources({ data }) {
           </div>
 
           {/* 3D Buffer Tank representation */}
-          <div className="h-44 bg-black/5 rounded-3xl border border-(--dashboard-stroke) relative overflow-hidden flex flex-col items-center justify-center">
+          <div className="h-44 bg-[var(--glass-border-strong)] rounded-3xl border border-(--dashboard-stroke) relative overflow-hidden flex flex-col items-center justify-center">
             <div className="absolute inset-0 bg-linear-to-b from-transparent to-blue-500/10" />
             <div className="relative z-10 flex flex-col items-center">
               <div className="w-20 h-32 border-2 border-white/20 rounded-xl relative overflow-hidden bg-black/20">
@@ -182,7 +182,7 @@ export default function Zone3_Resources({ data }) {
             </div>
           </div>
 
-          <div className="bg-black/5 p-4 rounded-2xl border border-(--dashboard-stroke)">
+          <div className="bg-[var(--glass-border-strong)] p-4 rounded-2xl border border-(--dashboard-stroke)">
             <span className="text-[10px] font-black text-(--text-muted) uppercase mb-3 block">Biomass Monitor</span>
             <ResponsiveContainer width="100%" height={100}>
                <LineChart data={data.biomassData}>
@@ -193,11 +193,11 @@ export default function Zone3_Resources({ data }) {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-             <div className="p-3 bg-black/5 rounded-2xl border border-(--dashboard-stroke)">
+             <div className="p-3 bg-[var(--glass-border-strong)] rounded-2xl border border-(--dashboard-stroke)">
                 <span className="text-[9px] font-black text-(--text-muted) uppercase">Total Feed</span>
                 <div className="text-xl font-black italic mt-1">{data.totalFeed}<span className="text-[9px] font-bold opacity-30 ml-1">kg</span></div>
              </div>
-             <div className="p-3 bg-black/5 rounded-2xl border border-(--dashboard-stroke)">
+             <div className="p-3 bg-[var(--glass-border-strong)] rounded-2xl border border-(--dashboard-stroke)">
                 <span className="text-[9px] font-black text-(--text-muted) uppercase">Estimated Weight</span>
                 <div className="text-xl font-black italic mt-1 text-green">{data.fishWeight}<span className="text-[9px] font-bold opacity-30 ml-1">kg</span></div>
              </div>
@@ -211,7 +211,7 @@ export default function Zone3_Resources({ data }) {
              <p className="text-[10px] font-bold text-(--text-primary) leading-relaxed">
                "Cảnh báo: FCR bất thường tại ao số 3 - Kiểm tra sức khỏe cá hoặc máy cho ăn."
              </p>
-             <div className="mt-4 p-3 bg-white/20 rounded-xl text-[9px] font-black uppercase text-amber-700 italic">
+             <div className="mt-4 p-3 bg-(--dashboard-stroke-strong) rounded-xl text-[9px] font-black uppercase text-amber-700 italic">
                🤖 AI analysis: {data.fcrAlert || "Cá ăn nhiều nhưng không tăng trọng tương ứng."}
              </div>
           </div>
