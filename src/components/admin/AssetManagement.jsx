@@ -136,11 +136,11 @@ const DashboardModal = ({ asset, onClose }) => {
     ],
     biomassData: Array.from({ length: 7 }, (_, i) => ({ density: 10 + Math.random() * 5 })),
     energyData: [
-       { label: '08:00', gen: 80, use: 70 },
-       { label: '10:00', gen: 120, use: 90 },
-       { label: '12:00', gen: 150, use: 110 },
-       { label: '14:00', gen: 130, use: 100 },
-       { label: '16:00', gen: 90, use: 80 }
+       { label: 'Giờ 1', gen: 80, use: 80 },
+       { label: 'Giờ 2', gen: 20, use: 15 },
+       { label: 'Giờ 3', gen: 40, use: 55 },
+       { label: 'Giờ 4', gen: 30, use: 30 },
+       { label: 'Giờ 5', gen: 25, use: 20 }
     ],
     bufferTankPct: 75,
     energyDelta: 15,
@@ -169,15 +169,20 @@ const DashboardModal = ({ asset, onClose }) => {
     salinityWell: 35,
     salinityTarget: 35,
     // Zone 3
-    batterySoC: 82,
+    batterySoC: 85,
     tecTasks: [
-       { name: 'Gieo hạt mùng tơi', amount: '2,000 hạt', completed: true },
-       { name: 'Pha dinh dưỡng B', amount: '50L', completed: false }
+       { name: 'Xịt rửa Drum Filter', amount: '500 lít', completed: true },
+       { name: 'Trung hòa dịch bùn', amount: '300 lít', completed: true }
     ],
-    biomassData: Array.from({ length: 7 }, (_, i) => ({ density: 10 + Math.random() * 5 })),
-    totalFeed: 125,
+    biomassData: [
+       { time: '0', density: 12 }, { time: '100', density: 12.5 },
+       { time: '240', density: 13 }, { time: '150', density: 15 },
+       { time: '12:00', density: 20 }
+    ],
+    totalFeed: 450,
     fishWeight: 3200,
-    fcrAlert: "Normal"
+    plantDensity: 2.5,
+    fcrAlert: "Cảnh báo: FCR bất thường tại ao số 3 - Kiểm tra sức khỏe cá hoặc máy cho ăn."
   });
 
   // Live Simulation: Update every 5s
