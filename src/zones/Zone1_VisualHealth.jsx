@@ -1,189 +1,423 @@
+import React from 'react';
 import { motion } from 'framer-motion';
-import SparklineChart from '../components/SparklineChart';
+import {
+  LineChart, Line, ResponsiveContainer
+} from 'recharts';
 
-// Simulated Holographic Camera cell - HUD Style
-function CameraCell({ cam, index }) {
-  return (
-    <div className="relative rounded-lg overflow-hidden bg-black aspect-video border border-green-500/20 shadow-[0_0_15px_rgba(34,255,136,0.05)]">
-      {/* HUD Corners */}
-      <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-green-500/60" />
-      <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-green-500/60" />
-      <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-green-500/60" />
-      <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-green-500/60" />
+/* --- ICONS --- */
+const TempIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--color-success)] text-[#10B981]">
+    <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z" />
+    <path d="M11.5 6.5v6" />
+  </svg>
+);
 
-      {/* Scanning effect */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-20">
-        <div className="w-full h-px bg-green-400 absolute top-0 animate-[scan_4s_linear_infinite]" />
-      </div>
+const DropIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--color-success)] text-[#10B981]">
+    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+  </svg>
+);
 
-      {/* Simulated fish silhouettes with HUD */}
-      <svg viewBox="0 0 100 75" className="absolute inset-0 w-full h-full opacity-60">
-        <defs>
-          <filter id="glow"><feGaussianBlur stdDeviation="0.8" result="blur" /><feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
-        </defs>
-        <ellipse cx={30} cy={35} rx={12} ry={6} fill="rgba(34, 255, 136, 0.2)" transform="rotate(-15 30 35)" />
-        <ellipse cx={60} cy={25} rx={9} ry={4} fill="rgba(34, 255, 136, 0.2)" transform="rotate(10 60 25)" />
+const LeafDropIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--color-success)] text-[#10B981]">
+    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+    <path d="M12 12s-2-2-2-4" />
+  </svg>
+);
 
-        {/* Bounding boxes */}
-        <rect x={18} y={25} width={25} height={18} fill="none" stroke="#22FF88" strokeWidth={0.5} strokeDasharray="1.5 1" filter="url(#glow)" />
-        <text x={19} y={24} fontSize={3} fill="#22FF88" className="font-mono opacity-80" style={{ fontSize: '3px' }}>F_0{index + 1} / 0.8m/s</text>
+/* --- COMPONENTS --- */
 
-        {cam.status === 'alert' && (
-          <g>
-            <rect x={48} y={18} width={20} height={14} fill="rgba(239, 68, 68, 0.1)" stroke="#EF4444" strokeWidth={0.8} />
-            <text x={49} y={16} fontSize={3} fill="#EF4444" className="font-mono font-bold" style={{ fontSize: '3px' }}>⚠ STRESS</text>
-          </g>
-        )}
+// Card Wrapper for grid items
+const MetricCard = ({ children, className = "" }) => (
+  <div className={`bg-[var(--dashboard-bg-item)] bg-white dark:bg-[#1C1F26] border border-gray-200 dark:border-gray-800 rounded-xl p-3 flex flex-col relative shadow-md hover:border-gray-300 dark:hover:border-gray-500 transition-colors ${className}`}>
+    {children}
+  </div>
+);
+
+// Large Arc Gauge (DO)
+const LargeArcGauge = ({ title, value, unit }) => (
+  <MetricCard className="items-center justify-center">
+    <div className="absolute top-3 left-3 text-[12px] font-black text-gray-800 dark:text-gray-100 z-10">{title}</div>
+    <div className="relative w-[110px] h-[55px] mt-4">
+      <svg viewBox="0 0 100 50" className="w-full h-full overflow-visible">
+        <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="currentColor" className="text-gray-200 dark:text-gray-700" strokeWidth="10" strokeLinecap="round" />
+        <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="var(--color-success)" strokeWidth="10" strokeDasharray="126" strokeDashoffset={126 - (0.65 * 126)} strokeLinecap="round" style={{ stroke: 'var(--color-success)' }} />
       </svg>
-
-      {/* Camera ID Overlay */}
-      <div className="absolute top-2 left-2 px-1.5 py-0.5 bg-black/60 border border-green-500/30 rounded">
-        <span className="text-[8px] font-black text-green uppercase tracking-widest">CAM_0{index + 1}</span>
-      </div>
-
-      {/* Bottom Label */}
-      <div className="absolute bottom-1 right-2 flex items-center gap-1.5">
-        <div className={`w-1 h-1 rounded-full ${cam.status === 'alert' ? 'bg-red-500 animate-pulse' : 'bg-green'}`} />
-        <span className="text-[8px] font-bold text-(--text-muted) uppercase tracking-tighter italic">{cam.label}</span>
+      <div className="absolute inset-0 flex flex-col items-center justify-end pb-0">
+        <span className="text-3xl font-black text-gray-900 dark:text-gray-100 leading-none tracking-tighter drop-shadow-sm">{value}</span>
+        <span className="text-[10px] font-bold text-gray-500 dark:text-gray-400 tracking-wide mt-1">{unit}</span>
       </div>
     </div>
-  );
-}
+  </MetricCard>
+);
 
-function PlantMetricRow({ metric, index }) {
-  const colorMap = { good: '#10B981', warning: '#F59E0B', alert: '#EF4444' };
-  const color = colorMap[metric.status] || '#10B981';
-
+// Dial Gauge (Air Pressure, Positive Pressure, Drip Nozzle)
+const DialGauge = ({ title, value, unit, min = 0, max = 100, pct = 0.5, hasTrack = false }) => {
+  const angle = pct * 180 - 90;
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: index * 0.06 }}
-      className="bg-(--bg-card) border border-(--dashboard-stroke) rounded-lg p-3 flex items-center justify-between"
+    <MetricCard className="items-center justify-between">
+      <div className="w-full flex justify-between items-start mb-2">
+        <div className="text-[12px] font-black text-gray-800 dark:text-gray-100 z-10 truncate pr-2">{title}</div>
+      </div>
+      <div className="relative w-[90px] h-[45px]">
+        <svg viewBox="0 0 100 50" className="w-full h-full overflow-visible">
+          {/* Base Track */}
+          <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="currentColor" className="text-gray-300 dark:text-gray-700" strokeWidth="8" strokeLinecap="round" strokeDasharray="2 4" />
+          {/* Active Track (optional) */}
+          {hasTrack && (
+            <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="var(--color-warning)" strokeWidth="8" strokeDasharray="126" strokeDashoffset={126 - (pct * 126)} strokeLinecap="round" style={{ stroke: 'var(--color-warning)' }} />
+          )}
+          {/* Ticks */}
+          <text x="5" y="55" fontSize="10" fill="currentColor" className="text-gray-400 dark:text-gray-500" fontWeight="bold">0</text>
+          <text x="45" y="4" fontSize="10" fill="currentColor" className="text-gray-400 dark:text-gray-500" fontWeight="bold">40</text>
+          <text x="85" y="30" fontSize="10" fill="currentColor" className="text-gray-400 dark:text-gray-500" fontWeight="bold">10</text>
+        </svg>
+        {/* Needle */}
+        <motion.div 
+          className="absolute bottom-0 left-[50%] w-[3px] h-[36px] bg-gray-800 dark:bg-gray-200 origin-bottom rounded-full z-10 shadow-sm"
+          style={{ x: '-50%' }}
+          initial={{ rotate: -90 }}
+          animate={{ rotate: angle }}
+          transition={{ duration: 1.5, type: 'spring' }}
+        >
+          <div className="absolute top-[-2px] left-[-2px] w-[7px] h-[7px] rounded-full bg-gray-800 dark:bg-gray-200" />
+        </motion.div>
+        {/* Center pin */}
+        <div className="absolute bottom-[-3px] left-[50%] ml-[-5px] w-[10px] h-[10px] rounded-full bg-gray-200 dark:bg-gray-800 border-2 border-gray-800 dark:border-gray-200 z-20" />
+      </div>
+      <div className="text-center mt-2 flex flex-col items-center">
+        <span className="text-xl font-black text-gray-900 dark:text-gray-100 leading-none tracking-tight">{value}</span>
+        <span className="text-[10px] font-bold text-gray-500 dark:text-gray-400">{unit}</span>
+      </div>
+    </MetricCard>
+  )
+};
+
+// Dial with Center Text (EC)
+const CenterDialGauge = ({ title, value, unit, pct = 0.5 }) => {
+  const angle = pct * 180 - 90;
+  return (
+    <MetricCard className="items-center justify-between">
+      <div className="w-full flex border-b border-transparent">
+        <div className="text-[12px] font-black text-gray-800 dark:text-gray-100 z-10 w-full flex justify-between">
+           {title} <span className="text-[10px] text-gray-500 dark:text-gray-400">{unit}</span>
+        </div>
+      </div>
+      <div className="relative w-[80px] h-[40px] mt-2">
+        <svg viewBox="0 0 100 50" className="w-full h-full overflow-visible">
+          <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="currentColor" className="text-gray-300 dark:text-gray-700" strokeWidth="6" strokeLinecap="round" strokeDasharray="3 4" />
+          <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="var(--color-success)" strokeWidth="6" strokeDasharray="126" strokeDashoffset={126 - (pct * 126)} strokeLinecap="round" style={{ stroke: 'var(--color-success)' }} />
+        </svg>
+        {/* Needle */}
+        <motion.div 
+          className="absolute bottom-0 left-[50%] w-[3px] h-[30px] origin-bottom rounded-full z-10 shadow-sm"
+          style={{ x: '-50%', backgroundColor: 'var(--color-success)' }}
+          initial={{ rotate: -90 }}
+          animate={{ rotate: angle }}
+          transition={{ duration: 1.5 }}
+        />
+      </div>
+      <div className="text-center mt-1">
+        <span className="text-[10px] text-gray-500 dark:text-gray-400 font-black block mb-0.5">P/B</span>
+        <span className="text-xl font-black text-gray-900 dark:text-gray-100 leading-none tracking-tight">{value}</span>
+        <span className="text-[10px] font-bold text-gray-800 dark:text-gray-200">/cm</span>
+      </div>
+    </MetricCard>
+  )
+};
+
+// Large solid button / block
+const SolidBlock = ({ title, statusText, active = true }) => (
+  <MetricCard className="justify-between">
+    <div className="text-[12px] font-black text-gray-800 dark:text-gray-100">{title}</div>
+    <div 
+      className="flex-1 rounded-xl flex items-center justify-center text-xl font-black mt-2 shadow-sm border border-black/10 dark:border-white/10 transition-all drop-shadow-sm text-black"
+      style={active ? { backgroundColor: 'var(--color-success, #10B981)' } : { backgroundColor: '#e5e7eb', color: '#6b7280' }}
     >
-      <div className="flex flex-col">
-        <span className="text-[9px] font-black text-(--text-muted) uppercase tracking-widest">{metric.label}</span>
-        <span className="text-xl font-black italic mt-0.5" style={{ color }}>{metric.val}%</span>
+      {statusText}
+    </div>
+  </MetricCard>
+);
+
+// Horizontal Bar Chart
+const BarChartBlock = ({ title }) => (
+  <MetricCard className="justify-between">
+    <div className="text-[12px] font-black text-gray-800 dark:text-gray-100">{title}</div>
+    <div className="flex items-end justify-between h-[45px] mt-2 px-2 gap-1.5">
+       {[0.6, 1.0, 0.4, 0.8, 0.5].map((h, i) => (
+         <motion.div 
+           key={i} 
+           className="w-full rounded-t-sm shadow-sm"
+           style={{ backgroundColor: 'var(--color-success, #10B981)' }}
+           initial={{ height: 0 }}
+           animate={{ height: `${h * 100}%` }}
+           transition={{ duration: 1, delay: i * 0.1 }}
+         />
+       ))}
+    </div>
+    <div className="w-full h-1 mt-1 rounded-full opacity-100" style={{ backgroundColor: 'var(--color-success, #10B981)' }} />
+  </MetricCard>
+);
+
+// Horizontal Level Metrics (Ammonia / Nitrite)
+const LevelMetric = ({ title, value, unit, pct }) => (
+  <MetricCard className="justify-center gap-3">
+     <div className="flex justify-between items-center w-full">
+       <span className="text-[12px] font-black text-gray-800 dark:text-gray-100">{title}</span>
+       <DropIcon />
+     </div>
+     <div className="flex flex-col gap-1 w-full pl-2 pr-6 relative">
+        <div className="h-[5px] w-[80%] rounded-full shadow-sm" style={{ backgroundColor: 'var(--color-success, #10B981)' }} />
+        <div className="h-[5px] w-[60%] rounded-full shadow-sm" style={{ backgroundColor: 'var(--color-success, #10B981)' }} />
+        
+        {/* Indicator */}
+        <div className="absolute top-[-8px] right-[10px] text-center">
+           <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--color-success)" stroke="var(--dashboard-bg-item)" strokeWidth="2" className="mx-auto mb-0.5" style={{ fill: 'var(--color-success, #10B981)' }}>
+             <path d="M12 21l-12-18h24z"></path>
+           </svg>
+           <div className="text-base font-black text-gray-900 dark:text-gray-100 leading-none mt-1 whitespace-nowrap">{value} <span className="text-[9px] text-gray-500 dark:text-gray-400 font-black">{unit}</span></div>
+        </div>
+     </div>
+  </MetricCard>
+);
+
+// Simple Icon + Value block
+const IconValueBlock = ({ title, value, Icon }) => (
+  <MetricCard className="justify-center items-center gap-2">
+     <div className="text-[11px] font-black text-gray-800 dark:text-gray-100 absolute top-3 left-3 w-full">{title}</div>
+     <div className="flex items-center justify-center gap-3 mt-4 w-full h-full">
+       <div className="scale-125"><Icon /></div>
+       <span className="text-2xl font-black text-gray-900 dark:text-gray-100 tracking-tight">{value}</span>
+     </div>
+  </MetricCard>
+);
+
+// Graph + Value block (Salinity)
+const GraphValueBlock = ({ title, value, unit, data }) => (
+  <MetricCard className="justify-between">
+    <div className="text-[12px] font-black text-gray-800 dark:text-gray-100">{title}</div>
+    <div className="flex items-center gap-2 mt-1">
+      <LeafDropIcon />
+      <span className="text-2xl font-black text-gray-900 dark:text-gray-100 tracking-tight">{value}</span>
+      <span className="text-[10px] text-gray-500 dark:text-gray-400 font-black">{unit}</span>
+    </div>
+    <div className="h-[30px] w-full mt-2">
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart data={data}>
+          <Line type="monotone" dataKey="val" stroke="var(--color-success)" strokeWidth={3} dot={{ r: 4, fill: 'var(--color-success)' }} style={{ stroke: 'var(--color-success, #10B981)' }} />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  </MetricCard>
+);
+
+// Selkart Grid Component (Discrete Bar Chart)
+const SelkartGrid = () => {
+  const columns = [
+    { height: 0, color: '' },
+    { height: 4, color: 'var(--color-success, #10B981)' },
+    { height: 4, color: 'var(--color-success, #10B981)' },
+    { height: 7, color: 'var(--color-gold, #F59E0B)' },
+    { height: 7, color: 'var(--color-gold, #F59E0B)' },
+    { height: 4, color: 'var(--color-warning, #EF4444)' },
+    { height: 0, color: '' },
+    { height: 0, color: '' },
+    { height: 0, color: '' },
+  ];
+
+  return (
+    <MetricCard className="col-span-1 flex flex-col justify-between p-2 lg:p-3">
+      <div className="flex justify-between w-full text-[10px] font-black text-gray-800 dark:text-gray-100 mb-1">
+         <span>Selkart</span>
+         <span>Veallap</span>
       </div>
-      <div className="flex flex-col items-end">
-        <span className="text-[7px] font-bold opacity-30 uppercase">Status</span>
-        <span className={`text-[10px] font-black uppercase tracking-tighter ${metric.status === 'good' ? 'text-green' : 'text-amber-500'}`}>
-          {metric.status}
-        </span>
+      <div className="flex-1 flex gap-[2px] items-end mt-2 relative pb-[18px] pl-[20px] border-l-2 border-b-2 border-gray-300 dark:border-gray-600">
+         {/* Y-axis labels */}
+         <div className="absolute left-[-18px] top-0 bottom-4 flex flex-col justify-between text-[8px] text-gray-500 dark:text-gray-400 font-mono font-bold tracking-tighter">
+            <span>200</span><span>150</span><span>100</span><span>50</span><span>0</span>
+         </div>
+         {/* Columns */}
+         {columns.map((col, idx) => (
+            <div key={idx} className="flex-1 flex flex-col-reverse gap-[2px] h-full justify-start">
+               {Array.from({ length: 7 }).map((_, rowIdx) => (
+                  <div 
+                    key={rowIdx} 
+                    className={`w-full aspect-square rounded-[2px] ${rowIdx >= col.height ? 'bg-black/5 dark:bg-white/10' : ''}`} 
+                    style={rowIdx < col.height ? { backgroundColor: col.color } : {}}
+                  />
+               ))}
+            </div>
+         ))}
+         {/* X-axis labels */}
+         <div className="absolute bottom-[-14px] left-[20px] right-0 flex justify-between text-[8px] text-gray-500 dark:text-gray-400 font-mono font-bold pr-1 tracking-wider">
+            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+         </div>
       </div>
-    </motion.div>
-  );
+    </MetricCard>
+  )
 }
 
-export default function Zone1_VisualHealth({ data }) {
+
+export default function Zone1_VisualHealth() {
+
+  const trendData = [
+    { time: '1', val: 10 }, { time: '2', val: 15 }, { time: '3', val: 13 },
+    { time: '4', val: 18 }, { time: '5', val: 19 }, { time: '6', val: 24 }
+  ];
+
+  const salinityData = [
+    { time: '1', val: 15 }, { time: '2', val: 15.2 }, { time: '3', val: 15.1 },
+    { time: '4', val: 15.5 }, { time: '5', val: 15.4 }, { time: '6', val: 15 }
+  ];
+
   return (
-    <div className="h-full flex flex-col gap-6 p-6 bg-(--dashboard-bg-deep) text-(--text-primary) font-mono">
-      {/* Header with Project Metadata */}
-      <div className="flex justify-between items-end border-b border-(--dashboard-stroke) pb-4 shrink-0">
-        <div className="flex flex-col gap-1">
-          <h2 className="text-2xl font-black text-(--text-primary) uppercase tracking-tighter italic">
-            VISUAL <span className="text-green">HEALTH</span> AI
-          </h2>
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-green animate-pulse" />
-            <p className="text-[10px] font-bold text-(--text-muted) uppercase tracking-widest">Real-time Stream | 30 FPS | YOLOv11 Engine</p>
-          </div>
-        </div>
-        <div className="flex flex-col items-end gap-1">
-          <span className="text-[9px] font-black text-(--text-muted) uppercase">AI Reliability Score</span>
-          <div className="flex items-center gap-3">
-            <span className="text-4xl font-black italic text-green underline decoration-green/30 underline-offset-8">92.4%</span>
-          </div>
-        </div>
+    <div className="min-h-full flex flex-col p-4 xl:p-6 bg-gray-50 dark:bg-[--dashboard-bg-deep] text-gray-900 dark:text-gray-100 font-sans overflow-x-hidden">
+      
+      {/* HEADER */}
+      <div className="flex flex-col md:flex-row justify-between items-center mb-6 px-2 gap-4">
+         <h1 className="text-xl xl:text-2xl font-black tracking-widest uppercase drop-shadow-sm border-b-2 pb-1" style={{ color: 'var(--color-gold, #F59E0B)', borderColor: 'var(--color-gold, #F59E0B)30' }}>Camera Live</h1>
+         <h2 className="text-2xl xl:text-3xl font-black tracking-widest text-gray-900 dark:text-white uppercase drop-shadow-sm text-center">BIOLOGICAL SYSTEM GROUPING</h2>
+         <div className="text-base xl:text-lg font-black text-gray-800 dark:text-gray-200 bg-white dark:bg-[#1C1F26] px-4 py-1.5 rounded-full border border-gray-200 dark:border-gray-800 shadow-sm flex items-center gap-2">
+           Desert High-Contrast
+           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+         </div>
       </div>
 
-      <div className="flex-1 grid grid-cols-1 xl:grid-cols-2 gap-8 overflow-y-auto pr-2">
-        {/* LEFT PANEL: FISH AI */}
-        <div className="flex flex-col gap-6">
-          <div className="bg-(--dashboard-bg-card) border border-(--dashboard-stroke) rounded-2xl p-6 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-4 opacity-10">
-              <div className="w-16 h-16 border-t-4 border-r-4 border-white" />
-            </div>
+      {/* Central AI Recommendation */}
+      <div className="border border-red-200 dark:border-red-900/50 rounded-2xl p-3 xl:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between shadow-md mb-4 gap-4 bg-red-50/50 dark:bg-red-900/10">
+         <div className="flex items-center gap-4">
+           <div className="p-2.5 rounded-full border border-red-300 dark:border-red-500 flex items-center justify-center bg-red-100 dark:bg-red-900/40">
+             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-red-500"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+           </div>
+           <div className="flex flex-col">
+             <span className="text-[11px] font-black text-red-600 dark:text-red-400 uppercase tracking-widest drop-shadow-sm">Ưu tiên Hệ thống - AI Recommendation Alert</span>
+             <span className="text-base xl:text-lg font-black text-gray-900 dark:text-white mt-1 drop-shadow-sm">Ưu tiên: Tăng Oxy Ao 3 trước khi điều chỉnh dinh dưỡng rau</span>
+           </div>
+         </div>
+         <button className="text-white px-6 py-3 rounded-xl text-[11px] xl:text-[12px] font-black uppercase hover:bg-red-600 transition-all shadow-md active:scale-95 shrink-0 border border-white/20" style={{ backgroundColor: 'var(--color-danger, #EF4444)' }}>
+            Khắc Phục Tự Động
+         </button>
+      </div>
 
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-lg font-black text-(--text-primary) uppercase tracking-widest">🐟 AQUATIC ANALYTICS</h3>
-              <div className="flex gap-4">
-                <div className="text-right">
-                  <span className="text-[8px] font-black text-(--text-muted) uppercase">Density</span>
-                  <div className="text-sm font-black text-green">14.2 /m³</div>
+      {/* DUAL COLUMN LAYOUT */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 xl:gap-8 flex-1">
+        
+        {/* =======================
+            LEFT: AQUATIC SYSTEM
+        ======================= */}
+        <div className="flex flex-col gap-4">
+           {/* Section Header */}
+           <div className="flex justify-between items-center bg-white dark:bg-[#1C1F26] px-4 py-2 border-l-[5px] border-red-500 rounded-r-xl shadow-sm gap-2">
+             <h3 className="text-base sm:text-lg xl:text-xl font-black uppercase text-gray-900 dark:text-white tracking-widest flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+               AQUATIC SYSTEM
+               <span className="text-[10px] sm:text-[11px] bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 px-3 py-1 rounded-md border border-red-200 dark:border-red-800 uppercase tracking-wider">Cấp thiết – Cá Chẽm</span>
+             </h3>
+             <div className="flex gap-2 shrink-0">
+               <button className="hidden sm:flex bg-gray-50 dark:bg-gray-800 px-4 py-1.5 text-[11px] font-black rounded-lg border items-center gap-1 cursor-pointer transition-colors shadow-sm bg-white border-gray-200 dark:border-gray-700 hover:bg-gray-100 text-[#10B981]" style={{ color: 'var(--color-success, #10B981)' }}>
+                 Chi tiết
+               </button>
+               <div className="bg-gray-50 dark:bg-gray-800 px-4 py-1.5 text-[11px] font-black text-gray-600 dark:text-gray-300 rounded-lg border border-gray-200 dark:border-gray-700 flex items-center gap-1 cursor-pointer transition-colors shadow-sm">
+                 50/50
+                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+               </div>
+             </div>
+           </div>
+
+           {/* Metrics Grid 3x3 */}
+           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 xl:gap-4 flex-1 auto-rows-fr">
+             {/* R1 */}
+             <LargeArcGauge title="DO" value="6.5" unit="mg/L" />
+             <DialGauge title="Air Pressure" value="101.3" unit="KPa" pct={0.65} />
+             <SolidBlock title="Electric Ball Valve" statusText="OPEN" active={true} />
+             
+             {/* R2 */}
+             <IconValueBlock title="Water Temp" value="25 °C" Icon={TempIcon} />
+             <LevelMetric title="Ammonia" value="0.5" unit="ppm" pct={0.3} />
+             <LevelMetric title="Nitrite" value="0.02" unit="ppm" pct={0.1} />
+
+             {/* R3 */}
+             <DialGauge title="Positive Pressure" value="15" unit="Dbar" pct={0.8} hasTrack={true} />
+             <MetricCard className="justify-between">
+                <div className="text-[12px] font-black text-gray-800 dark:text-gray-100">Delta T</div>
+                <div className="flex flex-col justify-end h-full mt-2">
+                  <div className="text-4xl font-black flex items-center gap-2" style={{ color: 'var(--color-success, #10B981)' }}>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18L12 3 3 21Z"></path></svg>
+                    0.2
+                  </div>
+                  <div className="text-xl font-black text-gray-900 dark:text-white mt-2 flex items-center gap-1">
+                     <span style={{ color: 'var(--color-success, #10B981)' }}>»</span> 15 bar
+                  </div>
                 </div>
-                <div className="text-right">
-                  <span className="text-[8px] font-black text-(--text-muted) uppercase">Temp Bias</span>
-                  <div className="text-sm font-black text-amber-500">+0.2°C</div>
+             </MetricCard>
+             <MetricCard className="justify-between">
+                <div className="text-[12px] font-black text-gray-800 dark:text-gray-100">Montica (µS)</div>
+                <div className="h-[45px] w-full mt-4">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={trendData}>
+                      <Line type="monotone" dataKey="val" strokeWidth={3} dot={{ r: 4, fill: 'var(--color-success, #10B981)' }} style={{ stroke: 'var(--color-success, #10B981)' }} />
+                    </LineChart>
+                  </ResponsiveContainer>
                 </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-3 gap-3">
-              {data.cameraStatuses.map((cam, i) => (
-                <CameraCell key={cam.id} cam={cam} index={i} />
-              ))}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-6">
-            <div className="bg-(--dashboard-bg-card) border border-(--dashboard-stroke) rounded-2xl p-5">
-              <span className="text-[10px] font-black text-(--text-muted) uppercase tracking-widest mb-4 block">Velocity Trajectory</span>
-              <SparklineChart data={data.predictiveInsight} color="#10B981" height={70} />
-              <div className="mt-4 flex justify-between items-center text-[9px] font-black uppercase italic">
-                <span className="text-(--text-muted)">Avg Speed</span>
-                <span className="text-green">0.82 m/s</span>
-              </div>
-            </div>
-            <div className="bg-(--dashboard-bg-card) border border-(--dashboard-stroke) rounded-2xl p-5">
-              <span className="text-[10px] font-black text-(--text-muted) uppercase tracking-widest mb-4 block">Biomass Prediction</span>
-              <SparklineChart data={data.biomassData} color="#8B5CF6" height={70} />
-              <div className="mt-4 flex justify-between items-center text-[9px] font-black uppercase italic">
-                <span className="text-(--text-muted)">Est. Growth</span>
-                <span className="text-purple-500">+1.2 kg/day</span>
-              </div>
-            </div>
-          </div>
+                <div className="flex justify-between w-full mt-2 px-1">
+                  <span className="text-[9px] font-bold text-gray-500 dark:text-gray-400">00</span>
+                  <span className="text-[9px] font-bold text-gray-500 dark:text-gray-400">480</span>
+                  <span className="text-[9px] font-bold text-gray-500 dark:text-gray-400">1000</span>
+                </div>
+             </MetricCard>
+           </div>
         </div>
 
-        {/* RIGHT PANEL: THERMAL & PLANT AI */}
-        <div className="flex flex-col gap-6">
-          <div className="bg-(--dashboard-bg-card) border border-(--dashboard-stroke) rounded-2xl p-6 shadow-2xl relative">
-            <h3 className="text-lg font-black text-(--text-primary) uppercase tracking-widest mb-6">🌡️ THERMAL GRID OVERLAY</h3>
+        {/* =======================
+            RIGHT: TERRESTRIAL
+        ======================= */}
+        <div className="flex flex-col gap-4">
+           {/* Section Header */}
+           <div className="flex justify-between items-center bg-white dark:bg-[#1C1F26] px-4 py-2 border-l-[5px] border-blue-500 rounded-r-xl shadow-sm gap-2">
+             <h3 className="text-base sm:text-lg xl:text-xl font-black uppercase text-gray-900 dark:text-white tracking-widest flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+               TERRESTRIAL SYSTEM
+               <span className="text-[10px] sm:text-[11px] bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-3 py-1 rounded-md border border-blue-200 dark:border-blue-800 uppercase tracking-wider">Tối ưu RS – 800m²</span>
+             </h3>
+             <div className="flex gap-2 shrink-0">
+               <button className="hidden sm:flex bg-gray-50 dark:bg-gray-800 px-4 py-1.5 text-[11px] font-black rounded-lg border items-center gap-1 cursor-pointer transition-colors shadow-sm bg-white border-gray-200 dark:border-gray-700 hover:bg-gray-100 text-[#10B981]" style={{ color: 'var(--color-success, #10B981)' }}>
+                 Chi tiết
+               </button>
+               <div className="bg-gray-50 dark:bg-gray-800 px-4 py-1.5 text-[11px] font-black text-gray-600 dark:text-gray-300 rounded-lg border border-gray-200 dark:border-gray-700 flex items-center gap-1 cursor-pointer transition-colors shadow-sm">
+                 50/50
+                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+               </div>
+             </div>
+           </div>
 
-            {/* Thermal Map mockup */}
-            <div className="aspect-video bg-gradient-to-br from-red-900/40 via-amber-900/40 to-green-900/40 rounded-xl relative overflow-hidden border border-(--dashboard-stroke) shadow-inner mb-6 flex items-center justify-center">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,100,0,0.2),transparent)]" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(0,255,100,0.1),transparent)]" />
-              <div className="relative text-center">
-                <span className="text-6xl font-black italic text-(--text-primary) drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]">{data.leafTemp}°C</span>
-                <p className="text-[10px] font-black text-(--text-muted) uppercase tracking-[0.5em] mt-2">LEAF CANOPY TEMP</p>
-              </div>
-              {/* Hotspot tracking */}
-              <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }} transition={{ duration: 1, repeat: Infinity }} className="absolute top-1/3 left-1/4 w-4 h-4 rounded-full border-2 border-red-500 shadow-[0_0_15px_red]" />
-            </div>
+           {/* Metrics Grid 3x3 */}
+           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 xl:gap-4 flex-1 auto-rows-fr">
+             {/* R1 */}
+             <BarChartBlock title="Nitrate" />
+             <CenterDialGauge title="EC" value="2.5" unit="mS/cm" pct={0.5} />
+             <DialGauge title="Drip Nozzle Pressure" value="2.0" unit="" pct={0.2} hasTrack={true} />
 
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <div className="bg-(--dashboard-bg-item) border border-(--dashboard-stroke) rounded-xl p-4">
-                <span className="text-[10px] font-black text-(--text-muted) uppercase tracking-widest">NDVI Index</span>
-                <div className="text-3xl font-black text-green italic mt-1">0.85</div>
-                <div className="mt-2 text-[8px] font-bold text-green/60 uppercase">Optimal Hydration</div>
-              </div>
-              <div className="bg-(--dashboard-bg-item) border border-(--dashboard-stroke) rounded-xl p-4">
-                <span className="text-[10px] font-black text-(--text-muted) uppercase tracking-widest">Internal RH</span>
-                <div className="text-3xl font-black text-blue-400 italic mt-1">{data.internalHumidity}%</div>
-                <div className="mt-2 text-[8px] font-bold text-blue-400/60 uppercase">Stable Vapor Pressure</div>
-              </div>
-            </div>
+             {/* R2 */}
+             <IconValueBlock title="Substrate Humidity" value="60%" Icon={LeafDropIcon} />
+             <IconValueBlock title="Internal Humidity" value="70%" Icon={DropIcon} />
+             <IconValueBlock title="Leaf Temperature" value="25 °C" Icon={TempIcon} />
 
-            <div className="space-y-3">
-              <span className="text-[10px] font-black text-(--text-muted) uppercase tracking-widest pl-1">● Plant Health Metrics</span>
-              {data.plantMetrics.map((m, i) => (
-                <PlantMetricRow key={i} metric={m} index={i} />
-              ))}
-            </div>
-          </div>
+             {/* R3 */}
+             <GraphValueBlock title="Salinity" value="15" unit="ppt" data={salinityData} />
+             
+             <MetricCard className="col-span-1 border-gray-200 dark:border-gray-700">
+                <div className="text-[12px] font-black text-gray-500 dark:text-gray-400 tracking-wide mb-1 flex items-center gap-1">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  AI-Driven
+                </div>
+                <div className="text-[13px] font-black text-gray-900 dark:text-gray-100 leading-tight mb-2 uppercase">Recommendations</div>
+                <div className="text-[10px] text-gray-600 dark:text-gray-400 whitespace-pre-wrap leading-relaxed border-t border-gray-200 dark:border-gray-800 pt-3 font-bold dropdown">
+                  {"Cole 20%  700k\n5.00 40\nThe recommended rate\nGrowing to smilk at\nControl of in part A"}
+                </div>
+             </MetricCard>
+
+             <SelkartGrid />
+           </div>
         </div>
+
       </div>
     </div>
   );
