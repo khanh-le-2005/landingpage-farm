@@ -23,11 +23,29 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, han
   };
 
   return (
-    <motion.aside 
-      initial={false}
-      animate={{ width: isSidebarOpen ? 280 : 80 }}
-      className="bg-(--bg-card) border-r border-(--glass-border) flex flex-col z-50 overflow-hidden relative"
-    >
+    <>
+      {/* Backdrop for mobile */}
+      <AnimatePresence>
+        {isSidebarOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsSidebarOpen(false)}
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 md:hidden"
+          />
+        )}
+      </AnimatePresence>
+
+      <motion.aside 
+        initial={false}
+        animate={{ 
+          width: isSidebarOpen ? 280 : (window.innerWidth < 768 ? 280 : 80),
+          x: isSidebarOpen ? 0 : (window.innerWidth < 768 ? -280 : 0)
+        }}
+        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+        className="fixed md:relative h-full bg-(--bg-card) border-r border-(--glass-border) flex flex-col z-[60] overflow-hidden"
+      >
       <div className="p-6 flex items-center gap-4">
         <div className="w-10 h-10 bg-linear-to-br from-green to-green-soft rounded-xl flex items-center justify-center text-white shadow-lg shrink-0">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M2 12h20M7 7l10 10M17 7L7 17" /></svg>
@@ -124,7 +142,8 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, han
         </svg>
       </button>
     </motion.aside>
-  );
+  </>
+);
 };
 
 export default Sidebar;
