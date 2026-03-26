@@ -2,8 +2,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useCallback } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 
-  const { t } = useTranslation();
-  const TICKER = t('hero.ticker', { returnObjects: true }) || [];
 
 function StatCard({ value, unit, label, color, delay }) {
   return (
@@ -26,6 +24,7 @@ function StatCard({ value, unit, label, color, delay }) {
 
 export default function HeroSection() {
   const { t } = useTranslation();
+  const TICKER = t('hero.ticker', { returnObjects: true }) || [];
   const [activeImg, setActiveImg] = useState(0);
   const [isPaused, setIsPaused] = useState(false); // Trạng thái dừng khi hover
 
