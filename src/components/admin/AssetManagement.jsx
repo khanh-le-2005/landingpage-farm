@@ -121,12 +121,12 @@ const DashboardModal = ({ asset, onClose }) => {
   const { t } = useTranslation();
   const [liveData, setLiveData] = useState({
     cameraStatuses: [
-      { id: 1, label: 'Ao cá Chẽm #1', status: 'normal' },
-      { id: 2, label: 'Ao cá Chẽm #2', status: 'alert' },
-      { id: 3, label: 'Ao cá Chẽm #3', status: 'normal' },
-      { id: 4, label: 'Dải Rau #1', status: 'normal' },
-      { id: 5, label: 'Dải Rau #2', status: 'alert' },
-      { id: 6, label: 'Dải Rau #3', status: 'normal' },
+      { id: 1, label: `${t('dashboard.zones.asset_mgmt.fish_tank')} #1`, status: 'normal' },
+      { id: 2, label: `${t('dashboard.zones.asset_mgmt.fish_tank')} #2`, status: 'alert' },
+      { id: 3, label: `${t('dashboard.zones.asset_mgmt.fish_tank')} #3`, status: 'normal' },
+      { id: 4, label: `${t('dashboard.zones.asset_mgmt.plant_strip')} #1`, status: 'normal' },
+      { id: 5, label: `${t('dashboard.zones.asset_mgmt.plant_strip')} #2`, status: 'alert' },
+      { id: 6, label: `${t('dashboard.zones.asset_mgmt.plant_strip')} #3`, status: 'normal' },
     ],
     predictiveInsight: Array.from({ length: 10 }, (_, i) => ({ v: 0.7 + Math.random() * 0.2 })),
     plantMetrics: [
@@ -136,11 +136,11 @@ const DashboardModal = ({ asset, onClose }) => {
     ],
     biomassData: Array.from({ length: 7 }, (_, i) => ({ density: 10 + Math.random() * 5 })),
     energyData: [
-       { label: 'Giờ 1', gen: 80, use: 80 },
-       { label: 'Giờ 2', gen: 20, use: 15 },
-       { label: 'Giờ 3', gen: 40, use: 55 },
-       { label: 'Giờ 4', gen: 30, use: 30 },
-       { label: 'Giờ 5', gen: 25, use: 20 }
+       { label: `${t('dashboard.zones.asset_mgmt.hour')} 1`, gen: 80, use: 80 },
+       { label: `${t('dashboard.zones.asset_mgmt.hour')} 2`, gen: 20, use: 15 },
+       { label: `${t('dashboard.zones.asset_mgmt.hour')} 3`, gen: 40, use: 55 },
+       { label: `${t('dashboard.zones.asset_mgmt.hour')} 4`, gen: 30, use: 30 },
+       { label: `${t('dashboard.zones.asset_mgmt.hour')} 5`, gen: 25, use: 20 }
     ],
     bufferTankPct: 75,
     energyDelta: 15,
@@ -171,8 +171,8 @@ const DashboardModal = ({ asset, onClose }) => {
     // Zone 3
     batterySoC: 85,
     tecTasks: [
-       { name: 'Xịt rửa Drum Filter', amount: '500 lít', completed: true },
-       { name: 'Trung hòa dịch bùn', amount: '300 lít', completed: true }
+       { name: t('dashboard.zones.asset_mgmt.drum_filter'), amount: '500 L', completed: true },
+       { name: t('dashboard.zones.asset_mgmt.neutralize_sludge'), amount: '300 L', completed: true }
     ],
     biomassData: [
        { time: '0', density: 12 }, { time: '100', density: 12.5 },
@@ -182,7 +182,7 @@ const DashboardModal = ({ asset, onClose }) => {
     totalFeed: 450,
     fishWeight: 3200,
     plantDensity: 2.5,
-    fcrAlert: "Cảnh báo: FCR bất thường tại ao số 3 - Kiểm tra sức khỏe cá hoặc máy cho ăn."
+    fcrAlert: t('dashboard.zones.asset_mgmt.fcr_modal_alert')
   });
 
   // Live Simulation: Update every 5s

@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function FooterSection() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);
 
@@ -24,14 +26,14 @@ export default function FooterSection() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="text-center max-w-[800px] mx-auto mb-20"
         >
-          <div className="section-label mb-6 mx-auto">Hành động ngay hôm nay</div>
+          <div className="section-label mb-6 mx-auto">{t('landing.footer.cta_label')}</div>
           <h2 className="font-heading font-extrabold text-[clamp(2.2rem,6vw,3.6rem)] leading-none mb-5">
-            Sẵn sàng đem{' '}
+            {t('landing.footer.cta_title_part1')}{' '}
             <span className="text-gradient-green">AI Aquaponics</span>{' '}
-            vào dự án của bạn?
+            {t('landing.footer.cta_title_part2')}
           </h2>
           <p className="text-[var(--text-secondary)] text-[1.15rem] leading-relaxed mb-10 max-w-[640px] mx-auto">
-            Đội ngũ chuyên gia của chúng tôi luôn sẵn sàng hỗ trợ triển khai giải pháp IoT thông minh cho mọi quy mô dự án.
+            {t('landing.footer.cta_desc')}
           </p>
 
           {!sent ? (
@@ -46,7 +48,7 @@ export default function FooterSection() {
               />
               <button type="submit" className="btn-primary flex items-center gap-2">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
-                Yêu cầu Demo
+                {t('landing.footer.request_demo')}
               </button>
             </form>
           ) : (
@@ -56,18 +58,18 @@ export default function FooterSection() {
               className="section-label !text-green !border-green flex items-center gap-2 px-8 py-4 mx-auto text-base"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              Chúng tôi đã nhận được! Sẽ phản hồi trong 24h.
+               {t('landing.footer.received')}
             </motion.div>
           )}
 
           <div className="flex gap-4 justify-center flex-wrap">
             <button className="btn-ghost flex items-center gap-2">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-              Tài liệu kỹ thuật
+               {t('landing.footer.tech_docs')}
             </button>
             <button className="btn-ghost flex items-center gap-2">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              Tư vấn giải pháp
+               {t('landing.footer.consulting')}
             </button>
           </div>
         </motion.div>
@@ -85,22 +87,22 @@ export default function FooterSection() {
               </span>
             </div>
             <p className="text-[var(--text-muted)] text-[0.9rem] leading-relaxed">
-              Hệ thống giám sát nông nghiệp thông minh tiên phong tại KEZAD, Abu Dhabi. Tích hợp AI & IoT Deep Learning.
+              {t('landing.footer.brand_desc')}
             </p>
           </div>
 
           {[
             {
-              title: 'Hệ thống',
+              title: t('landing.footer.col_system'),
               links: ['Zone 0 - Environment', 'Zone 1 - Visual AI', 'Zone 2 - Life Support', 'Zone 3 - Resources']
             },
             {
-              title: 'Công nghệ',
+              title: t('landing.footer.col_tech'),
               links: ['Deep Learning YOLOv11', 'Thermal AI Scan', 'MQTT Real-time', 'TEC Water Recovery']
             },
             {
-              title: 'Thông tin',
-              links: ['KEZAD, Abu Dhabi', '1,500 m² Tổng diện tích', 'Sản lượng 20 tấn/năm', '24/7 Monitoring']
+              title: t('landing.footer.col_info'),
+              links: ['KEZAD, Abu Dhabi', t('landing.footer.info_area'), t('landing.footer.info_yield'), '24/7 Monitoring']
             }
           ].map((col, idx) => (
             <div key={idx}>
@@ -119,7 +121,7 @@ export default function FooterSection() {
         {/* Bottom bar */}
         <div className="flex items-center justify-between pt-8 border-t border-[var(--glass-border)] flex-wrap gap-5">
           <div className="text-[0.8rem] text-[var(--text-muted)]">
-            © 2026 Smart Farm Aquaponics · KEZAD Project
+            {t('landing.footer.copy')}
           </div>
           <div className="flex gap-2">
             {['English', 'Tiếng Việt', 'Arabic'].map((lang, i) => (

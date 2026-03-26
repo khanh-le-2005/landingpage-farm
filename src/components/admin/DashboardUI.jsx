@@ -12,8 +12,8 @@ export const Card = ({ children, className = "" }) => (
 
 export const CardHeader = ({ title, subTitle }) => (
   <div className="flex flex-col mb-4 relative z-10">
-    <h4 className="text-[12px] font-black uppercase tracking-[0.3em] text-(--text-primary) leading-none mb-1">{title}</h4>
-    {subTitle && <span className="text-[10px] font-black text-(--text-muted) uppercase tracking-[0.2em] italic">{subTitle}</span>}
+    <h4 className="text-sm font-black uppercase tracking-[0.3em] text-(--text-primary) leading-none mb-1">{title}</h4>
+    {subTitle && <span className="text-xs font-black text-(--text-muted) uppercase tracking-[0.2em] italic">{subTitle}</span>}
   </div>
 );
 
@@ -27,7 +27,7 @@ export const VisualGauge = ({ value, unit, type, orange, small }) => {
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <span className="text-5xl font-black italic tracking-tighter text-(--text-primary)">{value}</span>
-          <span className="text-[10px] font-black text-(--text-muted) uppercase mt-1">{unit}</span>
+          <span className="text-xs font-black text-(--text-muted) uppercase mt-1">{unit}</span>
         </div>
       </div>
     </div>
@@ -41,7 +41,7 @@ export const VisualGauge = ({ value, unit, type, orange, small }) => {
         </svg>
         <div className="flex flex-col items-center mt-[-10px]">
           <span className={`${small ? 'text-2xl' : 'text-[2.2rem]'} font-black tracking-tighter italic text-(--text-primary)`}>{value}</span>
-          <span className="text-[10px] font-black text-(--text-muted) uppercase tracking-widest">{unit}</span>
+          <span className="text-xs font-black text-(--text-muted) uppercase tracking-widest">{unit}</span>
         </div>
       </div>
     </div>
@@ -66,7 +66,7 @@ export const ProgressBar = ({ val, display, unit, icon }) => (
       <motion.div initial={{ width: 0 }} animate={{ width: `${val}%` }} transition={{ duration: 1.5 }} className="h-full bg-green" />
     </div>
     <div className="flex items-center justify-end gap-3 translate-y-2 text-2xl font-black italic text-(--text-primary)">
-      <IndicatorIcon type={icon} className="translate-y-[-2px]" /> {display} <span className="text-xs font-bold text-(--text-muted) uppercase">{unit}</span>
+      <IndicatorIcon type={icon} className="translate-y-[-2px]" /> {display} <span className="text-sm font-bold text-(--text-muted) uppercase">{unit}</span>
     </div>
   </div>
 );

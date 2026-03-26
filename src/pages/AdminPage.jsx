@@ -15,11 +15,10 @@ const AdminPage = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 1024);
 
-  // DATA SYNCED FROM PDF "PHỤ LỤC 2"
+  // DATA SYNCED FROM PDF "APPENDIX 2"
   const adminAssets = [
-    { id: 1, src: '/img/pump.png', title: 'Water Flow Matrix', category: 'Environment', date: '2024-03-23', size: '12 KB', type: 'system', desc: 'Cấu trúc 3 cột nhiệt độ và 2 cột độ mặn liên kết theo thời gian thực: Well → Pre-process → Buffer Tank.' },
-    { id: 2, src: '/img/Screenshot 2026-03-22 130631.png', title: 'Climate & Pressure Hub', category: 'Environment', date: '2024-03-23', size: '107 KB', type: 'system', desc: 'Duy trì áp suất dương (ΔP)=+15. Theo dõi biến động môi trường nội bộ vs ngoại vi.' },
-    { id: 3, src: '/img/Screenshot 2026-03-22 130613.png', title: 'Growth Hub (AI Analytics)', category: 'Analytics', date: '2024-03-20', size: '2.5 MB', type: 'ai', desc: 'Hệ thống quản lý tăng trưởng tích hợp AI: Giám sát mật độ, vận tốc bơi và sức khỏe sinh học toàn diện.' },
+    { id: 1, src: '/img/pump.png', title: 'Water Flow Matrix', category: 'Environment', date: '2024-03-23', size: '12 KB', type: 'system', desc: 'Structure of 3 temperature columns and 2 salinity columns linked in real-time: Well → Pre-process → Buffer Tank.' },
+    { id: 2, src: '/img/Screenshot 2026-03-22 130631.png', title: 'Climate & Pressure Hub', category: 'Environment', date: '2024-03-23', size: '107 KB', type: 'system', desc: 'Maintains positive pressure (ΔP)=+15. Monitors internal vs. external environmental fluctuations.' },
   ];
 
   const categories = ['All'];
@@ -106,7 +105,6 @@ const AdminPage = () => {
               categories={categories}
             />
           )}
-          {activeTab === 'analytics' && <AnalyticsDetail />}
           {activeTab === 'settings' && <Settings />}
         </div>
       </main>

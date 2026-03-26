@@ -1,14 +1,16 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import GaugeChart from '../components/GaugeChart';
 
 // Animated Water Flow SVG
 function WaterPipeline({ data }) {
+  const { t } = useTranslation();
   const flowColor = '#0EA5E9';
   const pipeColor = '#E2E8F0';
   const nodes = [
-    { id: 'well',   label: 'Nguồn (Well)',     x: 80,  y: 80,  icon: '🚰', flow: `T: ${data.tempWell}°C`, sub: `S: ${data.salinityWell}ppt`, color: '#0EA5E9' },
-    { id: 'hdpe',   label: 'Xử lý (HDPE)',     x: 320, y: 80,  icon: '🛡️', flow: `T: ${data.tempHDPE}°C`, sub: 'Pre-process', color: '#10B981' },
-    { id: 'buffer', label: 'Đích (Buffer)',    x: 560, y: 80,  icon: '⛱',  flow: `T: ${data.tempTarget}°C`, sub: `S: ${data.salinityTarget}ppt`, color: '#8B5CF6' },
+    { id: 'well',   label: t('dashboard.zones.zone0.source'),     x: 80,  y: 80,  icon: '🚰', flow: `T: ${data.tempWell}°C`, sub: `S: ${data.salinityWell}ppt`, color: '#0EA5E9' },
+    { id: 'hdpe',   label: t('dashboard.zones.zone0.process'),     x: 320, y: 80,  icon: '🛡️', flow: `T: ${data.tempHDPE}°C`, sub: 'Pre-process', color: '#10B981' },
+    { id: 'buffer', label: t('dashboard.zones.zone0.target'),    x: 560, y: 80,  icon: '⛱',  flow: `T: ${data.tempTarget}°C`, sub: `S: ${data.salinityTarget}ppt`, color: '#8B5CF6' },
   ];
 
   return (
@@ -37,14 +39,14 @@ function WaterPipeline({ data }) {
             <circle cx={n.x} cy={n.y} r={44} fill="var(--dashboard-bg-card)" stroke={n.color} strokeWidth={2.5}
               style={{ filter: `drop-shadow(0 4px 8px ${n.color}30)` }} />
             {/* Icon */}
-            <text x={n.x} y={n.y - 6} textAnchor="middle" fontSize={22}>{n.icon}</text>
+            <text x={n.x} y={n.y - 8} textAnchor="middle" fontSize={28}>{n.icon}</text>
             {/* Label */}
-            <text x={n.x} y={n.y + 12} textAnchor="middle" fontSize={9} fontWeight="600"
+            <text x={n.x} y={n.y + 14} textAnchor="middle" fontSize={11} fontWeight="700"
               fill="var(--text-primary)" fontFamily="Inter, sans-serif">{n.label}</text>
             {/* Flow */}
-            <text x={n.x} y={n.y + 24} textAnchor="middle" fontSize={8}
-              fill="var(--text-primary)" fontWeight="700" fontFamily="Inter, sans-serif">{n.flow}</text>
-            <text x={n.x} y={n.y + 34} textAnchor="middle" fontSize={7}
+            <text x={n.x} y={n.y + 28} textAnchor="middle" fontSize={10}
+              fill="var(--text-primary)" fontWeight="800" fontFamily="Inter, sans-serif">{n.flow}</text>
+            <text x={n.x} y={n.y + 40} textAnchor="middle" fontSize={9}
               fill="var(--text-muted)" fontFamily="Inter, sans-serif">{n.sub}</text>
           </g>
         ))}
@@ -63,18 +65,18 @@ function ClimateCard({ icon, label, value, unit, color = 'var(--color-primary)',
       style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 14 }}
     >
       <div style={{
-        width: 48, height: 48, borderRadius: 12,
+        width: 56, height: 56, borderRadius: 14,
         background: `${color}15`,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontSize: 22, flexShrink: 0,
+        fontSize: 28, flexShrink: 0,
       }}>
         {icon}
       </div>
       <div>
-        <div className="metric-label">{label}</div>
-        <div className="metric-value" style={{ fontSize: 26, color }}>
+        <div className="metric-label font-bold text-sm">{label}</div>
+        <div className="metric-value font-black" style={{ fontSize: 32, color }}>
           {typeof value === 'number' ? (value % 1 === 0 ? value : value.toFixed(1)) : value}
-          <span className="metric-unit">{unit}</span>
+          <span className="metric-unit text-base ml-1">{unit}</span>
         </div>
       </div>
     </motion.div>
@@ -82,6 +84,7 @@ function ClimateCard({ icon, label, value, unit, color = 'var(--color-primary)',
 }
 
 export default function Zone0_Environment({ data }) {
+  const { t } = useTranslation();
   const deltaP = data.deltaPressure;
   const isAlertDP = deltaP < 7;
 
@@ -96,9 +99,9 @@ export default function Zone0_Environment({ data }) {
           </h2>
           <span className="badge badge-success">LIVE</span>
         </div>
-        <div style={{ marginLeft: 'auto', display: 'flex', gap: 10 }}>
-          <span className="text-[10px] font-black uppercase text-(--text-muted) tracking-widest bg-(--dashboard-bg-item) px-3 py-1 rounded-lg border border-(--dashboard-stroke)">KEZAD, Abu Dhabi</span>
-          <span className="text-[10px] font-black uppercase text-(--text-muted) tracking-widest bg-(--dashboard-bg-item) px-3 py-1 rounded-lg border border-(--dashboard-stroke)">Total: 1,500 m²</span>
+        <div className="ml-auto flex gap-2">
+          <span className="text-xs font-black uppercase text-(--text-muted) tracking-widest bg-(--dashboard-bg-item) px-3 py-1.5 rounded-lg border border-(--dashboard-stroke)">KEZAD, Abu Dhabi</span>
+          <span className="text-xs font-black uppercase text-(--text-muted) tracking-widest bg-(--dashboard-bg-item) px-3 py-1.5 rounded-lg border border-(--dashboard-stroke)">Total: 1,500 m²</span>
         </div>
       </motion.div>
 
@@ -114,23 +117,23 @@ export default function Zone0_Environment({ data }) {
         <WaterPipeline data={data} />
       </motion.div>
 
-      {/* Cụm áp suất và khí hậu (Climate and Pressure) */}
+      {/* Climate and Pressure Hub */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Cột 1: Môi trường BÊN TRONG */}
+        {/* Column 1: INTERNAL environment */}
         <div className="flex flex-col gap-4">
           <div className="text-[10px] font-black uppercase text-green pl-2 tracking-widest">● Internal Environment</div>
           <ClimateCard icon="🌡️" label="Internal Temp" value={data.airTempGreenhouse} unit="°C" color="#10B981" delay={0.1} />
           <ClimateCard icon="💦" label="Internal Humidity" value={data.humidity} unit="%" color="#0EA5E9" delay={0.15} />
         </div>
 
-        {/* Cột 2: Môi trường BÊN NGOÀI */}
+        {/* Column 2: EXTERNAL forecast */}
         <div className="flex flex-col gap-4">
           <div className="text-[10px] font-black uppercase text-amber-500 pl-2 tracking-widest">● External Forecast</div>
           <ClimateCard icon="☀️" label="External Temp" value={data.outerTemp || 42.5} unit="°C" color="#F59E0B" delay={0.2} />
           <ClimateCard icon="💨" label="External Humidity" value={data.outerHumidity || 15} unit="%" color="#64748B" delay={0.25} />
         </div>
 
-        {/* Cột 3: Delta Pressure */}
+        {/* Column 3: Delta Pressure */}
         <motion.div
           className={`card${isAlertDP ? ' critical-alert' : ''}`}
           initial={{ opacity: 0, x: 20 }}
@@ -138,21 +141,21 @@ export default function Zone0_Environment({ data }) {
           transition={{ delay: 0.3 }}
           style={{ padding: '20px' }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
-            <span className="text-[10px] font-black uppercase tracking-widest text-(--text-muted)">ΔP Positive Pressure</span>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+            <span className="text-xs font-black uppercase tracking-widest text-(--text-muted)">ΔP Positive Pressure</span>
             {isAlertDP
-              ? <span className="badge badge-danger">⚠ ALERT</span>
-              : <span className="badge badge-success">NORMAL</span>
+              ? <span className="badge badge-danger text-xs scale-110">⚠ ALERT</span>
+              : <span className="badge badge-success text-xs scale-110">NORMAL</span>
             }
           </div>
           <div className="flex flex-col items-center justify-center py-4">
             <GaugeChart value={deltaP} min={0} max={25} unit="bar" size={140} color={isAlertDP ? '#EF4444' : '#10B981'} />
             <div className="text-center mt-4">
-              <div className="text-4xl font-black italic text-(--text-primary)">
-                {deltaP > 0 ? '+' : ''}{deltaP.toFixed(1)} <span className="text-xl font-bold opacity-30">Pa</span>
+              <div className="text-5xl font-black italic text-(--text-primary)">
+                {deltaP > 0 ? '+' : ''}{deltaP.toFixed(1)} <span className="text-2xl font-bold opacity-30">Pa</span>
               </div>
-              <p className="text-[9px] font-bold text-(--text-muted) uppercase mt-2 tracking-widest">Target: +15 Pa | Warning: &lt;7 Pa</p>
-              {isAlertDP && <p className="text-[10px] font-black text-red-500 uppercase mt-4 animate-pulse">Cửa đang mở hoặc quạt hỏng!</p>}
+              <p className="text-[11px] font-bold text-(--text-muted) uppercase mt-3 tracking-widest">Target: +15 Pa | Warning: &lt;7 Pa</p>
+              {isAlertDP && <p className="text-xs font-black text-red-500 uppercase mt-4 animate-pulse">{t('dashboard.zones.zone0.alert_fan')}</p>}
             </div>
           </div>
         </motion.div>

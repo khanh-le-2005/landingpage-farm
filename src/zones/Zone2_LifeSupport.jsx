@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import {
   LineChart, Line, XAxis, Tooltip, ResponsiveContainer
 } from 'recharts';
@@ -23,18 +24,18 @@ const FishIcon = ({ className }) => (
 const ArcGauge = ({ title, value, unit, sub, pct, color }) => {
   return (
     <div className="flex flex-col items-center flex-1">
-      <span className="text-[10px] xl:text-[11px] font-bold text-[--text-primary] mb-1.5 tracking-wide text-center drop-shadow-sm">{title}</span>
+      <span className="text-xs xl:text-sm font-bold text-[--text-primary] mb-1.5 tracking-wide text-center drop-shadow-sm">{title}</span>
       <div className="relative w-[85px] xl:w-[100px] h-[48px] xl:h-[55px] overflow-hidden">
         <svg viewBox="0 0 100 55" className="w-full h-full">
           <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="currentColor" className="text-[--dashboard-stroke-strong]" strokeWidth="6" strokeLinecap="round" />
           <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke={color} strokeWidth="6" strokeDasharray="126" strokeDashoffset={126 - (pct * 126)} strokeLinecap="round" />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-end pb-1">
-           <span className="text-[1rem] xl:text-lg font-black text-[--text-primary] leading-none tracking-tighter flex items-end drop-shadow">
+           <span className="text-xl xl:text-2xl font-black text-[--text-primary] leading-none tracking-tighter flex items-end drop-shadow">
              {value}
-             <span className="text-[8px] xl:text-[9px] font-medium ml-0.5 text-[--text-secondary] tracking-normal mb-0.5">{unit}</span>
+             <span className="text-[10px] xl:text-xs font-medium ml-0.5 text-[--text-secondary] tracking-normal mb-0.5">{unit}</span>
            </span>
-           <span className="text-[7px] xl:text-[8px] text-[--text-muted] mt-1">{sub}</span>
+           <span className="text-[9px] xl:text-[10px] text-[--text-muted] mt-1">{sub}</span>
         </div>
       </div>
     </div>
@@ -42,13 +43,14 @@ const ArcGauge = ({ title, value, unit, sub, pct, color }) => {
 };
 
 export default function Zone2_LifeSupport({ data }) {
+  const { t } = useTranslation();
   const thermalBars = [
-    { label: 'Healthy (Nhiệt độ lá 28.5°C)', value: 92, bg: 'var(--color-green)', action: 'Bỏ qua' },
-    { label: 'NDVI & Chlorophyll (85%)', value: 85, bg: 'var(--color-green-soft)', action: 'Áp dụng ngay' },
-    { label: 'Độ mặn & Độ ẩm (RH 75%)', value: 75, bg: 'var(--color-warning)', action: 'Chỉnh quạt xả #2' },
-    { label: 'Vòi tưới nghẹt (Cảnh báo)', value: 41, bg: 'var(--color-gold)', action: 'Rửa vòi tưới' },
-    { label: 'Thiếu dinh dưỡng (Cảnh báo)', value: 13, bg: 'var(--color-danger)', action: 'Bổ sung Nitrat' },
-    { label: 'Mức độ ổn định tổng thể', value: 92, bg: 'var(--color-danger)', action: 'Bỏ qua' },
+    { label: t('dashboard.zones.zone2.healthy_leaf'), value: 92, bg: 'var(--color-green)', action: t('dashboard.zones.zone2.ignore') },
+    { label: 'NDVI & Chlorophyll (85%)', value: 85, bg: 'var(--color-green-soft)', action: t('dashboard.zones.zone2.apply_now') },
+    { label: 'Salinity & Humidity (RH 75%)', value: 75, bg: 'var(--color-warning)', action: t('dashboard.zones.zone2.adjust_fan') },
+    { label: 'Blocked Nozzles (Warning)', value: 41, bg: 'var(--color-gold)', action: t('dashboard.zones.zone2.clean_nozzle') },
+    { label: 'Nutrient Deficiency (Warning)', value: 13, bg: 'var(--color-danger)', action: t('dashboard.zones.zone2.add_nitrate') },
+    { label: 'Overall Stability Status', value: 92, bg: 'var(--color-danger)', action: t('dashboard.zones.zone2.ignore') },
   ];
 
   const predictiveData = [
@@ -78,10 +80,10 @@ export default function Zone2_LifeSupport({ data }) {
         <div className="flex-[1.1] flex flex-col gap-4">
            {/* Top Info */}
            <div className="flex justify-between items-center px-2">
-             <h3 className="text-base xl:text-lg font-black uppercase tracking-widest text-[--text-primary]">RAS AI FISH TRACKING</h3>
-             <div className="flex gap-4 text-[9px] xl:text-[10px] font-bold text-[--text-secondary]">
-               <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-[--color-success]"></div> Piping<br/><span className="text-[--text-muted]">Normal</span></div>
-               <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-[--color-danger]"></div> Flashing<br/><span className="text-[--text-muted]">Lethargy</span></div>
+             <h3 className="text-lg xl:text-xl font-black uppercase tracking-widest text-[--text-primary]">RAS AI FISH TRACKING</h3>
+             <div className="flex gap-4 text-xs xl:text-sm font-bold text-[--text-secondary]">
+               <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-full bg-[--color-success]"></div> Piping<br/><span className="text-[--text-muted]">Normal</span></div>
+               <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-full bg-[--color-danger]"></div> Flashing<br/><span className="text-[--text-muted]">Lethargy</span></div>
              </div>
            </div>
 
@@ -91,19 +93,19 @@ export default function Zone2_LifeSupport({ data }) {
                 const hasFish = i !== 3 && i !== 6;
                 return (
                   <div key={i} className="flex flex-col gap-1.5">
-                     <div className="text-[10px] text-[--text-muted] font-bold px-1 uppercase tracking-wider">
+                     <div className="text-xs text-[--text-muted] font-extrabold px-1 uppercase tracking-wider">
                        {i === 1 || i === 2 ? 'Live Camera' : i === 5 ? 'Clicked Diagnosis' : 'Live Camera'}
                      </div>
                      <div className="border border-[--dashboard-stroke] rounded-xl bg-[--dashboard-bg-item] relative aspect-[4/3] flex flex-col items-center justify-center overflow-hidden hover:border-[--dashboard-stroke-strong] transition-all cursor-pointer shadow-sm">
                        
-                       <div className="absolute top-2 left-2 bg-black/70 px-1.5 py-0.5 text-[8px] rounded border border-[--dashboard-stroke-strong] text-white font-mono z-20 shadow-sm backdrop-blur-md">YOLOv11</div>
+                       <div className="absolute top-2 left-2 bg-black/70 px-2 py-1 text-[10px] rounded border border-[--dashboard-stroke-strong] text-white font-mono z-20 shadow-sm backdrop-blur-md">YOLOv11</div>
                        
                        {/* Background texture for all cameras */}
                        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 mix-blend-overlay pointer-events-none"></div>
                        
                        {!hasFish && (
-                          <div className="flex flex-col items-center justify-center opacity-40 z-10 text-[9px] font-bold text-[--text-muted] tracking-widest text-center mt-2 px-4 gap-1">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z"/><path d="m4.93 4.93 14.14 14.14"/></svg>
+                          <div className="flex flex-col items-center justify-center opacity-40 z-10 text-[11px] font-black text-[--text-muted] tracking-widest text-center mt-2 px-4 gap-2">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z"/><path d="m4.93 4.93 14.14 14.14"/></svg>
                             <span>NO TARGET<br/>ACQUIRED</span>
                           </div>
                        )}
@@ -154,7 +156,7 @@ export default function Zone2_LifeSupport({ data }) {
                             
                             {/* Label */}
                             <motion.div 
-                              className="absolute -top-[14px] left-[-1.5px] text-[6.5px] font-mono px-1 py-0.5 whitespace-nowrap font-bold tracking-wider text-[var(--bg-base)] bg-current drop-shadow-sm"
+                              className="absolute -top-[14px] left-[-1.5px] text-[9.5px] font-mono px-1.5 py-0.5 whitespace-nowrap font-black tracking-wider text-[var(--bg-base)] bg-current drop-shadow-sm"
                             >
                                {i === 2 ? 'Lethargy DETECTED' : `FISH 9${i}%`}
                             </motion.div>
@@ -187,7 +189,7 @@ export default function Zone2_LifeSupport({ data }) {
                             <div className="absolute -top-[1px] -right-[1px] w-1.5 h-1.5 border-t-[1.5px] border-r-[1.5px] border-current"></div>
                             <div className="absolute -bottom-[1px] -left-[1px] w-1.5 h-1.5 border-b-[1.5px] border-l-[1.5px] border-current"></div>
                             <div className="absolute -bottom-[1px] -right-[1px] w-1.5 h-1.5 border-b-[1.5px] border-r-[1.5px] border-current"></div>
-                            <div className="absolute -top-[12px] left-[-1px] text-[5px] font-mono px-1 py-0.5 whitespace-nowrap font-bold tracking-wider bg-current text-[var(--bg-base)]">
+                            <div className="absolute -top-[12px] left-[-1px] text-[8.5px] font-mono px-1.5 py-0.5 whitespace-nowrap font-black tracking-wider bg-current text-[var(--bg-base)]">
                                FISH 87%
                             </div>
                          </motion.div>
@@ -209,7 +211,7 @@ export default function Zone2_LifeSupport({ data }) {
            <div className="flex flex-col gap-2 mt-1">
              <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1">
-                  <span className="text-[10px] font-bold text-[--text-muted] tracking-wide">Predictive Insights</span>
+                  <span className="text-xs font-black text-[--text-muted] tracking-wide">Predictive Insights</span>
                   <div className="h-16 w-full bg-[var(--bg-card)] border border-[--dashboard-stroke] rounded-lg p-2 shadow-sm">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={predictiveData}>
@@ -219,7 +221,7 @@ export default function Zone2_LifeSupport({ data }) {
                   </div>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <span className="text-[10px] font-bold text-[--text-muted] tracking-wide flex justify-between">Predictive Insights <div className="flex gap-2"><span className="text-[--color-success] text-[8px]">Normal</span><span className="text-[--text-muted] text-[8px]">Abnormal</span></div></span>
+                  <span className="text-[10px] font-bold text-[--text-muted] tracking-wide flex justify-between">Predictive Insights <div className="flex gap-2"><span className="text-[--color-success] text-[10px]">Normal</span><span className="text-[--text-muted] text-[10px]">Abnormal</span></div></span>
                   <div className="h-16 w-full bg-[var(--bg-card)] border border-[--dashboard-stroke] rounded-lg p-2 relative shadow-sm overflow-hidden">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={predictiveData}>
@@ -234,16 +236,16 @@ export default function Zone2_LifeSupport({ data }) {
 
              {/* AI Alerts Texts from Prompt */}
              <div className="flex flex-col gap-2 mt-2">
-                <div className="bg-[var(--color-warning)]/10 border border-[var(--color-warning)]/20 p-2.5 xl:p-3 rounded-xl flex gap-3 text-[10px] xl:text-[11px] text-[--text-primary] shadow-sm">
-                  <span className="text-lg">🤖</span>
+                <div className="bg-[var(--color-warning)]/10 border border-[var(--color-warning)]/20 p-2.5 xl:p-3 rounded-xl flex gap-3 text-xs xl:text-sm text-[--text-primary] shadow-sm">
+                  <span className="text-2xl">🤖</span>
                   <div className="flex flex-col gap-0.5 font-bold leading-relaxed w-full">
-                    <span><strong className="text-[--color-warning]">Cảnh báo:</strong> Ngộ độc NH3/NO2- hoặc ký sinh trùng (Flashing) - Cá tách đàn.</span>
-                    <div className="text-[--color-success] tracking-wide">➡ Dự báo 15 phút tới: Ao 2 có nguy cơ DO giảm 0.8 mg/L.</div>
+                    <span><strong className="text-[--color-warning]">Warning:</strong> {t('dashboard.zones.zone2.warning_flashing')}</span>
+                    <div className="text-[--color-success] tracking-widest">{t('dashboard.zones.zone2.forecast_do')}</div>
                   </div>
                 </div>
-                <div className="bg-[var(--color-success)]/10 border border-[var(--color-success)]/20 p-2.5 xl:p-3 rounded-xl flex items-center justify-between text-[10px] xl:text-[11px] text-[--text-primary] shadow-sm">
-                  <span className="font-bold"><strong className="text-[--color-success]">AI tự động:</strong> Tăng khí Air-lift Ao 3 +15% (Trước khi DO đỏ).</span>
-                  <button className="px-3 py-1.5 bg-[#00E676] text-[#080C14] rounded-lg font-black shrink-0 hover:bg-[#10B981] cursor-pointer text-[9px] xl:text-[10px] uppercase shadow-[0_2px_10px_rgba(0,230,118,0.4)] transition-all active:scale-95 drop-shadow-md border-0 ring-0 focus:outline-none">TỰ ĐỘNG HOÁ: BẬT</button>
+                <div className="bg-[var(--color-success)]/10 border border-[var(--color-success)]/20 p-2.5 xl:p-3 rounded-xl flex items-center justify-between text-xs xl:text-sm text-[--text-primary] shadow-sm">
+                  <span className="font-bold"><strong className="text-[--color-success]">{t('dashboard.zones.zone2.ai_auto')}</strong> {t('dashboard.zones.zone2.increase_airlift')}</span>
+                  <button className="px-4 py-2 bg-[#00E676] text-[#080C14] rounded-lg font-black shrink-0 hover:bg-[#10B981] cursor-pointer text-[11px] xl:text-xs uppercase shadow-[0_2px_10px_rgba(0,230,118,0.4)] transition-all active:scale-95 drop-shadow-md border-0 ring-0 focus:outline-none">{t('dashboard.zones.zone2.automation_on')}</button>
                 </div>
              </div>
            </div>
@@ -284,17 +286,17 @@ export default function Zone2_LifeSupport({ data }) {
                     <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-gradient-to-l from-black/20 to-transparent"></div>
                     
                     <div className="relative z-10 flex flex-col justify-center h-full">
-                      <div className="text-[9px] xl:text-[10.5px] font-bold text-white/95 drop-shadow-sm">{item.label}</div>
+                      <div className="text-[11px] xl:text-xs font-bold text-white/95 drop-shadow-sm">{item.label}</div>
                       <div className="text-xl xl:text-2xl font-black text-white drop-shadow-md leading-none mt-1">{item.value}%</div>
                     </div>
-                    <div className="relative z-10 text-[9px] font-bold text-white/60 bg-black/20 px-2 py-1 rounded-md hidden sm:block">
+                    <div className="relative z-10 text-[11px] font-black text-white/70 bg-black/20 px-2 py-1 rounded-md hidden sm:block">
                       AI_CONF: 0.{item.value}
                     </div>
                  </div>
 
                  {/* Right Action Button */}
                  <div 
-                   className="w-[100px] xl:w-[120px] rounded-xl xl:rounded-2xl flex items-center justify-center cursor-pointer hover:brightness-110 active:scale-95 transition-all text-[10px] xl:text-[11px] font-black px-1.5 text-center shadow-md border border-white/20"
+                   className="w-[100px] xl:w-[120px] rounded-xl xl:rounded-2xl flex items-center justify-center cursor-pointer hover:brightness-110 active:scale-95 transition-all text-xs xl:text-sm font-black px-1.5 text-center shadow-md border border-white/20"
                    style={{ backgroundColor: item.bg, color: 'white' }}
                  >
                    {item.action}

@@ -2,15 +2,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useCallback } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 
-const TICKER = [
-  'Waves · 99.2% Efficiency',
-  'Vision · 30 FPS · YOLOv11',
-  'Sprout · Salicornia NDVI Analysis',
-  'Battery · Solar Energy Balanced',
-  'Droplets · TEC Water Recovery',
-  'Thermometer · Climate Control',
-  'Cpu · 24/7 Autonomous Monitoring',
-];
+  const { t } = useTranslation();
+  const TICKER = t('hero.ticker', { returnObjects: true }) || [];
 
 function StatCard({ value, unit, label, color, delay }) {
   return (
@@ -141,10 +134,10 @@ export default function HeroSection() {
       >
         {/* Floating Status card */}
         <div className="absolute -top-[30px] right-[8%] bg-[var(--bg-surface)] backdrop-blur-xl border border-[var(--glass-border)] rounded-2xl px-5 py-3 z-10 shadow-2xl text-left hidden sm:block">
-          <div className="text-[0.6rem] text-[var(--text-muted)] uppercase font-black mb-1">System Load</div>
+          <div className="text-[0.6rem] text-[var(--text-muted)] uppercase font-black mb-1">{t('hero.system_load')}</div>
           <div className="font-heading font-black text-2xl text-green leading-none">99.2%</div>
           <div className="text-[0.6rem] text-green flex items-center gap-1.5 mt-1.5">
-            <span className="w-2 h-2 rounded-full bg-green animate-pulse" /> AI Processing
+            <span className="w-2 h-2 rounded-full bg-green animate-pulse" /> {t('hero.ai_processing')}
           </div>
         </div>
 

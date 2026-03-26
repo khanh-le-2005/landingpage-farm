@@ -40,8 +40,8 @@ export default function Navbar({ theme, toggleTheme }) {
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white"><path d="M12 2v20M2 12h20M7 7l10 10M17 7L7 17" /></svg>
           </div>
           <div className="flex flex-col">
-            <div className="font-heading font-bold text-[0.95rem] text-(--text-primary) tracking-tight leading-tight">Farm Aquaponics</div>
-            <div className="text-[0.65rem] text-(--text-muted) tracking-wider">KEZAD · Abu Dhabi · Smart IoT</div>
+            <div className="font-heading font-bold text-[0.95rem] text-(--text-primary) tracking-tight leading-tight">{t('nav.brand_name', 'Farm Aquaponics')}</div>
+            <div className="text-[0.65rem] text-(--text-muted) tracking-wider">{t('nav.brand_tagline', 'KEZAD · Abu Dhabi · Smart IoT')}</div>
           </div>
         </div>
 
@@ -100,13 +100,13 @@ export default function Navbar({ theme, toggleTheme }) {
                 to="/admin" 
                 className="text-sm font-medium text-green hover:text-green-soft transition-colors max-[900px]:hidden"
               >
-                Admin
+                {t('admin.header.title')}
               </Link>
               <button 
                 onClick={logout}
                 className="btn-ghost px-4 py-2 text-[0.82rem] min-h-0 text-red-500 hover:text-red-400 max-[900px]:hidden"
               >
-                Logout
+                {t('admin.sidebar.logout')}
               </button>
             </div>
           ) : (
@@ -114,7 +114,7 @@ export default function Navbar({ theme, toggleTheme }) {
               className="btn-ghost px-5 py-2.5 text-[0.82rem] min-h-0 border border-(--glass-border) ml-2 max-[900px]:hidden"
               onClick={() => navigate('/login')}
             >
-              Login
+              {t('nav.login', 'Login')}
             </button>
           )}
 
@@ -159,11 +159,11 @@ export default function Navbar({ theme, toggleTheme }) {
               <button className="btn-primary w-full" onClick={() => scrollTo('why')}>{t('nav.discover')}</button>
               {user ? (
                 <>
-                  <button className="btn-ghost w-full text-green" onClick={() => { navigate('/admin'); setIsMenuOpen(false); }}>Admin Panel</button>
-                  <button className="btn-ghost w-full text-red-500" onClick={() => { logout(); setIsMenuOpen(false); }}>Logout</button>
+                  <button className="btn-ghost w-full text-green" onClick={() => { navigate('/admin'); setIsMenuOpen(false); }}>{t('admin.header.title')}</button>
+                  <button className="btn-ghost w-full text-red-500" onClick={() => { logout(); setIsMenuOpen(false); }}>{t('admin.sidebar.logout')}</button>
                 </>
               ) : (
-                <button className="btn-ghost w-full" onClick={() => { navigate('/login'); setIsMenuOpen(false); }}>Login Admin</button>
+                <button className="btn-ghost w-full" onClick={() => { navigate('/login'); setIsMenuOpen(false); }}>{t('nav.login_admin', 'Login Admin')}</button>
               )}
             </div>
           </motion.div>

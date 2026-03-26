@@ -1,25 +1,26 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import {
   LineChart, Line, ResponsiveContainer
 } from 'recharts';
 
 /* --- ICONS --- */
 const TempIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-success">
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-success">
     <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z" />
     <path d="M11.5 6.5v6" />
   </svg>
 );
 
 const DropIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-success">
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-success">
     <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
   </svg>
 );
 
 const LeafDropIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-success">
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-success">
     <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
     <path d="M12 12s-2-2-2-4" />
   </svg>
@@ -37,15 +38,15 @@ const MetricCard = ({ children, className = "" }) => (
 // Large Arc Gauge (DO)
 const LargeArcGauge = ({ title, value, unit }) => (
   <MetricCard className="items-center justify-center">
-    <div className="absolute top-3 left-3 text-[12px] font-black text-(--text-primary) z-10">{title}</div>
+    <div className="absolute top-3 left-3 text-sm font-black text-(--text-primary) z-10">{title}</div>
     <div className="relative w-[110px] h-[55px] mt-4">
       <svg viewBox="0 0 100 50" className="w-full h-full overflow-visible">
         <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="currentColor" className="text-(--dashboard-stroke-strong)" strokeWidth="10" strokeLinecap="round" />
         <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="var(--color-success)" strokeWidth="10" strokeDasharray="126" strokeDashoffset={126 - (0.65 * 126)} strokeLinecap="round" style={{ stroke: 'var(--color-success)' }} />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-end pb-0">
-        <span className="text-3xl font-black text-(--text-primary) leading-none tracking-tighter drop-shadow-sm">{value}</span>
-        <span className="text-[10px] font-bold text-(--text-muted) tracking-wide mt-1">{unit}</span>
+        <span className="text-4xl font-black text-(--text-primary) leading-none tracking-tighter drop-shadow-sm">{value}</span>
+        <span className="text-xs font-bold text-(--text-muted) tracking-wide mt-1">{unit}</span>
       </div>
     </div>
   </MetricCard>
@@ -57,7 +58,7 @@ const DialGauge = ({ title, value, unit, min = 0, max = 100, pct = 0.5, hasTrack
   return (
     <MetricCard className="items-center justify-between">
       <div className="w-full flex justify-between items-start mb-2">
-        <div className="text-[12px] font-black text-(--text-primary) z-10 truncate pr-2">{title}</div>
+        <div className="text-sm font-black text-(--text-primary) z-10 truncate pr-2">{title}</div>
       </div>
       <div className="relative w-[90px] h-[45px]">
         <svg viewBox="0 0 100 50" className="w-full h-full overflow-visible">
@@ -86,8 +87,8 @@ const DialGauge = ({ title, value, unit, min = 0, max = 100, pct = 0.5, hasTrack
         <div className="absolute bottom-[-3px] left-[50%] ml-[-5px] w-[10px] h-[10px] rounded-full bg-(--dashboard-bg-item) border-2 border-(--text-primary) z-20" />
       </div>
       <div className="text-center mt-2 flex flex-col items-center">
-        <span className="text-xl font-black text-(--text-primary) leading-none tracking-tight">{value}</span>
-        <span className="text-[10px] font-bold text-(--text-muted)">{unit}</span>
+        <span className="text-2xl font-black text-(--text-primary) leading-none tracking-tight">{value}</span>
+        <span className="text-xs font-bold text-(--text-muted)">{unit}</span>
       </div>
     </MetricCard>
   )
@@ -259,6 +260,7 @@ const SelkartGrid = () => {
 
 
 export default function Zone1_VisualHealth() {
+  const { t } = useTranslation();
 
   const trendData = [
     { time: '1', val: 10 }, { time: '2', val: 15 }, { time: '3', val: 13 },
@@ -290,12 +292,12 @@ export default function Zone1_VisualHealth() {
              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-danger"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
            </div>
            <div className="flex flex-col">
-             <span className="text-[11px] font-black text-danger uppercase tracking-widest drop-shadow-sm">Ưu tiên Hệ thống - AI Recommendation Alert</span>
-             <span className="text-base xl:text-lg font-black text-(--text-primary) mt-1 drop-shadow-sm">Ưu tiên: Tăng Oxy Ao 3 trước khi điều chỉnh dinh dưỡng rau</span>
+             <span className="text-[11px] font-black text-danger uppercase tracking-widest drop-shadow-sm">{t('dashboard.zones.zone1.recommendation_alert')}</span>
+             <span className="text-base xl:text-lg font-black text-(--text-primary) mt-1 drop-shadow-sm">{t('dashboard.zones.zone1.recommendation_desc')}</span>
            </div>
          </div>
          <button className="text-white px-6 py-3 rounded-xl text-[11px] xl:text-[12px] font-black uppercase hover:opacity-90 transition-all shadow-md active:scale-95 shrink-0 border border-white/20" style={{ backgroundColor: 'var(--color-danger)' }}>
-            Khắc Phục Tự Động
+            {t('dashboard.zones.zone1.auto_fix')}
          </button>
       </div>
 
@@ -310,11 +312,11 @@ export default function Zone1_VisualHealth() {
            <div className="flex justify-between items-center bg-(--dashboard-bg-card) px-4 py-2 border-l-[5px] border-danger rounded-r-xl shadow-sm gap-2">
              <h3 className="text-base sm:text-lg xl:text-xl font-black uppercase text-(--text-primary) tracking-widest flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
                AQUATIC SYSTEM
-               <span className="text-[10px] sm:text-[11px] bg-(--dashboard-bg-item) text-danger px-3 py-1 rounded-md border border-(--dashboard-stroke) uppercase tracking-wider">Cấp thiết – Cá Chẽm</span>
+               <span className="text-[10px] sm:text-[11px] bg-(--dashboard-bg-item) text-danger px-3 py-1 rounded-md border border-(--dashboard-stroke) uppercase tracking-wider">{t('dashboard.zones.zone1.critical_fish')}</span>
              </h3>
              <div className="flex gap-2 shrink-0">
                <button className="hidden sm:flex bg-(--dashboard-bg-item) px-4 py-1.5 text-[11px] font-black rounded-lg border items-center gap-1 cursor-pointer transition-colors shadow-sm border-(--dashboard-stroke) hover:bg-(--dashboard-bg-card) text-success" style={{ color: 'var(--color-success)' }}>
-                 Chi tiết
+                 {t('dashboard.zones.zone1.details')}
                </button>
                <div className="bg-(--dashboard-bg-item) px-4 py-1.5 text-[11px] font-black text-(--text-muted) rounded-lg border border-(--dashboard-stroke) flex items-center gap-1 cursor-pointer transition-colors shadow-sm">
                  50/50
@@ -375,11 +377,11 @@ export default function Zone1_VisualHealth() {
            <div className="flex justify-between items-center bg-(--dashboard-bg-card) px-4 py-2 border-l-[5px] border-aqua rounded-r-xl shadow-sm gap-2">
              <h3 className="text-base sm:text-lg xl:text-xl font-black uppercase text-(--text-primary) tracking-widest flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
                TERRESTRIAL SYSTEM
-               <span className="text-[10px] sm:text-[11px] bg-(--dashboard-bg-item) text-aqua px-3 py-1 rounded-md border border-(--dashboard-stroke) uppercase tracking-wider">Tối ưu RS – 800m²</span>
+               <span className="text-[10px] sm:text-[11px] bg-(--dashboard-bg-item) text-aqua px-3 py-1 rounded-md border border-(--dashboard-stroke) uppercase tracking-wider">{t('dashboard.zones.zone1.rs_opt')}</span>
              </h3>
              <div className="flex gap-2 shrink-0">
                <button className="hidden sm:flex bg-(--dashboard-bg-item) px-4 py-1.5 text-[11px] font-black rounded-lg border items-center gap-1 cursor-pointer transition-colors shadow-sm border-(--dashboard-stroke) hover:bg-(--dashboard-bg-card) text-success" style={{ color: 'var(--color-success)' }}>
-                 Chi tiết
+                 {t('common.details', 'Details')}
                </button>
                <div className="bg-(--dashboard-bg-item) px-4 py-1.5 text-[11px] font-black text-(--text-muted) rounded-lg border border-(--dashboard-stroke) flex items-center gap-1 cursor-pointer transition-colors shadow-sm">
                  50/50

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 // Individual Bento card
 // Individual Bento card
@@ -62,6 +63,7 @@ function MiniGauge({ value = 75, color = 'var(--color-green)', label = '', size 
 }
 
 export default function BentoGridSection() {
+  const { t } = useTranslation();
   return (
     <section id="tech" className="section relative">
       <div className="container-custom">
@@ -71,13 +73,13 @@ export default function BentoGridSection() {
            viewport={{ once: true }}
            className="mb-14"
         >
-          <div className="section-label">Công Nghệ Lõi</div>
-          <h2 className="font-heading font-extrabold text-[clamp(2rem,5vw,3rem)] leading-[1.1] mb-4">
-            4 Khu vực giám sát{' '}
-            <span className="text-gradient-gold">thông minh</span>
+          <div className="section-label">{t('landing.bento.label')}</div>
+          <h2 className="font-heading font-extrabold text-[clamp(2.2rem,5vw,3rem)] leading-[1.1] mb-4">
+            {t('landing.bento.title_part1')}{' '}
+            <span className="text-gradient-gold">{t('landing.bento.title_part2')}</span>
           </h2>
           <p className="text-[var(--text-secondary)] text-[1.1rem] max-w-[600px] leading-[1.7]">
-            Toàn bộ hệ thống được tích hợp đồng bộ. Từ vi khí hậu UAE đến chỉ số sinh học lá cây — kiểm soát tuyệt đối 24/7.
+            {t('landing.bento.desc')}
           </p>
         </motion.div>
 
@@ -92,7 +94,7 @@ export default function BentoGridSection() {
                 Environment Manager
               </h3>
               <p className="text-[var(--text-secondary)] text-[0.875rem] leading-relaxed">
-                Quản lý vi khí hậu Abu Dhabi. Sensor áp suất & độ mặn cập nhật tức thì.
+                {t('landing.bento.zone0_desc')}
               </p>
             </div>
             <div className="grid grid-cols-3 gap-2.5">
@@ -116,7 +118,7 @@ export default function BentoGridSection() {
               AI Fish Tracking
             </h3>
             <p className="text-[var(--text-secondary)] text-[0.875rem] leading-relaxed mb-3.5">
-              Nhận diện cá bệnh & đếm cá tự động bằng YOLOv11. Phân tích hành vi 30fps.
+              {t('landing.bento.zone1_fish_desc')}
             </p>
             <div className="flex justify-around items-center">
               <MiniGauge value={87} color="var(--color-green)" label="Health" />
@@ -132,7 +134,7 @@ export default function BentoGridSection() {
               Life Support Hub
             </h3>
             <p className="text-[var(--text-secondary)] text-[0.875rem] leading-relaxed mb-4">
-              Hệ thống thần kinh trung ương của trang trại. Cân bằng DO, Nitrate & EC.
+              {t('landing.bento.zone2_desc')}
             </p>
             <div className="flex flex-col gap-3">
               <div className="bg-[var(--bg-card)] p-3.5 rounded-xl border border-[var(--glass-border)]">
@@ -158,7 +160,7 @@ export default function BentoGridSection() {
                 </div>
               </div>
               <div className="p-3.5 bg-aqua/20 rounded-xl text-[0.8rem] text-[var(--text-primary)]">
-                <strong>🤖 AI Rec:</strong> Tăng EC rau từ 2.3 {'->'} 2.5 cho chu kỳ mới.
+                <strong>🤖 {t('landing.bento.ai_rec')}:</strong> {t('landing.bento.ai_rec_desc')}
               </div>
             </div>
           </BentoCard>
@@ -170,7 +172,7 @@ export default function BentoGridSection() {
               Thermal AI Analysis
             </h3>
             <p className="text-[var(--text-secondary)] text-[0.875rem] leading-relaxed mb-4">
-              Camera nhiệt & đa phổ phân tích NDVI. Phát hiện sớm stress trên lá Salicornia.
+              {t('landing.bento.zone1_plants_desc')}
             </p>
             <div className="grid grid-cols-2 gap-2.5">
               <div className="text-[0.8rem] p-2 border-l-3 border-gold bg-[var(--bg-card)]">

@@ -1,17 +1,19 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-
-const SLIDES = [
-  { id: 1, src: '/anhHD/anh1.jpg',    label: 'Environment Manager',    d: 'Phân tích ma trận dòng chảy & Áp suất dương +15 Pa' },
-  { id: 2, src: '/anhHD/anhai2.png', label: 'AI Health Score: 92%',    d: 'Tổng hợp sức khỏe: Cá 94% – Rau 90%' },
-  { id: 3, src: '/anhHD/anhai3.png',    label: 'Thermal & Multispectral', d: 'Bản đồ nhiệt theo dõi độ phủ và vòi tưới nghẹt' },
-  { id: 4, src: '/anhHD/anh2.jpg',    label: 'AI Fish Tracking',       d: 'Theo dõi 3 yếu tố: Vận tốc - Quỹ đạo - Mật độ' },
-  { id: 5, src: '/anhHD/anhai1.png', label: 'One-Tap Decision',      d: 'Áp dụng ngay hoặc Bỏ qua đề xuất AI từ Checklist' },
-  { id: 6, src: '/anhHD/anh11.jpg',   label: 'Resource & Efficiency',   d: 'Phân tích năng lượng và hiệu quả toàn khu KEZAD' },
-];
+import { useTranslation } from 'react-i18next';
 
 export default function UIShowcaseSection() {
+  const { t } = useTranslation();
   const [activeSlide, setActiveSlide] = useState(0);
+
+  const SLIDES = [
+    { id: 1, src: '/anhHD/anh1.jpg',    label: t('hero.img1_label'),    d: t('hero.img1_desc') },
+    { id: 2, src: '/anhHD/anhai2.png', label: t('hero.img2_label'),    d: t('hero.img2_desc') },
+    { id: 3, src: '/anhHD/anhai3.png',    label: t('hero.img3_label'), d: t('hero.img3_desc') },
+    { id: 4, src: '/anhHD/anh2.jpg',    label: t('hero.img4_label'),       d: t('hero.img4_desc') },
+    { id: 5, src: '/anhHD/anhai1.png', label: t('hero.img5_label'),      d: t('hero.img5_desc') },
+    { id: 6, src: '/anhHD/anh11.jpg',   label: t('hero.img6_label'),   d: t('hero.img6_desc') },
+  ];
 
   const nextSlide = () => setActiveSlide((prev) => (prev + 1) % SLIDES.length);
   const prevSlide = () => setActiveSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
@@ -30,21 +32,21 @@ export default function UIShowcaseSection() {
             transition={{ duration: 0.6 }}
           >
             <div className="section-label !text-gold !border-gold">
-              Trải nghiệm người dùng
+              {t('landing.ui.ux_label')}
             </div>
             <h2 className="font-heading font-extrabold text-[clamp(1.8rem,4.5vw,2.8rem)] leading-[1.1] my-4 sm:my-5">
               "Desert High-Contrast"{' '}
-              <span className="text-gradient-gold">Visual Mode</span>
+              <span className="text-gradient-gold">{t('landing.ui.title')}</span>
             </h2>
             <p className="text-[var(--text-secondary)] text-[1.05rem] leading-relaxed mb-8">
-              Được thiết kế riêng cho môi trường <strong className="text-[var(--text-primary)]">cường độ ánh sáng mạnh</strong> vùng Abu Dhabi. Chống chói, độ tương phản cực cao, tối ưu cho Tablet công nghiệp.
+              {t('landing.ui.desc')}
             </p>
 
             <div className="grid gap-5">
               {[
-                { icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>, title: 'Hệ thống cảnh báo thông minh', desc: 'Tự động đẩy các chỉ số nguy cấp lên đầu bảng điều khiển.' },
-                { icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>, title: 'Thao tác một chạm', desc: 'Các nút điều khiển lớn, tối ưu cho việc đeo găng tay kỹ thuật.' },
-                { icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>, title: 'Tablet First', desc: 'Layout 100% responsive, hoạt động ổn định kể cả khi mất mạng tạm thời.' },
+                { icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>, title: t('landing.ui.f1_title'), desc: t('landing.ui.f1_desc') },
+                { icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>, title: t('landing.ui.f2_title'), desc: t('landing.ui.f2_desc') },
+                { icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>, title: t('landing.ui.f3_title'), desc: t('landing.ui.f3_desc') },
               ].map((f, i) => (
                 <div key={i} className="flex gap-4 items-center">
                   <div 

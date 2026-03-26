@@ -8,7 +8,6 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, han
 
   const menuItems = [
     { id: 'dashboard', label: t('admin.sidebar.overview'), icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> },
-    { id: 'analytics', label: t('admin.sidebar.ai_analysis'), icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20V10M18 20V4M6 20v-4"/></svg> },
     { id: 'assets', label: t('admin.sidebar.assets'), icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg> },
     // { id: 'settings', label: t('admin.sidebar.settings'), icon: (
     //   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -44,7 +43,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, han
           x: isSidebarOpen ? 0 : (window.innerWidth < 768 ? -280 : 0)
         }}
         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-        className="fixed md:relative h-full bg-(--bg-card) border-r border-(--glass-border) flex flex-col z-[60] overflow-hidden"
+        className="fixed md:relative h-full bg-(--bg-card) border-r border-(--glass-border) flex flex-col z-60 overflow-hidden"
       >
       <div className="p-6 flex items-center gap-4">
         <div className="w-10 h-10 bg-linear-to-br from-green to-green-soft rounded-xl flex items-center justify-center text-white shadow-lg shrink-0">
@@ -56,7 +55,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, han
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -10 }}
-                className="font-bold text-lg whitespace-nowrap text-(--text-primary)"
+                className="font-black text-xl whitespace-nowrap text-(--text-primary)"
               >
                 Farm Admin
               </motion.span>
@@ -82,7 +81,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, han
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="font-medium whitespace-nowrap"
+                  className="font-bold text-base whitespace-nowrap"
                 >
                   {item.label}
                 </motion.span>
@@ -103,7 +102,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, han
           ) : (
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           )}
-          {isSidebarOpen && <span className="font-medium">{t('admin.sidebar.theme')}</span>}
+          {isSidebarOpen && <span className="font-bold text-base">{t('admin.sidebar.theme')}</span>}
         </button>
 
         {/* Language Toggle */}
@@ -112,7 +111,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, han
           className="w-full flex items-center gap-4 px-4 py-3 text-(--text-secondary) hover:bg-(--bg-card-hover) rounded-xl transition-all"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          {isSidebarOpen && <span className="font-medium uppercase">{i18n.language}</span>}
+          {isSidebarOpen && <span className="font-bold text-base uppercase">{i18n.language}</span>}
         </button>
 
         {/* Logout */}
@@ -121,7 +120,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, han
           className="w-full flex items-center gap-4 px-4 py-3 text-red-500 hover:bg-red-500/10 rounded-xl transition-all"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
-          {isSidebarOpen && <span className="font-medium">Logout</span>}
+          {isSidebarOpen && <span className="font-bold text-base">{t('admin.sidebar.logout')}</span>}
         </button>
       </div>
 

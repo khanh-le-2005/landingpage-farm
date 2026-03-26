@@ -19,6 +19,17 @@
     "stat_camera": "Cameras",
     "stat_score": "AI Score",
     "stat_monitoring": "Live Monitoring",
+    "ticker": [
+      "Waves · 99.2% Efficiency",
+      "Vision · 30 FPS · YOLOv11",
+      "Sprout · Salicornia NDVI Analysis",
+      "Battery · Solar Energy Balanced",
+      "Droplets · TEC Water Recovery",
+      "Thermometer · Climate Control",
+      "Cpu · 24/7 Autonomous Monitoring"
+    ],
+    "system_load": "System Load",
+    "ai_processing": "AI Processing",
     "img1_label": "Environment Manager",
     "img1_desc": "Flow matrix analysis & Positive pressure +15 Pa",
     "img2_label": "AI Health Score: 92%",
@@ -90,7 +101,8 @@
       "settings": "Settings",
       "support": "Support",
       "theme": "Appearance",
-      "language": "Language"
+      "language": "Language",
+      "logout": "Logout"
     },
     "header": {
       "title": "Admin Dashboard",
@@ -110,8 +122,128 @@
     "zones": {
       "ras_ai": "RAS Fish AI Analysis",
       "bio_sync": "Biological System",
-      "resource_sync": "Resource Governance"
+      "resource_sync": "Resource Governance",
+      "zone0": {
+        "source": "Source (Well)",
+        "process": "Process (HDPE)",
+        "target": "Target (Buffer)",
+        "alert_fan": "Door open or fan failure!"
+      },
+      "zone1": {
+        "recommendation_alert": "System Priority - AI Recommendation Alert",
+        "recommendation_desc": "Priority: Increase Tank 3 Oxygen before adjusting plant nutrients",
+        "auto_fix": "Auto-Remediation",
+        "critical_fish": "Critical – Barramundi",
+        "rs_opt": "RS Optimization – 800m²",
+        "details": "Details"
+      },
+      "zone2": {
+        "healthy_leaf": "Healthy (Leaf Temp 28.5°C)",
+        "ignore": "Ignore",
+        "apply_now": "Apply Now",
+        "adjust_fan": "Adjust Exhaust Fan #2",
+        "clean_nozzle": "Clean Nozzles",
+        "add_nitrate": "Add Nitrate",
+        "warning_flashing": "NH3/NO2- Toxicity or Parasites (Flashing) - Fish Shoal Separation",
+        "forecast_do": "➡ 15-min Forecast: Tank 2 at risk of 0.8 mg/L DO drop",
+        "ai_auto": "AI Automation:",
+        "increase_airlift": "Increase Tank 3 Air-lift +15% (Proactive DO control)",
+        "automation_on": "AUTOMATION: ON"
+      },
+      "zone3": {
+        "battery_status": "Battery Status Bar (SoC)",
+        "completed": "Completed",
+        "energy_efficiency": "ENERGY & EFFICIENCY",
+        "energy": "ENERGY",
+        "energy_chart": "Hourly Energy Dual Bar Chart",
+        "energy_chart_sub": "last 5 hours display",
+        "generated": "Generated",
+        "consumed": "Consumed",
+        "alert_system": "Intelligent Alert System",
+        "solar_alert_desc": "Icon [!]: Yellow triangle appears when Solar efficiency drops >15% compared to yesterday.",
+        "solar_action": "Efficiency down 18% due to sand dust - Auto-triggering Dry-Cleaning Robot",
+        "water_gov": "WATER GOVERNANCE",
+        "recovery_cap": "Recovery Capacity (TEC Recovery)",
+        "today_vs_yesterday": "Today (L/h) vs Yesterday (+5%)",
+        "sourcing_eff": "Sourcing Efficiency (Water Sourcing Ratio)",
+        "water_ratio_desc": "Recovery (65%) / Consumption (100%), RO usage (35%)",
+        "yield_forecast": "YIELD FORECAST",
+        "total_feed": "Total Feed",
+        "fish_weight": "Fish Weight",
+        "plant_density": "Plant Density",
+        "stable_status": "Stable Status",
+        "fcr_alert_desc": "Warning [!]: Yellow triangle appears when FCR spikes (High feed intake with low weight gain or wasted feed).",
+        "ai_analysis": "AI Analysis"
+      },
+      "asset_mgmt": {
+        "fish_tank": "Barramundi Tank",
+        "plant_strip": "Plant Strip",
+        "hour": "Hour",
+        "drum_filter": "Flush Drum Filter",
+        "neutralize_sludge": "Neutralize Sludge",
+        "fcr_modal_alert": "Warning: Abnormal FCR in Tank 3 - Check fish health or feeder."
+      }
     },
+    "landing": {
+      "bento": {
+        "label": "Core Technology",
+        "title_part1": "4 Smart Monitoring",
+        "title_part2": "Areas",
+        "desc": "Fully integrated system. From UAE microclimate to leaf biological indices — absolute 24/7 control.",
+        "zone0_desc": "Abu Dhabi microclimate management. Instant pressure & salinity sensor updates.",
+        "zone1_fish_desc": "Disease detection & automated fish counting with YOLOv11. 30fps behavior analysis.",
+        "zone2_desc": "The farm's central nervous system. Balancing DO, Nitrate & EC.",
+        "ai_rec": "AI Rec",
+        "ai_rec_desc": "Increase plant EC from 2.3 -> 2.5 for the new cycle.",
+        "zone1_plants_desc": "Thermal & multispectral camera NDVI analysis. Early detection of stress on Salicornia leaves."
+      },
+      "footer": {
+        "cta_label": "Take Action Today",
+        "cta_title_part1": "Ready to bring",
+        "cta_title_part2": "to your project?",
+        "cta_desc": "Our expert team is ready to support smart IoT deployment for projects of any scale.",
+        "request_demo": "Request Demo",
+        "received": "Received! We'll respond within 24h.",
+        "tech_docs": "Technical Docs",
+        "consulting": "Solution Consulting",
+        "brand_desc": "Pioneering smart agriculture monitoring in KEZAD, Abu Dhabi. AI & IoT Deep Learing integrated.",
+        "col_system": "System",
+        "col_tech": "Technology",
+        "col_info": "Information",
+        "info_area": "1,500 m² Total Area",
+        "info_yield": "20 tons/year Yield",
+        "copy": "© 2026 Smart Farm Aquaponics · KEZAD Project"
+      },
+      "why": {
+        "label": "Why Choose Us",
+        "title_part1": "Problems",
+        "title_part2": "We've Solved",
+        "desc": "Traditional agriculture in desert regions faces many challenges. Our system solves each problem using AI and IoT.",
+        "current_problem": "Current Problem",
+        "smart_farm_solution": "Smart Farm Solution",
+        "p1_prob": "Slow Traditional Sensors",
+        "p1_sol": "30fps AI Camera detects incidents 30–60s earlier",
+        "p2_prob": "Wasted Water & Energy",
+        "p2_sol": "TEC Recovery reuses 65% water, Solar self-balances",
+        "p3_prob": "Manual Disease Diagnosis",
+        "p3_sol": "AI YOLOv11 + CNN auto-classification, instant alerts",
+        "p4_prob": "Scattered Data, Hard to Aggregate",
+        "p4_sol": "Centralized Dashboard for all 4 zones, 3s updates"
+      },
+      "ui": {
+        "ux_label": "User Experience",
+        "title": "Visual Mode",
+        "desc": "Custom-designed for Abu Dhabi's high-intensity light. Anti-glare, ultra-high contrast, optimized for industrial Tablets.",
+        "f1_title": "Intelligent Alert System",
+        "f1_desc": "Automatically pushes critical metrics to the top of the dashboard.",
+        "f2_title": "One-Tap Operation",
+        "f2_desc": "Large control buttons, optimized for technical gloves.",
+        "f3_title": "Tablet First",
+        "f3_desc": "100% responsive layout, stable even during temporary network loss."
+      }
+    },
+    "header_main": "Greenhouse Climate & Nutrient System",
+    "real_time": "X - REAL TIME",
     "aq_system": "Aquatic System",
     "ter_system": "Terrestrial System",
     "power_balance": "Power Balance",

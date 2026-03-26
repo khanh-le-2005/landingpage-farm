@@ -94,8 +94,8 @@ const initial = {
   tecRecovery: 65,
   waterSourcingRatio: 65,
   tecTasks: [
-    { name: 'Xịt rửa Drum Filter', completed: true, amount: '500L' },
-    { name: 'Trung hòa dịch bùn',  completed: true, amount: '300L' },
+    { name: 'Flush Drum Filter', completed: true, amount: '500L' },
+    { name: 'Neutralize Sludge',  completed: true, amount: '300L' },
     { name: 'RO Pre-filter Flush',  completed: false, amount: '200L' },
   ],
 
@@ -108,7 +108,7 @@ const initial = {
   fishWeight: 3200,
   plantDensity: 2.5,
   fcrStatus: 'normal',
-  fcrAlert: 'FCR bình thường – Cá & Rau đang phát triển đúng chu kỳ.',
+  fcrAlert: 'FCR Normal – Fish & Plants are developing within the expected cycle.',
 };
 
 export function useIoTData() {
