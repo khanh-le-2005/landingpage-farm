@@ -106,7 +106,7 @@ export default function WhySection() {
             >
               <div className="absolute inset-[-20px] bg-[var(--color-aqua-glow)] blur-[40px] opacity-50 rounded-full -z-10" />
               <img 
-                src="/anhHD/anh7.jpg" 
+                src="/anhHD/anh14.png" 
                 alt="Smart Farm Technical Overview" 
                 className="relative z-1 w-full h-auto rounded-3xl border border-[var(--glass-border)] shadow-[0_20px_40px_rgba(0,0,0,0.4)] object-cover"
               />
