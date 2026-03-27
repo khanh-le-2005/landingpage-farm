@@ -27,8 +27,8 @@ const AdminPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const filteredAssets = adminAssets.filter(asset => {
-    const matchesSearch = asset.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          asset.desc.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = asset.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      asset.desc.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'All' || asset.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
@@ -40,19 +40,19 @@ const AdminPage = () => {
 
   return (
     <div className="flex h-screen bg-(--bg-base) text-(--text-primary) overflow-hidden transition-colors duration-300">
-      <Sidebar 
-        activeTab={activeTab} 
-        setActiveTab={setActiveTab} 
-        isSidebarOpen={isSidebarOpen} 
-        setIsSidebarOpen={setIsSidebarOpen} 
-        handleLogout={handleLogout} 
+      <Sidebar
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
+        handleLogout={handleLogout}
       />
 
       <main className="flex-1 flex flex-col h-screen overflow-hidden overflow-y-auto">
         <header className="h-16 md:h-20 bg-(--bg-base)/80 backdrop-blur-md border-b border-(--glass-border) px-4 md:px-8 flex items-center justify-between sticky top-0 z-40 shrink-0 transition-colors">
           <div className="flex items-center gap-4 flex-1">
             {/* Mobile Menu Toggle */}
-            <button 
+            <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               className="p-2 -ml-2 text-(--text-primary) md:hidden hover:bg-(--bg-card-hover) rounded-lg transition-colors"
             >
@@ -71,16 +71,16 @@ const AdminPage = () => {
 
             <div className="flex-1 max-w-xl">
               <div className="relative group">
-                <svg className="absolute left-4 top-1/2 -translate-y-1/2 text-(--text-muted) group-focus-within:text-green transition-colors" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                <input 
-                  type="text" 
+                <svg className="absolute left-4 top-1/2 -translate-y-1/2 text-(--text-muted) group-focus-within:text-green transition-colors" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
+                <input
+                  type="text"
                   placeholder={t('admin.assets.search_placeholder')}
                   className="w-full bg-(--bg-card) border border-(--glass-border) rounded-2xl py-2 pl-10 md:py-2.5 md:pl-12 pr-4 text-xs md:text-sm focus:outline-none focus:border-green/50 transition-all font-mono"
                 />
               </div>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-2 md:gap-6 ml-4">
             <div className="flex items-center gap-2 md:gap-3 pl-4 md:pl-6 border-l border-(--glass-border)">
               <div className="text-right hidden sm:block">
@@ -97,12 +97,12 @@ const AdminPage = () => {
         <div className="p-4 md:p-8 pb-20">
           {activeTab === 'dashboard' && <DashboardOverview filteredAssets={filteredAssets} />}
           {activeTab === 'assets' && (
-            <AssetManagement 
-              filteredAssets={filteredAssets} 
-              searchTerm={searchTerm} 
-              setSearchTerm={setSearchTerm} 
-              selectedCategory={selectedCategory} 
-              setSelectedCategory={setSelectedCategory} 
+            <AssetManagement
+              filteredAssets={filteredAssets}
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
               categories={categories}
             />
           )}

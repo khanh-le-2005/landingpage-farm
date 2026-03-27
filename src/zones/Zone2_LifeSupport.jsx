@@ -1,312 +1,242 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import {
-  LineChart, Line, XAxis, Tooltip, ResponsiveContainer
+  LineChart, Line, ResponsiveContainer
 } from 'recharts';
 
-// A more realistic and beautiful fish shape
-const FishIcon = ({ className }) => (
-  <svg viewBox="0 0 100 100" className={className} fill="currentColor" stroke="currentColor" strokeWidth="1" strokeLinejoin="round">
-    {/* Body */}
-    <path d="M55 30 C80 30, 95 45, 98 50 C95 55, 80 70, 55 70 C30 70, 15 58, 12 50 C15 42, 30 30, 55 30 Z" />
-    {/* Tail */}
-    <path d="M13 50 C8 40, 2 32, 2 32 C6 45, 6 55, 2 68 C2 68, 8 60, 13 50 Z" />
-    {/* Top Fin */}
-    <path d="M45 32 C50 18, 65 18, 70 35 C60 30, 50 30, 45 32 Z" />
-    {/* Bottom Fin */}
-    <path d="M45 68 C50 82, 60 82, 65 65 C55 70, 45 70, 45 68 Z" />
-    {/* Eye */}
-    <circle cx="80" cy="45" r="3" fill="rgba(0,0,0,0.4)" stroke="none" />
-    <path d="M85 53 C80 55, 75 55, 70 53" fill="none" stroke="rgba(0,0,0,0.2)" strokeWidth="2" strokeLinecap="round" />
-  </svg>
-);
-
-const ArcGauge = ({ title, value, unit, sub, pct, color }) => {
-  return (
-    <div className="flex flex-col items-center flex-1">
-      <span className="text-xs xl:text-sm font-bold text-[--text-primary] mb-1.5 tracking-wide text-center drop-shadow-sm">{title}</span>
-      <div className="relative w-[85px] xl:w-[100px] h-[48px] xl:h-[55px] overflow-hidden">
-        <svg viewBox="0 0 100 55" className="w-full h-full">
-          <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="currentColor" className="text-[--dashboard-stroke-strong]" strokeWidth="6" strokeLinecap="round" />
-          <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke={color} strokeWidth="6" strokeDasharray="126" strokeDashoffset={126 - (pct * 126)} strokeLinecap="round" />
-        </svg>
-        <div className="absolute inset-0 flex flex-col items-center justify-end pb-1">
-           <span className="text-xl xl:text-2xl font-black text-[--text-primary] leading-none tracking-tighter flex items-end drop-shadow">
-             {value}
-             <span className="text-[10px] xl:text-xs font-medium ml-0.5 text-[--text-secondary] tracking-normal mb-0.5">{unit}</span>
-           </span>
-           <span className="text-[9px] xl:text-[10px] text-[--text-muted] mt-1">{sub}</span>
-        </div>
+// --- FIX LỖI 1: THÊM LẠI COMPONENT ARCGAUGE ---
+const ArcGauge = ({ title, value, unit, sub, pct, color }) => (
+  <div className="flex flex-col items-center flex-1">
+    <span className="text-xs xl:text-sm font-bold text-white mb-1.5 tracking-wide text-center drop-shadow-sm">{title}</span>
+    <div className="relative w-[85px] xl:w-[100px] h-[48px] xl:h-[55px] overflow-hidden">
+      <svg viewBox="0 0 100 55" className="w-full h-full">
+        {/* Đường nền - dùng màu xám cố định nếu chưa có biến CSS */}
+        <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="#222" strokeWidth="6" strokeLinecap="round" />
+        {/* Đường màu tiến độ */}
+        <path 
+          d="M10 50 A40 40 0 0 1 90 50" 
+          fill="none" 
+          stroke={color} 
+          strokeWidth="6" 
+          strokeDasharray="126" 
+          strokeDashoffset={126 - (pct * 126)} 
+          strokeLinecap="round" 
+        />
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-end pb-1">
+         <span className="text-xl xl:text-2xl font-black text-white leading-none tracking-tighter flex items-end drop-shadow">
+           {value}
+           <span className="text-[10px] xl:text-xs font-medium ml-0.5 text-gray-400 mb-0.5">{unit}</span>
+         </span>
+         <span className="text-[9px] xl:text-[10px] text-gray-500 mt-1">{sub}</span>
       </div>
     </div>
-  )
+  </div>
+);
+
+const ThermalHeatMap = () => {
+  const gridData = React.useMemo(() => {
+    return Array.from({ length: 15 * 25 }).map(() => {
+      const rand = Math.random();
+      let color, glow;
+      if (rand > 0.6) { color = '#00E676'; glow = 'rgba(0, 230, 118, 0.4)'; }
+      else if (rand > 0.3) { color = '#FFD600'; glow = 'rgba(255, 214, 0, 0.3)'; }
+      else { color = '#FF1744'; glow = 'rgba(255, 23, 68, 0.5)'; }
+      return { color, glow, opacity: 0.4 + Math.random() * 0.6 };
+    });
+  }, []);
+
+  return (
+    <div className="relative w-full h-[400px] bg-[#050505] rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
+      <div className="grid grid-cols-15 grid-rows-25 h-full w-full gap-[2px] filter blur-[2px] opacity-60">
+        {gridData.map((item, i) => (
+          <motion.div
+            key={i}
+            animate={{ opacity: [item.opacity, item.opacity * 0.6, item.opacity] }}
+            transition={{ duration: 2 + Math.random() * 3, repeat: Infinity }}
+            style={{ backgroundColor: item.color, boxShadow: `0 0 8px ${item.glow}` }}
+            className="w-full h-full rounded-sm"
+          />
+        ))}
+      </div>
+
+      <div className="absolute inset-0 pointer-events-none p-4 flex flex-col justify-between">
+        <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-white/40" />
+        <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-white/40" />
+        <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-white/40" />
+        <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-white/40" />
+
+        <div className="flex justify-between items-start z-30">
+          <div className="bg-black/60 backdrop-blur-md border border-white/10 p-2 rounded-lg font-mono text-[8px] text-green-500 uppercase">
+            Lat: 24.4539° N<br />Lon: 54.3773° E<br />Alt: 120m
+          </div>
+          <div className="bg-red-500/20 backdrop-blur-md border border-red-500/50 p-2 rounded-lg font-mono text-[8px] text-red-500 flex items-center gap-2">
+            <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse" />
+            LIVE ANALYSIS
+          </div>
+        </div>
+      </div>
+
+      <div className="absolute inset-0 z-20 pointer-events-none">
+        <motion.div
+          animate={{ opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="absolute top-[40%] left-[10%] w-[45%] h-[25%] border-2 border-red-500 shadow-[0_0_20px_rgba(255,23,68,0.4)]"
+        >
+          <div className="bg-red-500 text-black text-[9px] font-black px-2 py-0.5 absolute -top-5 left-0">
+            SECTOR_STRESSED_3.52ac
+          </div>
+        </motion.div>
+      </div>
+
+      <motion.div
+        animate={{ top: ['-10%', '110%'] }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+        className="absolute left-0 right-0 h-20 bg-gradient-to-b from-transparent via-white/5 to-transparent z-30 pointer-events-none"
+      />
+    </div>
+  );
 };
 
 export default function Zone2_LifeSupport({ data }) {
   const { t } = useTranslation();
-  const thermalBars = [
-    { label: t('dashboard.zones.zone2.healthy_leaf'), value: 92, bg: 'var(--color-green)', action: t('dashboard.zones.zone2.ignore') },
-    { label: 'NDVI & Chlorophyll (85%)', value: 85, bg: 'var(--color-green-soft)', action: t('dashboard.zones.zone2.apply_now') },
-    { label: 'Salinity & Humidity (RH 75%)', value: 75, bg: 'var(--color-warning)', action: t('dashboard.zones.zone2.adjust_fan') },
-    { label: 'Blocked Nozzles (Warning)', value: 41, bg: 'var(--color-gold)', action: t('dashboard.zones.zone2.clean_nozzle') },
-    { label: 'Nutrient Deficiency (Warning)', value: 13, bg: 'var(--color-danger)', action: t('dashboard.zones.zone2.add_nitrate') },
-    { label: 'Overall Stability Status', value: 92, bg: 'var(--color-danger)', action: t('dashboard.zones.zone2.ignore') },
-  ];
+
+  const videoIds = ['5f0ZgR1OTnM', 'StKNK5TB9fU', 'iwxdSxDtVZI', '2oeqv-0Ylfc'];
+  const videoMapping = { 1: 0, 2: 1, 4: 2, 5: 3 };
 
   const predictiveData = [
-    { time: '1', val: 12 }, { time: '2', val: 14 }, { time: '3', val: 13 },
-    { time: '4', val: 16 }, { time: '5', val: 15 }, { time: '6', val: 18 }
+    { val: 12 }, { val: 14 }, { val: 13 }, { val: 16 }, { val: 15 }, { val: 18 }
   ];
 
   return (
-    <div className="min-h-full flex flex-col gap-4 p-4 xl:p-6 bg-[--dashboard-bg-deep] text-[--text-primary] font-sans overflow-y-auto transition-colors duration-300">
-      
+    <div className="min-h-full flex flex-col gap-4 p-4 xl:p-6 bg-[#080C14] text-white font-sans overflow-y-auto">
+
       {/* Header */}
       <div className="flex justify-between items-center mb-2 px-2">
-         <h2 className="text-xl xl:text-2xl font-black text-[--text-primary] tracking-widest uppercase flex items-center gap-2">
-           Desert<span className="text-[--text-muted]">"</span> High-Contrast
-         </h2>
-         <div className="text-xl xl:text-2xl font-black text-[--text-secondary]">
-           65/00
-         </div>
+        <h2 className="text-xl xl:text-2xl font-black tracking-widest uppercase flex items-center gap-2">
+          Desert<span className="text-gray-500">"</span> High-Contrast
+        </h2>
+        <div className="text-xl xl:text-2xl font-black text-gray-400">65/00</div>
       </div>
 
-      {/* Main 2-Column Layout */}
       <div className="flex flex-col xl:flex-row gap-6">
-        
-        {/* =========================================================
-            LEFT COLUMN: RAS AI FISH TRACKING 
-        ========================================================= */}
+
+        {/* LEFT COLUMN: RAS AI FISH TRACKING */}
         <div className="flex-[1.1] flex flex-col gap-4">
-           {/* Top Info */}
-           <div className="flex justify-between items-center px-2">
-             <h3 className="text-lg xl:text-xl font-black uppercase tracking-widest text-[--text-primary]">RAS AI FISH TRACKING</h3>
-             <div className="flex gap-4 text-xs xl:text-sm font-bold text-[--text-secondary]">
-               <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-full bg-[--color-success]"></div> Piping<br/><span className="text-[--text-muted]">Normal</span></div>
-               <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-full bg-[--color-danger]"></div> Flashing<br/><span className="text-[--text-muted]">Lethargy</span></div>
-             </div>
-           </div>
+          <div className="flex justify-between items-center px-2">
+            <h3 className="text-lg xl:text-xl font-black uppercase tracking-widest text-white">RAS AI FISH TRACKING</h3>
+            <div className="flex gap-4 text-xs xl:text-sm font-bold">
+              <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-full bg-green-500"></div> Normal</div>
+              <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-full bg-red-500"></div> Lethargy</div>
+            </div>
+          </div>
 
-           {/* Camera Grid (3x2) */}
-           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {[1, 2, 3, 4, 5, 6].map((i) => {
-                const hasFish = i !== 3 && i !== 6;
-                return (
-                  <div key={i} className="flex flex-col gap-1.5">
-                     <div className="text-xs text-[--text-muted] font-extrabold px-1 uppercase tracking-wider">
-                       {i === 1 || i === 2 ? 'Live Camera' : i === 5 ? 'Clicked Diagnosis' : 'Live Camera'}
-                     </div>
-                     <div className="border border-[--dashboard-stroke] rounded-xl bg-[--dashboard-bg-item] relative aspect-[4/3] flex flex-col items-center justify-center overflow-hidden hover:border-[--dashboard-stroke-strong] transition-all cursor-pointer shadow-sm">
-                       
-                       <div className="absolute top-2 left-2 bg-black/70 px-2 py-1 text-[10px] rounded border border-[--dashboard-stroke-strong] text-white font-mono z-20 shadow-sm backdrop-blur-md">YOLOv11</div>
-                       
-                       {/* Background texture for all cameras */}
-                       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 mix-blend-overlay pointer-events-none"></div>
-                       
-                       {!hasFish && (
-                          <div className="flex flex-col items-center justify-center opacity-40 z-10 text-[11px] font-black text-[--text-muted] tracking-widest text-center mt-2 px-4 gap-2">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z"/><path d="m4.93 4.93 14.14 14.14"/></svg>
-                            <span>NO TARGET<br/>ACQUIRED</span>
-                          </div>
-                       )}
+          {/* Camera Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {[1, 2, 3, 4, 5, 6].map((i) => {
+              const vIdx = videoMapping[i];
+              const hasVideo = vIdx !== undefined;
 
-                       {/* Dynamic YOLO Bounding Box with Fish */}
-                       {hasFish && (
-                         <motion.div 
-                           initial={{ opacity: 0 }}
-                           animate={
-                             i === 2 ? {
-                               opacity: [0.8, 1, 0.8],
-                               top: [`${20 + i*5}%`, `${40 + i*3}%`, `${60 - i*4}%`, `${30 + i*5}%`, `${20 + i*5}%`], 
-                               left: [`${20 + i*5}%`, `${60 - i*2}%`, `${40 + i*6}%`, `${70 - i*3}%`, `${20 + i*5}%`],
-                               width: [`${25 + i}%`, `${30 + i}%`, `${20 + i}%`, `${30 + i}%`, `${25 + i}%`],
-                               height: [`${35 + i}%`, `${40 + i}%`, `${25 + i}%`, `${40 + i}%`, `${35 + i}%`],
-                               borderColor: ['var(--color-success)', 'var(--color-danger)', 'var(--color-danger)', 'var(--color-danger)', 'var(--color-success)'],
-                               backgroundColor: ['rgba(0,230,118,0.1)', 'rgba(255,71,87,0.15)', 'rgba(255,71,87,0.2)', 'rgba(255,71,87,0.1)', 'rgba(0,230,118,0.1)'],
-                               color: ['var(--color-success)', 'var(--color-danger)', 'var(--color-danger)', 'var(--color-danger)', 'var(--color-success)']
-                             } : {
-                               opacity: [0.8, 1, 0.8],
-                               top: [`${20 + i*5}%`, `${40 + i*3}%`, `${60 - i*4}%`, `${30 + i*5}%`, `${20 + i*5}%`], 
-                               left: [`${20 + i*5}%`, `${60 - i*2}%`, `${40 + i*6}%`, `${70 - i*3}%`, `${20 + i*5}%`],
-                               width: [`${25 + i}%`, `${30 + i}%`, `${30 + i}%`, `${25 + i}%`, `${25 + i}%`],
-                               height: [`${35 + i}%`, `${40 + i}%`, `${40 + i}%`, `${35 + i}%`, `${35 + i}%`],
-                               borderColor: ['var(--color-success)', 'var(--color-success)'],
-                               backgroundColor: ['rgba(0,230,118,0.1)', 'rgba(0,230,118,0.1)'],
-                               color: ['var(--color-success)', 'var(--color-success)']
-                             }
-                           }
-                           transition={{ 
-                             duration: 12 + i*2, 
-                             repeat: Infinity, 
-                             ease: 'linear' 
-                           }}
-                           className={`absolute border-[1.5px] flex items-center justify-center z-10 pointer-events-none`}
-                           style={{ transform: 'translate(-50%, -50%)', boxSizing: 'border-box' }}
-                         >
-                            {/* Detailed Fish Shape Icon inside Bounding Box */}
-                            <motion.div animate={{ rotate: [0, 5, -5, 0], scale: [1, 1.05, 1] }} transition={{ duration: 3, repeat: Infinity }} className="w-[75%] h-[75%] opacity-90">
-                              <FishIcon className="w-full h-full" />
-                            </motion.div>
-  
-                            {/* Crosshairs at corners */}
-                            <div className="absolute -top-[1.5px] -left-[1.5px] w-2.5 h-2.5 border-t-[2px] border-l-[2px] border-current"></div>
-                            <div className="absolute -top-[1.5px] -right-[1.5px] w-2.5 h-2.5 border-t-[2px] border-r-[2px] border-current"></div>
-                            <div className="absolute -bottom-[1.5px] -left-[1.5px] w-2.5 h-2.5 border-b-[2px] border-l-[2px] border-current"></div>
-                            <div className="absolute -bottom-[1.5px] -right-[1.5px] w-2.5 h-2.5 border-b-[2px] border-r-[2px] border-current"></div>
-                            
-                            {/* Label */}
-                            <motion.div 
-                              className="absolute -top-[14px] left-[-1.5px] text-[9.5px] font-mono px-1.5 py-0.5 whitespace-nowrap font-black tracking-wider text-[var(--bg-base)] bg-current drop-shadow-sm"
-                            >
-                               {i === 2 ? 'Lethargy DETECTED' : `FISH 9${i}%`}
-                            </motion.div>
-                            
-                            {/* Extra blur effect for the diagnosis box */}
-                            {i === 5 && (
-                               <div className="absolute inset-0 bg-[var(--color-success)]/10 backdrop-blur-[1px] shadow-[0_0_15px_var(--color-success)] opacity-40 pointer-events-none"></div>
-                            )}
-                         </motion.div>
-                       )}
-                       
-                       {/* Secondary floating box for multi-tracking effect to make it busy */}
-                       {i === 1 && (
-                         <motion.div 
-                           initial={{ opacity: 0 }}
-                           animate={{ 
-                             opacity: [0.6, 0.9, 0.6],
-                             top: ['60%', '30%', '80%', '60%'], 
-                             left: ['70%', '40%', '30%', '70%'],
-                             width: ['20%', '25%', '20%', '20%'],
-                             height: ['30%', '35%', '30%', '30%'],
-                             color: ['var(--color-success)', 'var(--color-success)']
-                           }}
-                           transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
-                           className="absolute border-[1px] border-current bg-[var(--color-success)]/5 text-[var(--color-success)] z-10 pointer-events-none flex items-center justify-center"
-                           style={{ transform: 'translate(-50%, -50%)', boxSizing: 'border-box' }}
-                         >
-                            <FishIcon className="w-[60%] h-[60%] opacity-60" />
-                            <div className="absolute -top-[1px] -left-[1px] w-1.5 h-1.5 border-t-[1.5px] border-l-[1.5px] border-current"></div>
-                            <div className="absolute -top-[1px] -right-[1px] w-1.5 h-1.5 border-t-[1.5px] border-r-[1.5px] border-current"></div>
-                            <div className="absolute -bottom-[1px] -left-[1px] w-1.5 h-1.5 border-b-[1.5px] border-l-[1.5px] border-current"></div>
-                            <div className="absolute -bottom-[1px] -right-[1px] w-1.5 h-1.5 border-b-[1.5px] border-r-[1.5px] border-current"></div>
-                            <div className="absolute -top-[12px] left-[-1px] text-[8.5px] font-mono px-1.5 py-0.5 whitespace-nowrap font-black tracking-wider bg-current text-[var(--bg-base)]">
-                               FISH 87%
-                            </div>
-                         </motion.div>
-                       )}
-                     </div>
+              return (
+                <div key={i} className="flex flex-col gap-1.5">
+                  <div className="text-[10px] text-gray-500 font-extrabold px-1 uppercase tracking-wider">
+                    {i === 5 ? 'Clicked Diagnosis' : 'Live Camera'}
                   </div>
-                )
-              })}
-           </div>
-           
-           {/* 3 Gauges Row */}
-           <div className="flex justify-between items-center bg-[var(--bg-card)] border border-[--dashboard-stroke] rounded-2xl p-3 xl:p-4 mt-1 backdrop-blur-md shadow-sm">
-             <ArcGauge title="Average Velocity" value="0.82" unit="m/s" sub="vs standard" pct={0.82} color="var(--color-success)" />
-             <ArcGauge title="Density" value="15" unit="fish/m³" sub="vs standard" pct={0.6} color="var(--color-success)" />
-             <ArcGauge title="Trajectory" value="15" unit="m/s" sub="vs standard" pct={0.5} color="var(--color-warning)" />
-           </div>
+                  <div className="border border-white/10 rounded-xl bg-black relative aspect-[4/3] overflow-hidden shadow-sm">
+                    <div className="absolute top-2 left-2 bg-black/80 px-2 py-1 text-[9px] rounded border border-white/20 text-white font-mono z-30">
+                      YOLOv11
+                    </div>
 
-           {/* Predictive Insights */}
-           <div className="flex flex-col gap-2 mt-1">
-             <div className="grid grid-cols-2 gap-4">
-                <div className="flex flex-col gap-1">
-                  <span className="text-xs font-black text-[--text-muted] tracking-wide">Predictive Insights</span>
-                  <div className="h-16 w-full bg-[var(--bg-card)] border border-[--dashboard-stroke] rounded-lg p-2 shadow-sm">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <LineChart data={predictiveData}>
-                        <Line type="monotone" dataKey="val" stroke="var(--color-warning)" strokeWidth={2} dot={false} />
-                      </LineChart>
-                    </ResponsiveContainer>
+                    {/* FIX LỖI 2: SỬA CÚ PHÁP SRC CHO IFRAME */}
+                    {hasVideo ? (
+                      <div className="absolute inset-0 z-10">
+                        <iframe
+                          className="w-full h-full object-cover pointer-events-none scale-110"
+                          src={`https://www.youtube.com/embed/${videoIds[vIdx]}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoIds[vIdx]}&modestbranding=1&rel=0`}
+                          title={`Video ${i}`}
+                          frameBorder="0"
+                          allow="autoplay; encrypted-media"
+                        ></iframe>
+                        <div className="absolute inset-0 bg-black/20 pointer-events-none"></div>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center opacity-30 z-10 text-[10px] font-black tracking-widest text-center h-full gap-2">
+                        <span>NO TARGET</span>
+                      </div>
+                    )}
                   </div>
                 </div>
-                <div className="flex flex-col gap-1">
-                  <span className="text-[10px] font-bold text-[--text-muted] tracking-wide flex justify-between">Predictive Insights <div className="flex gap-2"><span className="text-[--color-success] text-[10px]">Normal</span><span className="text-[--text-muted] text-[10px]">Abnormal</span></div></span>
-                  <div className="h-16 w-full bg-[var(--bg-card)] border border-[--dashboard-stroke] rounded-lg p-2 relative shadow-sm overflow-hidden">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <LineChart data={predictiveData}>
-                        <Line type="monotone" dataKey="val" stroke="var(--color-success)" strokeWidth={2} dot={false} />
-                      </LineChart>
-                    </ResponsiveContainer>
-                    {/* Shadow overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-success)] to-transparent opacity-10 pointer-events-none" />
-                  </div>
-                </div>
-             </div>
+              )
+            })}
+          </div>
 
-             {/* AI Alerts Texts from Prompt */}
-             <div className="flex flex-col gap-2 mt-2">
-                <div className="bg-[var(--color-warning)]/10 border border-[var(--color-warning)]/20 p-2.5 xl:p-3 rounded-xl flex gap-3 text-xs xl:text-sm text-[--text-primary] shadow-sm">
-                  <span className="text-2xl">🤖</span>
-                  <div className="flex flex-col gap-0.5 font-bold leading-relaxed w-full">
-                    <span><strong className="text-[--color-warning]">Warning:</strong> {t('dashboard.zones.zone2.warning_flashing')}</span>
-                    <div className="text-[--color-success] tracking-widest">{t('dashboard.zones.zone2.forecast_do')}</div>
-                  </div>
-                </div>
-                <div className="bg-[var(--color-success)]/10 border border-[var(--color-success)]/20 p-2.5 xl:p-3 rounded-xl flex items-center justify-between text-xs xl:text-sm text-[--text-primary] shadow-sm">
-                  <span className="font-bold"><strong className="text-[--color-success]">{t('dashboard.zones.zone2.ai_auto')}</strong> {t('dashboard.zones.zone2.increase_airlift')}</span>
-                  <button className="px-4 py-2 bg-[#00E676] text-[#080C14] rounded-lg font-black shrink-0 hover:bg-[#10B981] cursor-pointer text-[11px] xl:text-xs uppercase shadow-[0_2px_10px_rgba(0,230,118,0.4)] transition-all active:scale-95 drop-shadow-md border-0 ring-0 focus:outline-none">{t('dashboard.zones.zone2.automation_on')}</button>
-                </div>
-             </div>
-           </div>
+          {/* Gauges */}
+          <div className="flex justify-between items-center bg-white/5 border border-white/10 rounded-2xl p-4 mt-1 backdrop-blur-md">
+            {/* FIX LỖI 3: DÙNG MÀU HEX CỐ ĐỊNH ĐỂ TRÁNH LỖI CSS VARIABLE */}
+            <ArcGauge title="Average Velocity" value="0.82" unit="m/s" sub="vs standard" pct={0.82} color="#00E676" />
+            <ArcGauge title="Density" value="15" unit="fish/m³" sub="vs standard" pct={0.6} color="#00E676" />
+            <ArcGauge title="Trajectory" value="15" unit="m/s" sub="vs standard" pct={0.5} color="#FFD600" />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 mt-1">
+            <div className="h-14 w-full bg-white/5 border border-white/10 rounded-lg p-1">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={predictiveData}><Line type="monotone" dataKey="val" stroke="#FFD600" strokeWidth={2} dot={false} /></LineChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="h-14 w-full bg-white/5 border border-white/10 rounded-lg p-1">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={predictiveData}><Line type="monotone" dataKey="val" stroke="#00E676" strokeWidth={2} dot={false} /></LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
         </div>
 
-        {/* Vertical Divider on Desktop */}
-        <div className="hidden xl:block w-[1px] bg-[--dashboard-stroke] mx-2"></div>
+        <div className="hidden xl:block w-[1px] bg-white/10"></div>
 
-        {/* =========================================================
-            RIGHT COLUMN: THERMAL & MULTISPECTRAL AI
-        ========================================================= */}
+        {/* RIGHT COLUMN: THERMAL AI ANALYSIS */}
         <div className="flex-[0.9] flex flex-col gap-4">
-           {/* Top Info */}
-           <div className="flex justify-between items-center px-2">
-             <h3 className="text-base xl:text-lg font-black uppercase tracking-widest text-[--text-primary]">THERMAL & MULTISPECTRAL AI</h3>
-             <div className="text-xs xl:text-sm font-bold text-[--text-secondary]">
-               AI Score <span className="text-xl xl:text-2xl font-black text-[--text-primary] ml-2">92%</span>
-             </div>
-           </div>
+          <div className="flex justify-between items-center px-2 text-sm font-black uppercase tracking-widest text-white">
+            THERMAL AI ANALYSIS
+          </div>
 
-           {/* Sub Headers */}
-           <div className="flex justify-between items-center px-2 text-[10px] text-[--text-muted] font-bold uppercase tracking-wider">
-             <span>800 m² Salicornia</span>
-             <span>Instant Action</span>
-           </div>
+          <ThermalHeatMap />
 
-           {/* Thermal Bar List */}
-           <div className="flex flex-col gap-3 flex-1">
-             {thermalBars.map((item, i) => (
-               <div key={i} className="flex gap-2 xl:gap-3 h-[60px] xl:h-[68px]">
-                 {/* Left Bar */}
-                 <div 
-                   className="flex-1 rounded-xl xl:rounded-2xl px-4 xl:px-5 py-2 flex justify-between items-center relative overflow-hidden group shadow-md"
-                   style={{ backgroundColor: item.bg }}
-                 >
-                    {/* Thermal background overlay mock */}
-                    <div className="absolute inset-0 bg-black/10 mix-blend-overlay group-hover:bg-transparent transition-colors"></div>
-                    <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-gradient-to-l from-black/20 to-transparent"></div>
-                    
-                    <div className="relative z-10 flex flex-col justify-center h-full">
-                      <div className="text-[11px] xl:text-xs font-bold text-white/95 drop-shadow-sm">{item.label}</div>
-                      <div className="text-xl xl:text-2xl font-black text-white drop-shadow-md leading-none mt-1">{item.value}%</div>
-                    </div>
-                    <div className="relative z-10 text-[11px] font-black text-white/70 bg-black/20 px-2 py-1 rounded-md hidden sm:block">
-                      AI_CONF: 0.{item.value}
-                    </div>
-                 </div>
+          <div className="mt-4 p-5 bg-[#0a0a0a] rounded-3xl border border-white/5 shadow-xl">
+            <div className="flex justify-between items-center mb-4">
+              <div className="flex flex-col gap-1">
+                <span className="text-[10px] font-black text-white/40 uppercase tracking-widest">Spectral Legend</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-[9px] font-bold text-red-500">LOW</span>
+                  <div className="h-2 w-48 bg-gradient-to-r from-red-600 via-orange-400 via-yellow-400 to-green-500 rounded-full border border-white/10" />
+                  <span className="text-[9px] font-bold text-green-500">HIGH</span>
+                </div>
+              </div>
+            </div>
 
-                 {/* Right Action Button */}
-                 <div 
-                   className="w-[100px] xl:w-[120px] rounded-xl xl:rounded-2xl flex items-center justify-center cursor-pointer hover:brightness-110 active:scale-95 transition-all text-xs xl:text-sm font-black px-1.5 text-center shadow-md border border-white/20"
-                   style={{ backgroundColor: item.bg, color: 'white' }}
-                 >
-                   {item.action}
-                 </div>
-               </div>
-             ))}
-           </div>
-           
+            <div className="grid grid-cols-2 gap-6 pt-4 border-t border-white/5">
+              <div className="flex flex-col text-white">
+                <span className="text-[10px] text-white/40 font-bold uppercase tracking-wider mb-1">Estimated Biomass</span>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black italic">14.2</span>
+                  <span className="text-[10px] text-green-500 font-bold">TONS/HA</span>
+                </div>
+              </div>
+              <div className="flex flex-col text-white">
+                <span className="text-[10px] text-white/40 font-bold uppercase tracking-wider mb-1">Water Stress Index</span>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-red-500 italic">0.24</span>
+                  <span className="text-[10px] text-red-500/60 font-bold uppercase">Critical</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button className="w-full py-4 bg-green-500 text-black font-black rounded-2xl uppercase tracking-widest shadow-lg shadow-green-500/20 hover:bg-green-400 transition-all mt-auto cursor-pointer">
+            Auto-Dose Nutrient
+          </button>
         </div>
-
       </div>
     </div>
   );
