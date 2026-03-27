@@ -90,7 +90,9 @@
       "settings": "Cài đặt",
       "support": "Hỗ trợ",
       "theme": "Giao diện",
-      "language": "Ngôn ngữ"
+      "language": "Ngôn ngữ",
+      "logout": "Đăng xuất",
+      "back_to_landing": "Trang chủ"
     },
     "header": {
       "title": "Bảng điều khiển Admin",
@@ -120,5 +122,63 @@
     "alerts": "Cảnh báo tức thời",
     "medical": "Chỉ số Y tế AI",
     "recommendations": "Đề xuất hệ thống"
+  },
+  "landing": {
+    "bento": {
+      "label": "Công nghệ Cốt lõi",
+      "title_part1": "4 Khu vực Giám sát",
+      "title_part2": "Thông minh",
+      "desc": "Hệ thống tích hợp toàn diện. Từ vi khí hậu UAE đến chỉ số sinh học của lá — kiểm soát tuyệt đối 24/7.",
+      "zone0_desc": "Quản lý vi khí hậu Abu Dhabi. Cập nhật tức thì cảm biến áp suất & độ mặn.",
+      "zone1_fish_desc": "Phát hiện dịch bệnh & đếm cá tự động với YOLOv11. Phân tích hành vi 30fps.",
+      "zone2_desc": "Hệ thần kinh trung ương của trang trại. Cân bằng DO, Nitrate & EC.",
+      "ai_rec": "Khuyến nghị AI",
+      "ai_rec_desc": "Tăng EC của cây từ 2.3 -> 2.5 cho chu kỳ mới.",
+      "zone1_plants_desc": "Phân tích NDVI bằng camera nhiệt & đa phổ. Phát hiện sớm căng thẳng trên lá Salicornia."
+    },
+    "footer": {
+      "cta_label": "Hành động Hôm nay",
+      "cta_title_part1": "Sẵn sàng mang",
+      "cta_title_part2": "vào dự án của bạn?",
+      "cta_desc": "Đội ngũ chuyên gia của chúng tôi sẵn sàng hỗ trợ triển khai IoT thông minh cho các dự án ở mọi quy mô.",
+      "request_demo": "Yêu cầu Demo",
+      "received": "Đã nhận! Chúng tôi sẽ phản hồi trong 24h.",
+      "tech_docs": "Tài liệu Kỹ thuật",
+      "consulting": "Tư vấn Giải pháp",
+      "brand_desc": "Tiên phong giám sát nông nghiệp thông minh tại KEZAD, Abu Dhabi. Tích hợp AI & IoT Deep Learing.",
+      "col_system": "Hệ thống",
+      "col_tech": "Công nghệ",
+      "col_info": "Thông tin",
+      "info_area": "Tổng diện tích 1,500 m²",
+      "info_yield": "Sản lượng 20 tấn/năm",
+      "copy": "© 2026 Smart Farm Aquaponics · Dự án KEZAD"
+    },
+    "why": {
+      "label": "Tại sao Chọn Chúng tôi",
+      "title_part1": "Vấn đề",
+      "title_part2": "Chúng tôi đã Giải quyết",
+      "desc": "Nông nghiệp truyền thống ở các vùng sa mạc phải đối mặt với nhiều thách thức. Hệ thống của chúng tôi giải quyết từng vấn đề bằng AI và IoT.",
+      "current_problem": "Vấn đề Hiện tại",
+      "smart_farm_solution": "Giải pháp Smart Farm",
+      "p1_prob": "Cảm biến Truyền thống Chậm",
+      "p1_sol": "Camera AI 30fps phát hiện sự cố sớm hơn 30–60s",
+      "p2_prob": "Lãng phí Nước & Năng lượng",
+      "p2_sol": "Thu hồi TEC tái sử dụng 65% nước, Solar tự cân bằng",
+      "p3_prob": "Chẩn đoán Bệnh Thủ công",
+      "p3_sol": "Phân loại tự động AI YOLOv11 + CNN, cảnh báo tức thì",
+      "p4_prob": "Dữ liệu Phân tán, Khó Tổng hợp",
+      "p4_sol": "Bảng điều khiển tập trung cho cả 4 khu vực, cập nhật 3s"
+    },
+    "ui": {
+      "ux_label": "Trải nghiệm Người dùng",
+      "title": "Chế độ Trực quan",
+      "desc": "Thiết kế tùy chỉnh cho ánh sáng cường độ cao của Abu Dhabi. Chống chói, độ tương phản cực cao, tối ưu cho Tablet công nghiệp.",
+      "f1_title": "Hệ thống Cảnh báo Thông minh",
+      "f1_desc": "Tự động đẩy các chỉ số quan trọng lên đầu bảng điều khiển.",
+      "f2_title": "Vận hành Một chạm",
+      "f2_desc": "Nút điều khiển lớn, tối ưu cho găng tay kỹ thuật.",
+      "f3_title": "Ưu tiên Tablet",
+      "f3_desc": "Bố cục phản hồi 100%, ổn định ngay cả khi mất mạng tạm thời."
+    }
   }
 }

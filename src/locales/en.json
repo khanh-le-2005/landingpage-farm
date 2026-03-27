@@ -102,7 +102,8 @@
       "support": "Support",
       "theme": "Appearance",
       "language": "Language",
-      "logout": "Logout"
+      "logout": "Logout",
+      "back_to_landing": "Home Page"
     },
     "header": {
       "title": "Admin Dashboard",
@@ -184,64 +185,6 @@
         "fcr_modal_alert": "Warning: Abnormal FCR in Tank 3 - Check fish health or feeder."
       }
     },
-    "landing": {
-      "bento": {
-        "label": "Core Technology",
-        "title_part1": "4 Smart Monitoring",
-        "title_part2": "Areas",
-        "desc": "Fully integrated system. From UAE microclimate to leaf biological indices — absolute 24/7 control.",
-        "zone0_desc": "Abu Dhabi microclimate management. Instant pressure & salinity sensor updates.",
-        "zone1_fish_desc": "Disease detection & automated fish counting with YOLOv11. 30fps behavior analysis.",
-        "zone2_desc": "The farm's central nervous system. Balancing DO, Nitrate & EC.",
-        "ai_rec": "AI Rec",
-        "ai_rec_desc": "Increase plant EC from 2.3 -> 2.5 for the new cycle.",
-        "zone1_plants_desc": "Thermal & multispectral camera NDVI analysis. Early detection of stress on Salicornia leaves."
-      },
-      "footer": {
-        "cta_label": "Take Action Today",
-        "cta_title_part1": "Ready to bring",
-        "cta_title_part2": "to your project?",
-        "cta_desc": "Our expert team is ready to support smart IoT deployment for projects of any scale.",
-        "request_demo": "Request Demo",
-        "received": "Received! We'll respond within 24h.",
-        "tech_docs": "Technical Docs",
-        "consulting": "Solution Consulting",
-        "brand_desc": "Pioneering smart agriculture monitoring in KEZAD, Abu Dhabi. AI & IoT Deep Learing integrated.",
-        "col_system": "System",
-        "col_tech": "Technology",
-        "col_info": "Information",
-        "info_area": "1,500 m² Total Area",
-        "info_yield": "20 tons/year Yield",
-        "copy": "© 2026 Smart Farm Aquaponics · KEZAD Project"
-      },
-      "why": {
-        "label": "Why Choose Us",
-        "title_part1": "Problems",
-        "title_part2": "We've Solved",
-        "desc": "Traditional agriculture in desert regions faces many challenges. Our system solves each problem using AI and IoT.",
-        "current_problem": "Current Problem",
-        "smart_farm_solution": "Smart Farm Solution",
-        "p1_prob": "Slow Traditional Sensors",
-        "p1_sol": "30fps AI Camera detects incidents 30–60s earlier",
-        "p2_prob": "Wasted Water & Energy",
-        "p2_sol": "TEC Recovery reuses 65% water, Solar self-balances",
-        "p3_prob": "Manual Disease Diagnosis",
-        "p3_sol": "AI YOLOv11 + CNN auto-classification, instant alerts",
-        "p4_prob": "Scattered Data, Hard to Aggregate",
-        "p4_sol": "Centralized Dashboard for all 4 zones, 3s updates"
-      },
-      "ui": {
-        "ux_label": "User Experience",
-        "title": "Visual Mode",
-        "desc": "Custom-designed for Abu Dhabi's high-intensity light. Anti-glare, ultra-high contrast, optimized for industrial Tablets.",
-        "f1_title": "Intelligent Alert System",
-        "f1_desc": "Automatically pushes critical metrics to the top of the dashboard.",
-        "f2_title": "One-Tap Operation",
-        "f2_desc": "Large control buttons, optimized for technical gloves.",
-        "f3_title": "Tablet First",
-        "f3_desc": "100% responsive layout, stable even during temporary network loss."
-      }
-    },
     "header_main": "Greenhouse Climate & Nutrient System",
     "real_time": "X - REAL TIME",
     "aq_system": "Aquatic System",
@@ -252,5 +195,63 @@
     "alerts": "Instant Alerts",
     "medical": "AI Medical Indicators",
     "recommendations": "System Recommendations"
+  },
+  "landing": {
+    "bento": {
+      "label": "Core Technology",
+      "title_part1": "4 Smart Monitoring",
+      "title_part2": "Areas",
+      "desc": "Fully integrated system. From UAE microclimate to leaf biological indices — absolute 24/7 control.",
+      "zone0_desc": "Abu Dhabi microclimate management. Instant pressure & salinity sensor updates.",
+      "zone1_fish_desc": "Disease detection & automated fish counting with YOLOv11. 30fps behavior analysis.",
+      "zone2_desc": "The farm's central nervous system. Balancing DO, Nitrate & EC.",
+      "ai_rec": "AI Rec",
+      "ai_rec_desc": "Increase plant EC from 2.3 -> 2.5 for the new cycle.",
+      "zone1_plants_desc": "Thermal & multispectral camera NDVI analysis. Early detection of stress on Salicornia leaves."
+    },
+    "footer": {
+      "cta_label": "Take Action Today",
+      "cta_title_part1": "Ready to bring",
+      "cta_title_part2": "to your project?",
+      "cta_desc": "Our expert team is ready to support smart IoT deployment for projects of any scale.",
+      "request_demo": "Request Demo",
+      "received": "Received! We'll respond within 24h.",
+      "tech_docs": "Technical Docs",
+      "consulting": "Solution Consulting",
+      "brand_desc": "Pioneering smart agriculture monitoring in KEZAD, Abu Dhabi. AI & IoT Deep Learing integrated.",
+      "col_system": "System",
+      "col_tech": "Technology",
+      "col_info": "Information",
+      "info_area": "1,500 m² Total Area",
+      "info_yield": "20 tons/year Yield",
+      "copy": "© 2026 Smart Farm Aquaponics · KEZAD Project"
+    },
+    "why": {
+      "label": "Why Choose Us",
+      "title_part1": "Problems",
+      "title_part2": "We've Solved",
+      "desc": "Traditional agriculture in desert regions faces many challenges. Our system solves each problem using AI and IoT.",
+      "current_problem": "Current Problem",
+      "smart_farm_solution": "Smart Farm Solution",
+      "p1_prob": "Slow Traditional Sensors",
+      "p1_sol": "30fps AI Camera detects incidents 30–60s earlier",
+      "p2_prob": "Wasted Water & Energy",
+      "p2_sol": "TEC Recovery reuses 65% water, Solar self-balances",
+      "p3_prob": "Manual Disease Diagnosis",
+      "p3_sol": "AI YOLOv11 + CNN auto-classification, instant alerts",
+      "p4_prob": "Scattered Data, Hard to Aggregate",
+      "p4_sol": "Centralized Dashboard for all 4 zones, 3s updates"
+    },
+    "ui": {
+      "ux_label": "User Experience",
+      "title": "Visual Mode",
+      "desc": "Custom-designed for Abu Dhabi's high-intensity light. Anti-glare, ultra-high contrast, optimized for industrial Tablets.",
+      "f1_title": "Intelligent Alert System",
+      "f1_desc": "Automatically pushes critical metrics to the top of the dashboard.",
+      "f2_title": "One-Tap Operation",
+      "f2_desc": "Large control buttons, optimized for technical gloves.",
+      "f3_title": "Tablet First",
+      "f3_desc": "100% responsive layout, stable even during temporary network loss."
+    }
   }
 }

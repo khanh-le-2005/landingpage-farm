@@ -7,7 +7,7 @@ export default function UIShowcaseSection() {
   const [activeSlide, setActiveSlide] = useState(0);
 
   const SLIDES = [
-    { id: 1, src: '/anhHD/anh1.jpg',    label: t('hero.img1_label'),    d: t('hero.img1_desc') },
+    { id: 1, src: '/anhHD/anh12.png',    label: t('hero.img1_label'),    d: t('hero.img1_desc') },
     { id: 2, src: '/anhHD/anhai2.png', label: t('hero.img2_label'),    d: t('hero.img2_desc') },
     { id: 3, src: '/anhHD/anhai3.png',    label: t('hero.img3_label'), d: t('hero.img3_desc') },
     { id: 4, src: '/anhHD/anh2.jpg',    label: t('hero.img4_label'),       d: t('hero.img4_desc') },

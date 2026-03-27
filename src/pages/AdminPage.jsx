@@ -17,9 +17,9 @@ const AdminPage = () => {
 
   // DATA SYNCED FROM PDF "APPENDIX 2"
   const adminAssets = [
-    { id: 1, src: '/img/pump.png', title: 'Water Flow Matrix', category: 'Environment', date: '2024-03-23', size: '12 KB', type: 'system', desc: 'Structure of 3 temperature columns and 2 salinity columns linked in real-time: Well → Pre-process → Buffer Tank.' },
-    { id: 2, src: '/img/Screenshot 2026-03-22 130631.png', title: 'Climate & Pressure Hub', category: 'Environment', date: '2024-03-23', size: '107 KB', type: 'system', desc: 'Maintains positive pressure (ΔP)=+15. Monitors internal vs. external environmental fluctuations.' },
-    { id: 3, src: '/img/Screenshot 2026-03-22 130613.png', title: 'Growth Hub', category: 'Analytics', date: '2024-03-20', size: '2.5 MB', type: 'ai', desc: 'AI-integrated growth management system: Comprehensive monitoring of density, velocity, and biological health.' },
+    { id: 1, src: '/anhHD/anh13.png', title: 'Biological System', category: 'Environment', date: '2024-03-23', size: '12 KB', type: 'system', desc: 'Structure of 3 temperature columns and 2 salinity columns linked in real-time: Well → Pre-process → Buffer Tank.' },
+    { id: 2, src: '/anhHD/anh14.png', title: 'RAS Fish AI Analysis', category: 'Environment', date: '2024-03-23', size: '107 KB', type: 'system', desc: 'Maintains positive pressure (ΔP)=+15. Monitors internal vs. external environmental fluctuations.' },
+    { id: 3, src: '/anhHD/anh15.png', title: 'Resource Governance', category: 'Analytics', date: '2024-03-20', size: '2.5 MB', type: 'ai', desc: 'AI-integrated growth management system: Comprehensive monitoring of density, velocity, and biological health.' },
   ];
 
   const categories = ['All'];

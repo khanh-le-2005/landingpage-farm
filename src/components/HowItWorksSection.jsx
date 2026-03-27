@@ -11,7 +11,7 @@ export default function HowItWorksSection() {
       id: 'zone0',
       zone: t('how.s0_zone'),
       title: t('how.s0_title'),
-      image: '/anhHD/anh1.jpg',
+      image: '/anhHD/anh12.png',
       description: t('how.s0_desc'),
       details: [
         { label: t('how.s0_d0_lbl'), text: t('how.s0_d0_txt') },
@@ -24,7 +24,7 @@ export default function HowItWorksSection() {
       id: 'zone1-fish',
       zone: t('how.s1_zone'),
       title: t('how.s1_title'),
-      image: '/anhHD/anh2.jpg',
+      image: '/anhHD/anh16.png',
       description: t('how.s1_desc'),
       details: [
         { label: t('how.s1_d0_lbl'), text: t('how.s1_d0_txt') },
@@ -37,7 +37,7 @@ export default function HowItWorksSection() {
       id: 'zone1-plants',
       zone: t('how.s2_zone'),
       title: t('how.s2_title'),
-      image: '/anhHD/anhai3.png',
+      image: '/anhHD/anh15.png',
       description: t('how.s2_desc'),
       details: [
         { label: t('how.s2_d0_lbl'), text: t('how.s2_d0_txt') },
@@ -50,7 +50,7 @@ export default function HowItWorksSection() {
       id: 'zone2-core',
       zone: t('how.s3_zone'),
       title: t('how.s3_title'),
-      image: '/anhHD/anh9.jpg',
+      image: '/anhHD/anh13.png',
       description: t('how.s3_desc'),
       details: [
         { label: t('how.s3_d0_lbl'), text: t('how.s3_d0_txt') },
@@ -63,7 +63,7 @@ export default function HowItWorksSection() {
       id: 'predictive',
       zone: t('how.s4_zone'),
       title: t('how.s4_title'),
-      image: '/anhHD/anhai1.png',
+      image: '/anhHD/anh14.png',
       description: t('how.s4_desc'),
       details: [
         { label: t('how.s4_d0_lbl'), text: t('how.s4_d0_txt') },
@@ -76,7 +76,7 @@ export default function HowItWorksSection() {
       id: 'zone3-efficiency',
       zone: t('how.s5_zone'),
       title: t('how.s5_title'),
-      image: '/anhHD/anh11.jpg',
+      image: '/anhHD/anh8.jpg',
       description: t('how.s5_desc'),
       details: [
         { label: t('how.s5_d0_lbl'), text: t('how.s5_d0_txt') },

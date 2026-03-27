@@ -29,12 +29,13 @@ export default function HeroSection() {
   const [isPaused, setIsPaused] = useState(false); // Trạng thái dừng khi hover
 
   const IMAGES = [
-    { id: '1', src: '/anhHD/anh1.jpg', label: t('hero.img1_label'), color: 'var(--color-green)', d: t('hero.img1_desc') },
-    { id: '2', src: '/anhHD/anhai2.png', label: t('hero.img2_label'), color: 'var(--color-aqua)', d: t('hero.img2_desc') },
-    { id: '3', src: '/anhHD/anhai3.png', label: t('hero.img3_label'), color: 'var(--color-gold)', d: t('hero.img3_desc') },
-    { id: '4', src: '/anhHD/anh9.jpg', label: t('hero.img4_label'), color: 'var(--color-green)', d: t('hero.img4_desc') },
-    { id: '5', src: '/anhHD/anhai1.png', label: t('hero.img5_label'), color: 'var(--color-aqua)', d: t('hero.img5_desc') },
-    { id: '6', src: '/anhHD/anh11.jpg', label: t('hero.img6_label'), color: 'var(--color-gold)', d: t('hero.img6_desc') },
+    { id: '1', src: 'https://i.postimg.cc/h4Ncwb4Q/Ao-nuoi-3D.png', label: t('hero.img1_label'), color: 'var(--color-green)', d: t('hero.img1_desc') },
+    { id: '2', src: 'https://i.postimg.cc/90RgZ7vj/Toan-canh-3D.jpg', label: t('hero.img2_label'), color: 'var(--color-aqua)', d: t('hero.img2_desc') },
+    { id: '3', src: 'https://i.postimg.cc/wxngPcxz/Vuon-rau-3D.png', label: t('hero.img3_label'), color: 'var(--color-gold)', d: t('hero.img3_desc') },
+    { id: '4', src: '/anhHD/anh12.png', label: t('hero.img4_label'), color: 'var(--color-green)', d: t('hero.img4_desc') },
+    { id: '5', src: '/anhHD/anh13.png', label: t('hero.img5_label'), color: 'var(--color-aqua)', d: t('hero.img5_desc') },
+    { id: '6', src: '/anhHD/anh14.png', label: t('hero.img6_label'), color: 'var(--color-gold)', d: t('hero.img6_desc') },
+    { id: '7', src: '/anhHD/anh15.png', label: t('hero.img7_label'), color: 'var(--color-green)', d: t('hero.img7_desc') },
   ];
 
   // Logic Auto-play
